@@ -3,7 +3,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // 이벤트 리스너
   const button = document.getElementById('new-page__button');
-
   if (button) {
     button.addEventListener('click', async function (e) {
       e.preventDefault();
@@ -15,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('버튼을 찾을 수 없습니다.');
   }
 });
+
 // api입력
 async function createNewPage(parentId) {
   try {
