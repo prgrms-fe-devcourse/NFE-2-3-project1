@@ -6,14 +6,18 @@ export const renderEditor = (doc) => {
   const displayDocumentContent = (doc) => {
     const docTitleInput = document.getElementById("doc-title__input");
     const docContents = document.getElementById("doc-contents");
+    const docTitle = document.getElementById("doc__title");
 
     if (!doc) {
       console.error("문서 내용이 존재하지 않습니다.");
       return;
     }
 
+    console.log(history.state);
+
     // 문서 제목과 내용 표시
     docTitleInput.value = doc.title || "제목 없음";
+    docTitle.innerText = doc.title || "제목 없음";
     docContents.value = doc.content || "아름다운 글을 작성해보세요!!";
   };
 
@@ -57,6 +61,7 @@ export const renderSidebar = (docs) => {
       if (target.tagName === "A") {
         const id = e.target.dataset.id;
         const pathname = new URL(e.target.href).pathname;
+
         console.log(`클릭한 문서 ID : `, id);
         navigateTo({ id }, pathname);
       }
