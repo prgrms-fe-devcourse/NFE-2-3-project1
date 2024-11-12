@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🥔 Potatoes의 노션</title>
+    <link rel="icon" href="./assets/favicon.ico" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <aside id="side-bar">
+        <h2 class="side-bar__user"><a href="/">🥔 감자의 Notion</a></h2>
+        <div class="side-bar__wrapper">
+          <nav class="side-bar__nav">
+            <ul id="side-bar__nav-list" class="side-bar__nav-list">
+              <!-- <li>
+                <div class="flex">
+                  <img src="./assets/toggle-icon.svg" alt="토글 아이콘" />
+                  <a href="#">얼마나 긴 리스트 이름이어야 안 보일까??</a>
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <img src="./assets/toggle-icon.svg" alt="토글 아이콘" /><a
+                    href="#"
+                    >document2</a
+                  >
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <img src="./assets/toggle-icon.svg" alt="토글 아이콘" /><a
+                    href="#"
+                    >document3</a
+                  >
+                </div>
+              </li>
+              <li>
+                <div class="flex">
+                  <img src="./assets/toggle-icon.svg" alt="토글 아이콘" />
+                  <a href="#">document4</a>
+                </div>
+                <ul class="indent">
+                  <li>
+                    <div class="flex">
+                      <img src="./assets/toggle-icon.svg" alt="토글 아이콘" /><a
+                        href="#"
+                        >하위 문서1</a
+                      >
+                    </div>
+                  </li>
+                  <li>
+                    <div class="flex">
+                      <img src="./assets/toggle-icon.svg" alt="토글 아이콘" /><a
+                        href="#"
+                        >하위 문서2</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="flex">
+                  <img src="./assets/toggle-icon.svg" alt="토글 아이콘" /><a
+                    href="#"
+                    >document5</a
+                  >
+                </div>
+              </li> -->
+            </ul>
+          </nav>
+          <form action="#" class="side-bar__new-page">
+            <button>
+              <img
+                src="./assets/plus-icon.svg"
+                alt="새 페이지 추가 버튼"
+                class="icon" />
+              <p>새 페이지</p>
+            </button>
+          </form>
+        </div>
+      </aside>
+      <main id="doc">
+        <header class="doc__header">
+          <form action="#">
+            <button>Document Title</button>
+            <button>
+              <img src="./assets/delete-icon.svg" alt="" class="icon" />
+            </button>
+          </form>
+        </header>
+        <article class="doc__article">
+          <form action="#">
+            <div class="doc__article-title">
+              <h1 class="none">Title</h1>
+              <textarea
+                rows="1"
+                type="text"
+                id="doc-title__input"
+                placeholder="제목 없음"></textarea>
+            </div>
+            <textarea
+              id="doc-contents"
+              placeholder="아름다운 글을 작성해보세요!!"></textarea>
+          </form>
+        </article>
+        <footer class="doc__footer">
+          <form action="#">
+            <button>하위 문서</button>
+          </form>
+        </footer>
+      </main>
+    </div>
+    <script src="./script.js"></script>
+    <script src="./src/router.js"></script>
+  </body>
+</html>
