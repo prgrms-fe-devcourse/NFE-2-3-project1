@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#notion-body {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Inter", "Noto Sans KR", sans-serif;
+}
+
+#sideBar {
+  width: 248px;
+  height: 100%;
+  background-color: rgb(247, 247, 245);
+  box-shadow: rgba(0, 0, 0, 0.02, 4);
+  padding: 6px 8px;
+  /* children */
+  display: flex;
+  flex-direction: column;
+}
+
+#sideBar__header {
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+#main {
+  height: 100%;
+  background-color: white;
+  flex-grow: 1;
+}
+
+#header::after {
+  background-color: black;
+  width: 100%;
+}
+
+.contentList__li {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    padding: 4px 8px;
+}

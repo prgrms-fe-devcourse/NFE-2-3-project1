@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notion</title>
+    <!-- css -->
+    <link rel="stylesheet" href="index.css" />
+    <!-- font -->
+    <!-- inter, Noto Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+KR:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icon -->
+    <script
+      src="https://kit.fontawesome.com/fe08d64e9b.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- js files -->
+    <script defer src="./sideBar.js"></script>
+    <script defer src="./main.js"></script>
+  </head>
+  <body id="notion-body">
+    <nav id="sideBar">
+      <header id="sideBar__header">
+        <i class="fa-solid fa-hippo"></i>
+        <p id="header_title">Team2의 Notion</p>
+      </header>
+      <ul id="contentList">
+        <li class="contentList__li">
+          <i class="fa-solid fa-dragon" id="header__icon"></i>
+          <p>목록1</p>
+        </li>
+      </ul>
+    </nav>
+    <div id="main"></div>
+  </body>
+</html>
