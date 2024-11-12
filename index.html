@@ -20,22 +20,32 @@
       crossorigin="anonymous"
     ></script>
     <!-- js files -->
+    <script defer src="./index.js"></script>
     <script defer src="./sideBar.js"></script>
     <script defer src="./main.js"></script>
   </head>
   <body id="notion-body">
     <nav id="sideBar">
       <header id="sideBar__header">
-        <i class="fa-solid fa-hippo"></i>
-        <p id="header_title">Team2의 Notion</p>
+        <i class="fa-solid fa-hippo" id="header__icon"></i>
+        <p id="header__title">Team2의 Notion</p>
       </header>
-      <ul id="contentList">
-        <li class="contentList__li">
-          <i class="fa-solid fa-dragon" id="header__icon"></i>
-          <p>목록1</p>
-        </li>
-      </ul>
+      <section id="list">
+        <p id="list__header">Shared</p>
+        <ul id="list__container">
+          <li class="list__page" data-id="home">
+            <a href="/" class="page__link">
+              <i class="fa-solid fa-dragon" id="link__icon"></i>
+              <p id="link__title">HOME</p>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <p id="sideBar__newContent">+ new</p>
     </nav>
-    <div id="main"></div>
+    <div id="main">
+      <h1>TEAM5의 노션</h1>
+      <p>환영합니다!</p>
+    </div>
   </body>
 </html>
