@@ -1,3 +1,4 @@
+import { autoSaveDocument, manualSaveDocument } from "./editor.js";
 import { navigateTo } from "./utils.js";
 
 export const renderEditor = (doc) => {
@@ -18,6 +19,10 @@ export const renderEditor = (doc) => {
   };
 
   displayDocumentContent(doc);
+
+  //자동 저장, 수동 저장
+  autoSaveDocument();
+  manualSaveDocument();
 };
 
 export const renderSidebar = (docs) => {
