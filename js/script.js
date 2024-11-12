@@ -5,11 +5,9 @@ getData().then((data) => {
 
 function hideMenuToggle() {
   const selectUser = document.querySelector(".selectUser");
-  const selectUser__hideMenuBox = document.querySelector(
-    ".selectUser__hideMenuBox"
-  );
+  const hideMenuBox = document.querySelector(".hideMenuBox");
   selectUser.addEventListener("click", function () {
-    selectUser__hideMenuBox.classList.toggle("on");
+    hideMenuBox.classList.toggle("on");
   });
 }
 hideMenuToggle();
