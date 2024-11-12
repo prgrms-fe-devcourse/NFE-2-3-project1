@@ -13,8 +13,6 @@ export const renderEditor = (doc) => {
       return;
     }
 
-    console.log(history.state);
-
     // 문서 제목과 내용 표시
     docTitleInput.value = doc.title || "제목 없음";
     docTitle.innerText = doc.title || "제목 없음";
@@ -53,18 +51,18 @@ export const renderSidebar = (docs) => {
   };
 
   const navListEl = document.getElementById("side-bar__nav-list");
-  if (navListEl.childElementCount === 0) {
-    makeDocuments(docs);
-    navListEl.addEventListener("click", async (e) => {
-      e.preventDefault();
-      const target = e.target;
-      if (target.tagName === "A") {
-        const id = e.target.dataset.id;
-        const pathname = new URL(e.target.href).pathname;
+  navListEl.innerHTML = "";
 
-        console.log(`클릭한 문서 ID : `, id);
-        navigateTo({ id }, pathname);
-      }
-    });
-  }
+  makeDocuments(docs);
+  navListEl.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const target = e.target;
+    if (target.tagName === "A") {
+      const id = e.target.dataset.id;
+      const pathname = new URL(e.target.href).pathname;
+
+      console.log(`클릭한 문서 ID : `, id);
+      navigateTo({ id }, pathname);
+    }
+  });
 };
