@@ -2,7 +2,6 @@ import { getData } from "./getdata.js";
 getData().then((data) => {
   console.log(data);
 });
-
 function hideMenuToggle() {
   const selectUser = document.querySelector(".selectUser");
   const hideMenuBox = document.querySelector(".hideMenuBox");
@@ -12,6 +11,18 @@ function hideMenuToggle() {
 }
 hideMenuToggle();
 
+function personalPageToggle() {
+  const personalPage__toggleBtn = document.querySelector(
+    ".personalPage__toggleBtn"
+  );
+  const personalPage__PageList = document.querySelector(
+    ".personalPage__PageList"
+  );
+  personalPage__toggleBtn.addEventListener("click", function () {
+    personalPage__PageList.classList.toggle("on");
+  });
+}
+personalPageToggle();
 // async function getData() {
 //   const data = await fetch("https://kdt-api.fe.dev-cos.com/documents", {
 //     headers: {

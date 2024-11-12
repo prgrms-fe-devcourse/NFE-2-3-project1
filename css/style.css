@@ -8,6 +8,11 @@ a {
   text-decoration: none;
   color: inherit;
 }
+/* 마우스 올릴때 배경색 변환 공통 */
+.bgChange:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+/* 마우스 올릴때 배경색 변환 공통 */
 /* 고딕 폰트 */
 .gothic-a1-regular {
   font-family: "Gothic A1", sans-serif;
@@ -36,12 +41,10 @@ a {
   width: 100%;
   height: 30px;
   padding: 3px;
+  margin-bottom: 10px;
   border-radius: 5px;
   display: block;
   position: relative;
-}
-.userBtn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
 }
 /* 유저 버튼 */
 .selectUser {
@@ -93,6 +96,7 @@ a {
   position: absolute;
   top: 40px;
   left: 10px;
+  z-index: 99;
 }
 .hideMenuBox.on {
   visibility: visible;
@@ -112,9 +116,6 @@ a {
   display: flex;
   align-items: center;
 }
-.hideMenuBox__hideListItem:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
 .hideMenuBox__userLink {
   width: 100%;
 }
@@ -129,13 +130,92 @@ a {
   top: 0;
   right: 0;
 }
-.buildIcon:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
 .buildIcon__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+/* 사이드 - 개인 페이지 */
+.personalPage {
+  position: relative;
+}
+.personalPage__toggleBtn {
+  width: 100%;
+  height: 30px;
+  padding: 3px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 12px;
+  color: gray;
+}
+.personalPage__PageList {
+  display: none;
+}
+.personalPage__PageList.on {
+  display: block;
+}
+.personalPage__ListItem {
+  width: 100%;
+  padding: 3px;
+  border-radius: 5px;
+  position: relative;
+}
+.ListItem__underBtn {
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  left: 0px;
+  border-radius: 5px;
+}
+.ListItem__delBtn {
+  visibility: hidden;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 30px;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+.ListItem__addBtn {
+  visibility: hidden;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 5px;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+.personalPage__ListItem:hover > .ListItem__addBtn,
+.personalPage__ListItem:hover > .ListItem__delBtn {
+  visibility: visible;
+  opacity: 1;
+}
+.ListItem__pageLink {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding-left: 20px;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.personalPage__ListItem--next {
+  padding-left: 10px;
 }
 /* 메인 페이지 */
 .notionWrap__section {
