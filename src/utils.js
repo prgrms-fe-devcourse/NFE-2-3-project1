@@ -1,10 +1,10 @@
-import renderEditor from "./editor.js";
+import { renderEditor } from "./rendering.js";
 
 const BASE_URL = `https://kdt-api.fe.dev-cos.com/documents`;
 const username = `potatoes`;
 
 // 문서 목록을 가져옴
-const fetchDocuments = async () => {
+export const fetchDocuments = async () => {
   try {
     const response = await fetch(`${BASE_URL}`, {
       method: "GET",
@@ -23,7 +23,7 @@ const fetchDocuments = async () => {
   }
 };
 
-const fetchDocumentContent = async (docId = "") => {
+export const fetchDocumentContent = async (docId = "") => {
   try {
     const response = await fetch(`${BASE_URL}/${docId}`, {
       method: "GET",
@@ -41,17 +41,9 @@ const fetchDocumentContent = async (docId = "") => {
 };
 
 // 페이지를 렌더링하는 함수
-const navigateTo = async (state = { id: null }, pathname) => {
+export const navigateTo = async (state = { id: null }, pathname) => {
   history.pushState(state, null, pathname);
 
   const documentContent = await fetchDocumentContent(state.id);
   renderEditor(documentContent);
 };
-
-const utils = {
-  fetchDocuments,
-  fetchDocumentContent,
-  navigateTo,
-};
-
-export default utils;
