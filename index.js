@@ -1,10 +1,33 @@
 const listPages = document.querySelectorAll(".list__page");
-const mainPage = document.getElementById("main");
+const mainPage = document.querySelector(".main");
 
 const pages = {
-  home: `<h1>TEAM5의 노션</h1>
-      <p>환영합니다!</p>`,
+  home: `<h1>시작 페이지</h1>
+      <p>TEAM5의 노션입니다.</p>`,
 };
+
+async function getContent(id) {
+  try {
+    //get data
+    const url = `https://kdt-api.fe.dev-cos.com/documents/${id}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "x-username": "team5",
+      },
+    });
+    if (!response.ok) throw new Error("error");
+    const data = await response.json();
+    // 데이터 업데이트 및 표시
+    const title = data.title;
+    const content = data.content;
+    pages[id] = `<h1>${title}</h1><p>${content}</p>`;
+    history.pushState({ page: id }, "", `/${title}`);
+    mainPage.innerHTML = pages[id];
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 listPages.forEach((listPage) => {
   listPage.addEventListener("click", (e) => {
@@ -12,37 +35,17 @@ listPages.forEach((listPage) => {
     const id = e.currentTarget.dataset.id;
     if (id === "home") {
       // home인 경우 바로 렌더링
-      history.pushState({ page: id }, "", `/home`);
+      history.pushState({ page: id }, "", `/`);
       mainPage.innerHTML = pages[id];
     } else {
       // 다른 페이지인 경우 데이터 가져오기
-      (async function getContent() {
-        try {
-          //get data
-          const url = `https://kdt-api.fe.dev-cos.com/documents/${id}`;
-          const response = await fetch(url, {
-            method: "GET",
-            headers: {
-              "x-username": "team5",
-            },
-          });
-          if (!response.ok) throw new Error("error");
-          const data = await response.json();
-          // 데이터 업데이트 및 표시
-          const title = data.title;
-          const content = data.content;
-          pages[id] = `<h1>${title}</h1>
-              <p>${content}</p>`;
-          history.pushState({ page: id }, "", `/${title}`);
-          mainPage.innerHTML = pages[id];
-        } catch (err) {
-          console.error(err);
-        }
-      })();
+      //
+      getContent(id);
     }
   });
 });
 
+// 뒤로가기 로직
 window.addEventListener("popstate", (e) => {
   const id = e.state?.page || "home";
   mainPage.innerHTML = pages[id];

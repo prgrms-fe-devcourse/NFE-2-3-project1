@@ -4,7 +4,8 @@
   padding: 0;
 }
 
-#notion-body {
+/* page container */
+.notion-body {
   display: flex;
   flex-direction: row;
   width: 100vw;
@@ -12,7 +13,8 @@
   font-family: "Inter", "Noto Sans KR", sans-serif;
 }
 
-#sideBar {
+/* sidebar */
+.sidebar {
   width: 248px;
   height: 100%;
   background-color: rgb(247, 247, 245);
@@ -23,28 +25,27 @@
   justify-content: space-between;
 }
 
-#sideBar__header {
+.sidebar__header {
   font-size: 14px;
   display: flex;
   flex-direction: row;
 }
 
-#main {
-  height: 100%;
-  background-color: white;
-  flex-grow: 1;
-}
-
-#sideBar__header::after {
+.sidebar__header::after {
   background-color: black;
   width: 100%;
 }
 
-#list {
+.header__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.list {
   flex-grow: 1;
 }
 
-#list__header {
+.list__header {
   font-size: 12px;
   line-height: 1;
   color: rgb(145, 145, 142);
@@ -60,5 +61,12 @@
 .page__link {
   display: flex;
   font-size: 14px;
+  flex-grow: 1;
+}
+
+/* main Page */
+.main {
+  height: 100%;
+  background-color: white;
   flex-grow: 1;
 }

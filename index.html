@@ -24,28 +24,33 @@
     <script defer src="./sideBar.js"></script>
     <script defer src="./main.js"></script>
   </head>
-  <body id="notion-body">
-    <nav id="sideBar">
-      <header id="sideBar__header">
-        <i class="fa-solid fa-hippo" id="header__icon"></i>
-        <p id="header__title">Team2의 Notion</p>
+  <body class="notion-body">
+    <nav class="sidebar">
+      <header class="sidebar__header">
+        <img
+          class="header__icon"
+          src="./img/headerIcon.webp"
+          alt="Programmers header icon image"
+        />
+        <p class="header__title">Team5의 Notion</p>
       </header>
-      <section id="list">
-        <p id="list__header">Shared</p>
-        <ul id="list__container">
-          <li class="list__page" data-id="home">
+      <section class="list">
+        <p class="list__header">Shared</p>
+        <ul class="list__container">
+          <!-- 예시 -->
+          <li class="list__page" data-id="138860">
             <a href="/" class="page__link">
-              <i class="fa-solid fa-dragon" id="link__icon"></i>
-              <p id="link__title">HOME</p>
+              <i class="fa-solid fa-dragon"></i>
+              <p class="link__title">title</p>
             </a>
           </li>
         </ul>
       </section>
-      <p id="sideBar__newContent">+ new</p>
+      <p class="sideBar__newContent">+ new</p>
     </nav>
-    <div id="main">
-      <h1>TEAM5의 노션</h1>
-      <p>환영합니다!</p>
-    </div>
+    <main class="main">
+      <h1>시작 페이지</h1>
+      <p>TEAM5의 노션입니다.</p>
+    </main>
   </body>
 </html>
