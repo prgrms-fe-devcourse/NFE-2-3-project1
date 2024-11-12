@@ -53,92 +53,191 @@
           <a href="#" class="personalPage__toggleBtn bgChange">개인 페이지</a>
           <ul class="personalPage__PageList">
             <li class="personalPage__ListItem bgChange">
-              <a href="##" class="ListItem__underBtn bgChange">
+              <div class="ListItem__underBtn bgChange">
                 <img
                   class="docIcon icon"
                   src="./img/document.png"
                   alt="문서 아이콘"
                 />
-              </a>
+              </div>
               <a href="#" class="ListItem__pageLink">
                 <span>1페이지</span>
               </a>
-              <a href="#" class="ListItem__delBtn bgChange">
+              <div class="ListItem__delBtn bgChange">
                 <img
                   class="delIcon icon"
                   src="../img/send-to-trash.png"
                   alt="삭제 아이콘"
                 />
-              </a>
-              <a href="#" class="ListItem__addBtn bgChange">
+              </div>
+              <div class="ListItem__addBtn bgChange">
                 <img
                   class="addIcon icon"
                   src="../img/plus-icon.png"
                   alt="추가 아이콘"
                 />
-              </a>
+              </div>
             </li>
             <li class="personalPage__ListItem--next">
               <ul class="personalPage__PageList--next">
                 <li class="personalPage__ListItem bgChange">
-                  <a href="##" class="ListItem__underBtn bgChange">
+                  <div class="ListItem__underBtn bgChange">
                     <img
                       class="docIcon icon"
                       src="./img/document.png"
                       alt="문서 아이콘"
                     />
-                  </a>
+                  </div>
                   <a href="#" class="ListItem__pageLink">
                     <span>2페이지</span>
                   </a>
-                  <a href="#" class="ListItem__delBtn bgChange">
+                  <div class="ListItem__delBtn bgChange">
                     <img
                       class="delIcon icon"
                       src="../img/send-to-trash.png"
                       alt="삭제 아이콘"
                     />
-                  </a>
-                  <a href="#" class="ListItem__addBtn bgChange">
+                  </div>
+                  <div class="ListItem__addBtn bgChange">
                     <img
                       class="addIcon icon"
                       src="../img/plus-icon.png"
                       alt="추가 아이콘"
                     />
-                  </a>
+                  </div>
                 </li>
               </ul>
             </li>
             <li class="personalPage__ListItem bgChange">
-              <a href="##" class="ListItem__underBtn bgChange">
+              <div class="ListItem__underBtn bgChange">
                 <img
                   class="docIcon icon"
                   src="./img/document.png"
                   alt="문서 아이콘"
                 />
-              </a>
+              </div>
               <a href="#" class="ListItem__pageLink">
                 <span>1페이지</span>
               </a>
-              <a href="#" class="ListItem__delBtn bgChange">
+              <div class="ListItem__delBtn bgChange">
                 <img
                   class="delIcon icon"
                   src="../img/send-to-trash.png"
                   alt="삭제 아이콘"
                 />
-              </a>
-              <a href="#" class="ListItem__addBtn bgChange">
+              </div>
+              <div class="ListItem__addBtn bgChange">
                 <img
                   class="addIcon icon"
                   src="../img/plus-icon.png"
                   alt="추가 아이콘"
                 />
-              </a>
+              </div>
             </li>
           </ul>
         </article>
         <!-- 개인 페이지 -->
       </aside>
-      <section class="notionWrap__section"></section>
+      <section class="notionWrap__section">
+        <!-- 타이틀 상단 add버튼 영역-->
+        <div class="notionWrap__section_add">
+          <div class="notionWrap__section_add_icon">
+            <svg
+              role="graphics-symbol"
+              viewBox="0 0 14 14"
+              class="addPage"
+              style="
+                width: 14px;
+                height: 14px;
+                display: block;
+                fill: rgba(55, 53, 47, 0.35);
+                flex-shrink: 0;
+                margin-right: 6px;
+              "
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7 0c3.861 0 7 3.139 7 7s-3.139 7-7 7-7-3.139-7-7 3.139-7 7-7zM3.561 5.295a1.027 1.027 0 1 0 2.054 0 1.027 1.027 0 0 0-2.054 0zm5.557 1.027a1.027 1.027 0 1 1 0-2.054 1.027 1.027 0 0 1 0 2.054zm1.211 2.816a.77.77 0 0 0-.124-1.087.786.786 0 0 0-1.098.107c-.273.407-1.16.958-2.254.958-1.093 0-1.981-.55-2.244-.945a.788.788 0 0 0-1.107-.135.786.786 0 0 0-.126 1.101c.55.734 1.81 1.542 3.477 1.542 1.668 0 2.848-.755 3.476-1.541z"
+              ></path>
+            </svg>
+            <p>Add icon</p>
+          </div>
+          <div class="notionWrap__section_add_cover">
+            <svg
+              role="graphics-symbol"
+              viewBox="0 0 14 14"
+              class="addPageCover"
+              style="
+                width: 14px;
+                height: 14px;
+                display: block;
+                fill: rgba(55, 53, 47, 0.35);
+                flex-shrink: 0;
+                margin-right: 6px;
+              "
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M2 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm0 12h10L8.5 5.5l-2 4-2-1.5L2 12z"
+              ></path>
+            </svg>
+            <p>Add Cover</p>
+          </div>
+          <div class="notionWrap__section_add_comment">
+            <svg
+              role="graphics-symbol"
+              viewBox="0 0 16 16"
+              class="addPageDiscussion"
+              style="
+                width: 14px;
+                height: 14px;
+                display: block;
+                fill: rgba(55, 53, 47, 0.35);
+                flex-shrink: 0;
+                margin-right: 6px;
+              "
+            >
+              <path
+                d="M4.095 15.465c.287 0 .499-.137.84-.444l2.523-2.277 4.47.007c2.058 0 3.214-1.19 3.214-3.22V4.22c0-2.03-1.156-3.22-3.213-3.22H3.213C1.163 1 0 2.19 0 4.22V9.53c0 2.037 1.196 3.22 3.165 3.213h.273v1.983c0 .45.24.738.657.738zM3.958 5.156a.454.454 0 01-.444-.45c0-.24.198-.438.444-.438h7.157c.246 0 .445.198.445.437a.45.45 0 01-.445.451H3.958zm0 2.256a.454.454 0 01-.444-.451c0-.24.198-.444.444-.444h7.157a.448.448 0 010 .895H3.958zm0 2.256a.448.448 0 010-.896h4.669c.246 0 .437.206.437.452a.438.438 0 01-.437.444H3.958z"
+              ></path>
+            </svg>
+            <p>Add Comment</p>
+          </div>
+        </div>
+        <!-- 타이틀 영역  -->
+        <h1 class="notionWrap__section_title">
+          <input placeholder="New Page" />
+        </h1>
+        <!-- 컨텐츠 영역 -->
+        <section class="notionWrap__section_text">
+          <textarea
+            placeholder="Write something, or press 'space'for AI, '/'for commands.."
+          ></textarea>
+        </section>
+        <!-- 하위 페이지 생성시 예시 -->
+        <div class="notionWrap__section_newPage">
+          <svg
+            role="graphics-symbol"
+            viewBox="0 0 16 16"
+            class="pageEmpty"
+            style="
+              width: 19.8px;
+              height: 19.8px;
+              display: block;
+              fill: rgb(145, 145, 142);
+              flex-shrink: 0;
+            "
+          >
+            <path
+              d="M4.35645 15.4678H11.6367C13.0996 15.4678 13.8584 14.6953 13.8584 13.2256V7.02539C13.8584 6.0752 13.7354 5.6377 13.1406 5.03613L9.55176 1.38574C8.97754 0.804688 8.50586 0.667969 7.65137 0.667969H4.35645C2.89355 0.667969 2.13477 1.44043 2.13477 2.91016V13.2256C2.13477 14.7021 2.89355 15.4678 4.35645 15.4678ZM4.46582 14.1279C3.80273 14.1279 3.47461 13.7793 3.47461 13.1436V2.99219C3.47461 2.36328 3.80273 2.00781 4.46582 2.00781H7.37793V5.75391C7.37793 6.73145 7.86328 7.20312 8.83398 7.20312H12.5186V13.1436C12.5186 13.7793 12.1836 14.1279 11.5205 14.1279H4.46582ZM8.95703 6.02734C8.67676 6.02734 8.56055 5.9043 8.56055 5.62402V2.19238L12.334 6.02734H8.95703Z"
+            ></path>
+          </svg>
+          <p class="notionWrap__section_newPage-text">New page</p>
+        </div>
+        <!-- 하위 페이지 생성시 예시 -->
+      </section>
     </main>
   </body>
 </html>
