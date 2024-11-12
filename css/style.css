@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+/* 고딕 폰트 */
+.gothic-a1-regular {
+  font-family: "Gothic A1", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.gothic-a1-bold {
+  font-family: "Gothic A1", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+/* 고딕 폰트 */
+.notionWrap {
+  display: flex;
+}
+/* 사이드바 */
+.notionWrap__sideBar {
+  width: 240px;
+  height: 100vh;
+  padding: 10px;
+  background-color: #f7f7f5;
+  position: relative;
+}
+/* 좌측 최상단 유저 선택 버튼 */
+.userBtn {
+  width: 100%;
+  height: 30px;
+  padding: 3px;
+  border-radius: 5px;
+  display: block;
+  position: relative;
+}
+.userBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+/* 유저 버튼 */
+.selectUser {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.selectUser__text {
+  position: relative;
+}
+.selectUser__text::before {
+  content: "";
+  width: 7px;
+  height: 1px;
+  border-radius: 5px;
+  display: block;
+  background-color: rgba(55, 53, 47, 0.45);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transform: rotate(-45deg);
+  top: 50%;
+  right: -17px;
+}
+.selectUser__text::after {
+  content: "";
+  width: 7px;
+  height: 1px;
+  border-radius: 5px;
+  display: block;
+  background-color: rgba(55, 53, 47, 0.45);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transform: rotate(45deg);
+  top: 50%;
+  right: -13px;
+}
+/* 숨은 메뉴 */
+.selectUser__hideMenuBox {
+  width: 250px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+  position: absolute;
+  top: 40px;
+  left: 10px;
+}
+.selectUser__hideMenuBox.on {
+  visibility: visible;
+  opacity: 1;
+}
+.selectUser__info {
+  height: 50px;
+  border-bottom: solid 1px #d3d1cb;
+}
+.selectUser__hideUserList {
+  width: 100%;
+}
+.selectUser__hideListItem {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.selectUser__hideListItem:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.selectUser__userLink {
+  width: 100%;
+}
+/* 새 글 작성 아이콘 */
+.buildIcon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.buildIcon:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.buildIcon__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 메인 페이지 */
+.notionWrap__section {
+  width: calc(100% - 240px);
+  height: 100vh;
+  background-color: #fff;
+}
