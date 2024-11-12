@@ -1,8 +1,5 @@
-import renderEditor from "./editor.js";
-import renderSidebar from "./sidebar.js";
-import utils from "./utils.js";
-
-const { fetchDocumentContent, fetchDocuments } = utils;
+import { renderEditor, renderSidebar } from "./rendering.js";
+import { fetchDocumentContent, fetchDocuments } from "./utils.js";
 
 const render = async (docId = "") => {
   const pathname = window.location.pathname;
