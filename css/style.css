@@ -140,6 +140,9 @@ a {
 .personalPage {
   position: relative;
 }
+.personalPage__toggleBtnWrap {
+  position: relative;
+}
 .personalPage__toggleBtn {
   width: 100%;
   height: 30px;
@@ -203,7 +206,8 @@ a {
   cursor: pointer;
 }
 .personalPage__ListItem:hover > .ListItem__addBtn,
-.personalPage__ListItem:hover > .ListItem__delBtn {
+.personalPage__ListItem:hover > .ListItem__delBtn,
+.personalPage__toggleBtnWrap:hover > .ListItem__addBtn {
   visibility: visible;
   opacity: 1;
 }
