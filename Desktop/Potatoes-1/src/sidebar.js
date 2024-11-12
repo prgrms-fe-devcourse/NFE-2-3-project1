@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// sidebar
-=======
 // 새 페이지 생성
 document.addEventListener('DOMContentLoaded', function () {
   // 이벤트 리스너
@@ -43,4 +40,3 @@ async function createNewPage(parentId) {
     alert('페이지 생성 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.');
   }
 }
->>>>>>> 9d1274dd89e97c9ddd01215ba539735a81f4f8b5
