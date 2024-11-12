@@ -52,6 +52,7 @@ a {
   height: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .selectUser__text {
   position: relative;
@@ -171,6 +172,7 @@ a {
   top: 50%;
   left: 0px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .ListItem__delBtn {
   visibility: hidden;
@@ -184,6 +186,7 @@ a {
   right: 30px;
   border-radius: 5px;
   transition: all 0.2s;
+  cursor: pointer;
 }
 .ListItem__addBtn {
   visibility: hidden;
@@ -197,6 +200,7 @@ a {
   right: 5px;
   border-radius: 5px;
   transition: all 0.2s;
+  cursor: pointer;
 }
 .personalPage__ListItem:hover > .ListItem__addBtn,
 .personalPage__ListItem:hover > .ListItem__delBtn {
@@ -221,5 +225,70 @@ a {
 .notionWrap__section {
   width: calc(100% - 240px);
   height: 100vh;
+  padding-top: 152px;
+  padding-left: 336px;
   background-color: #fff;
+}
+
+.notionWrap__section_add {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.notionWrap__section_add div {
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 10px;
+  color: #b9b8b6;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.notionWrap__section_title {
+  caret-color: rgb(55, 53, 47);
+  font-size: 28px;
+}
+
+.notionWrap__section_title input {
+  all: unset;
+}
+
+.notionWrap__section_title input::placeholder {
+  color: #e1e1e0;
+}
+
+.notionWrap__section_text textarea {
+  margin-top: 17px;
+  color: #b3b2b0;
+  border: none;
+  font-size: 16px;
+  resize: none; /* 크기 조정 비활성화 */
+  width: 100%;
+  outline: none;
+}
+
+.notionWrap__section_text textarea:empty::before {
+  content: attr(placeholder);
+  color: gray;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  pointer-events: none;
+}
+
+.notionWrap__section_newPage {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 21px;
+  cursor: pointer;
+}
+
+.notionWrap__section_newPage-text {
+  margin-left: 5px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #efefee;
+  text-underline-offset: 5px;
 }
