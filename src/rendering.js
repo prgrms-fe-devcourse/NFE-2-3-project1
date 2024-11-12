@@ -32,9 +32,12 @@ export const renderSidebar = (docs) => {
       const title = doc.title || "제목 없음";
 
       listItem.innerHTML = `
-          <div class="flex">
+          <div class="flex relative">
             <img src="./assets/toggle-icon.svg" alt="토글 아이콘" class="toggle-icon" />
             <a href="${title}" class="doc-item" data-id="${doc.id}">${title}</a>
+            <button class="doc-item__add">
+              <img src="./assets/plus-icon.svg" alt="새 페이지 추가 버튼" class="icon" />
+            </button>
           </div>
         `;
 
