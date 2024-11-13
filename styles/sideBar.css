@@ -73,7 +73,7 @@
   background: none;
   cursor: pointer;
 }
-.sideBar__hideButton:hover {
+.sideBar__button:hover {
   background-color: var(--bg100);
   border-radius: 4px;
 }
