@@ -1,5 +1,7 @@
 // editor
 
+import { fetchDeleteDocument, navigateTo } from "./utils.js";
+
 const BASE_URL = `https://kdt-api.fe.dev-cos.com/documents`;
 const username = `potatoes`;
 
@@ -71,3 +73,19 @@ export const manualSaveDocument = (id) => {
     }
   }
 };
+
+document
+  .getElementById("icon__delete")
+  .addEventListener("click", async function (e) {
+    e.preventDefault();
+    if (!history.state) return;
+
+    const docId = history.state.id;
+    await fetchDeleteDocument(docId);
+
+    const target = document.querySelector(`[data-id='${docId}']`);
+    const deleteTarget = target.parentElement.parentElement;
+    deleteTarget.remove();
+
+    navigateTo("", "/");
+  });
