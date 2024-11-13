@@ -10,7 +10,12 @@
   <body>
     <div id="wrapper">
       <aside id="side-bar">
-        <h2 class="side-bar__user"><a href="/">🥔 감자의 Notion</a></h2>
+        <div class="side-bar__header">
+          <h2 class="side-bar__user"><a href="/">🥔 감자의 Notion</a></h2>
+          <button id="close-sidebar-btn" class="close-btn">
+            <img src="./assets/sidebar-close.svg" alt="닫기 버튼" />
+          </button>
+        </div>
         <div class="side-bar__wrapper">
           <nav class="side-bar__nav">
             <ul id="side-bar__nav-list" class="side-bar__nav-list">
@@ -82,19 +87,22 @@
           </form>
         </div>
       </aside>
+      <button id="open-sidebar-btn" class="open-btn hidden">
+        <img src="./assets/sidebar-open.svg" alt="메뉴 버튼" />
+      </button>
       <main id="doc">
         <header class="doc__header">
           <form action="#">
             <button id="doc__title">Document Title</button>
             <button type="button" id="icon__delete" class="icon__delete">
-              <img src="./assets/delete-icon.svg" alt="" class="icon" />
+              <img src="./assets/delete-icon.svg" alt="Delete" class="icon" />
             </button>
           </form>
         </header>
         <article class="doc__article">
           <form action="#">
             <div class="doc__article-title">
-              <h1 class="none">Title</h1>
+              <h1 class="hidden">Title</h1>
               <div
                 contenteditable="true"
                 id="doc-title__input"
@@ -111,9 +119,7 @@
           </form>
         </article>
         <footer class="doc__footer">
-          <form action="#">
-            <button>하위 문서</button>
-          </form>
+          <form action="#" class="doc__childDocs"></form>
         </footer>
       </main>
     </div>
@@ -122,8 +128,8 @@
     <script type="module" src="./src/sidebar.js"></script>
     <div id="deleteModal" class="modal">
       <div class="modal-content">
-        <p>정말로 삭제하시겠습니까?</p>
-        <button id="confirmDelete" class="modal-btn confirm">확인</button>
+        <p>이 페이지를 정말 삭제하시겠습니까?</p>
+        <button id="confirmDelete" class="modal-btn confirm">삭제</button>
         <button id="cancelDelete" class="modal-btn cancel">취소</button>
       </div>
     </div>
