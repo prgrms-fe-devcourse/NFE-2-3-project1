@@ -121,11 +121,12 @@ textarea {
 }
 
 /* 페이지 삭제 할 때 */
-
 .icon__delete:hover {
   cursor: pointer; /* 포인터 추가 */
-  filter: invert(16%) sepia(89%) saturate(6054%) hue-rotate(358deg)
-    brightness(97%) contrast(113%); /* 송원 추가 : 휴지통 아이콘에 마우스 올렸을 때 색상 변경 */
+  filter: invert(40%) sepia(71%) saturate(6175%) hue-rotate(347deg)
+    brightness(109%) contrast(101%);
+
+  /* 송원 추가 : 휴지통 아이콘에 마우스 올렸을 때 색상 변경 */
 }
 
 .modal {
@@ -145,23 +146,28 @@ textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
+
+  border-radius: 4px;
   text-align: center;
-  width: 300px;
+  width: 310px;
+  padding: 50px 0;
+
+  font-weight: 700;
 }
 
 .modal-btn {
-  margin: 10px;
-  padding: 10px 20px;
+  margin-top: 30px;
+  padding: 10px 0;
+  width: 100px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .confirm {
-  background-color: #ff4d4d;
+  background-color: #ff2a2a;
   color: white;
+  margin-right: 10px;
 }
 
 .cancel {
