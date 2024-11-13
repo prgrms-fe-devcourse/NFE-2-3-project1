@@ -1,6 +1,5 @@
 import { createNewPage } from "./sidebar.js";
 import { autoSaveDocument, manualSaveDocument } from "./editor.js";
-import { navigateTo } from "./utils.js";
 
 export const renderEditor = (doc) => {
   console.log("문서 내용 : ", doc);
@@ -17,7 +16,7 @@ export const renderEditor = (doc) => {
 
     // 문서 제목과 내용 표시
     docTitleInput.value = doc.title || "제목 없음";
-    docTitle.innerText = doc.title || "제목 없음";
+    docTitle. = doc.title.split("\n")[0] || "제목 없음";
     docContents.value = doc.content || "아름다운 글을 작성해보세요!!";
   };
 
@@ -82,7 +81,6 @@ export const renderSidebar = (docs) => {
     e.preventDefault();
     const target = e.target;
     const id = target.dataset.id;
-    const pathname = new URL(target.href).pathname;
 
     if (target.tagName === "A") {
       console.log(`클릭한 문서 ID : `, id);
@@ -94,7 +92,6 @@ export const renderSidebar = (docs) => {
 
       // 현재 선택된 문서를 활성화
       target.parentElement.classList.add("selected");
-      navigateTo({ id }, pathname);
     }
   });
 
