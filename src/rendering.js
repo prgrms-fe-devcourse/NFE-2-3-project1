@@ -15,10 +15,13 @@ export const renderEditor = (doc) => {
     }
 
     // 문서 제목과 내용 표시
-    docTitleInput.value = doc.title;
+    docTitleInput.innerText = doc.title;
     docTitle.innerText = doc.title.split("\n")[0];
-    docContents.value = doc.content;
+    docContents.innerText = doc.content;
   };
+
+  displayDocumentContent(doc);
+  displayChildDocs(doc.documents);
 
   const displayChildDocs = (childDocs) => {
     const childDocsEl = document.querySelector(".doc__childDocs");
@@ -37,13 +40,6 @@ export const renderEditor = (doc) => {
       childDocsEl.innerHTML += html;
     });
   };
-
-  displayDocumentContent(doc);
-  displayChildDocs(doc.documents);
-
-  //자동 저장, 수동 저장
-  autoSaveDocument();
-  manualSaveDocument();
 };
 
 export const renderSidebar = (docs) => {

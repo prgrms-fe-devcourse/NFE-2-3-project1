@@ -12,11 +12,11 @@ const render = async (docId = "", target = "all") => {
   toggleTrashIcon(pathname);
 
   if (pathname === "/") {
-    document.getElementById("doc-title__input").value = `🥔 감자의 Notion`;
+    document.getElementById("doc-title__input").innerText = `🥔 감자의 Notion`;
     document.getElementById("doc__title").innerText = `🥔 감자의 Notion`;
     document.getElementById(
       "doc-contents"
-    ).value = `🥔 감자의 Notion에 오신 것을 환영합니다!
+    ).innerText = `🥔 감자의 Notion에 오신 것을 환영합니다!
 작성한 문서를 확인해보세요! 새로운 문서를 추가하거나 기존 문서를 삭제하는 것도 가능합니다.
     `;
   } else {
