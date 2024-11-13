@@ -10,7 +10,12 @@
   <body>
     <div id="wrapper">
       <aside id="side-bar">
-        <h2 class="side-bar__user"><a href="/">🥔 감자의 Notion</a></h2>
+        <div class="side-bar__header">
+          <h2 class="side-bar__user"><a href="/">🥔 감자의 Notion</a></h2>
+          <button id="close-sidebar-btn" class="close-btn">
+            <img src="./assets/sidebar-close.svg" alt="닫기 버튼" />
+          </button>
+        </div>
         <div class="side-bar__wrapper">
           <nav class="side-bar__nav">
             <ul id="side-bar__nav-list" class="side-bar__nav-list">
@@ -82,6 +87,9 @@
           </form>
         </div>
       </aside>
+      <button id="open-sidebar-btn" class="open-btn hidden">
+        <img src="./assets/sidebar-open.svg" alt="메뉴 버튼" />
+      </button>
       <main id="doc">
         <header class="doc__header">
           <form action="#">
