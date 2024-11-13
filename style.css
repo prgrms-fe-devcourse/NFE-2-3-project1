@@ -90,9 +90,7 @@ textarea {
 }
 
 .indent {
-  .indent {
-    padding-left: 0; /* .flex와 정렬을 맞추기 위해 */
-  }
+  padding-left: 8px; /* .flex와 정렬을 맞추기 위해 */
   display: none;
 }
 
