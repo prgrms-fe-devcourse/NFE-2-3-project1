@@ -86,6 +86,7 @@ document
   .addEventListener("click", async function (e) {
     e.preventDefault();
     if (!history.state) return;
+  });
 
 // 삭제 버튼 클릭 시 커스텀 모달 열기
 deleteButton.addEventListener("click", function (e) {
