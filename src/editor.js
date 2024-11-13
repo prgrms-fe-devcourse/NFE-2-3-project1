@@ -1,4 +1,5 @@
 import { navigateTo } from "./router.js";
+import { renderInit } from "./router.js";
 import { fetchDeleteDocument } from "./utils.js";
 
 const deleteButton = document.getElementById("icon__delete");
@@ -104,12 +105,9 @@ confirmDeleteButton.addEventListener("click", async function () {
   const docId = history.state.id;
   await fetchDeleteDocument(docId);
 
-  const target = document.querySelector(`[data-id='${docId}']`);
-  const deleteTarget = target.parentElement.parentElement;
-  deleteTarget.remove();
-
   deleteModal.style.display = "none"; // 모달 닫기
   deleteAlert.style.display = "block"; // 삭제 완료 알림 표시
+  renderInit();
   navigateTo({ id: docId }, "/");
 });
 
