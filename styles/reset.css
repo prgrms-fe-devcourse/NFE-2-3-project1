@@ -151,9 +151,28 @@ textarea {
   outline: none;
   -webkit-appearance: none;
   box-shadow: none;
+  font-family: inherit;
 }
 
 textarea:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+input {
+  resize: none;
+  height: auto;
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+  font-family: inherit;
+}
+
+input:focus {
   outline: none;
   box-shadow: none;
   border: none;

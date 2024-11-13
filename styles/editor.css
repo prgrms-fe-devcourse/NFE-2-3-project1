@@ -3,13 +3,13 @@
 .editor {
   height: 100%;
   padding-top: 105px;
+  padding-inline: 110px;
   display: flex;
   justify-content: center;
   color: var(--black300);
 }
 .editor__body {
-  border: 1px solid blue;
-  width: 708px;
+  width: 100%;
 }
 
 .editor h1 {
@@ -17,6 +17,11 @@
   font-weight: bolder;
   padding: 2px 4px;
   margin-bottom: 15px;
+}
+
+#editor__title-input {
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .editor textarea {
