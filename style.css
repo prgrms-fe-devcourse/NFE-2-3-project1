@@ -18,7 +18,6 @@ body {
 button {
   background-color: transparent;
   border: none;
-  padding: 0;
   cursor: pointer;
 }
 
@@ -245,6 +244,7 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
   padding: 0 8px;
   overflow-x: hidden;
   overflow-y: auto; /* 사이드바 내에서 스크롤 가능하도록 설정 */
@@ -290,15 +290,31 @@ textarea {
   width: 174px;
   height: 40px;
   background-color: var(--color-background-accent);
-  border-top: 1px solid var(--color-border);
   position: fixed;
-  bottom: 0;
+  bottom: 5px;
 }
 
-.side-bar__new-page > button {
+#new-page__button {
+  width: 100%;
   display: flex;
   align-items: center;
   height: 100%;
+  padding-left: 10px;
+  position: absolute;
+  left: 5px;
+  bottom: -1px;
+}
+#new-page__button::before {
+  content: "";
+  width: 100%;
+  position: absolute;
+  top: -5px;
+  left: 0;
+  border: 1px solid var(--color-border);
+}
+#new-page__button:hover {
+  background-color: var(--color-border);
+  border-radius: 4px;
 }
 
 /* MAIN */
@@ -308,6 +324,14 @@ textarea {
   flex-direction: column;
   align-items: center;
   position: relative;
+}
+
+#doc__title {
+  padding: 3px 6px;
+}
+#doc__title:hover {
+  background-color: var(--color-background-primary);
+  border-radius: 4px;
 }
 
 .doc__header {
