@@ -76,13 +76,13 @@ export const autoSaveDocument = (id) => {
   }
 };
 
-//수동 저장 (Ctrl + s)
+//수동 저장 (Ctrl + s or Command + s)
 export const manualSaveDocument = (id) => {
   document.removeEventListener("keydown", handleManualSave);
   document.addEventListener("keydown", handleManualSave);
 
   function handleManualSave(event) {
-    if (event.ctrlKey && event.key === "s") {
+    if ((event.ctrlKey || event.metaKey) && event.key === "s") {
       event.preventDefault();
       console.log("수동 저장 중");
       createAndSaveBlocks(id);
