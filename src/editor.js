@@ -23,6 +23,15 @@ export const createAndSaveBlocks = async (id) => {
   console.log("저장할 제목: ", title);
   console.log("블록 단위로 나눔: ", blocks);
 
+  docContents.addEventListener("doc-contents", () => {
+    docContents.style.height = "auto";
+    docContents.style.height = `${docContents.scrollHeight}px`;
+  });
+  docTitleInput.addEventListener("doc-title__input", () => {
+    docTitleInput.style.height = "auto";
+    docTitleInput.style.height = `${docTitleInput.scrollHeight}px`;
+  });
+
   try {
     if (!id) {
       throw new Error("문서 ID가 제공되지 않았습니다.");
