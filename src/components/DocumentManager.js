@@ -1,15 +1,13 @@
-import { getRootDocuments, postNewDocument } from "../api/api.js";
+import {
+  getRootDocuments,
+  postNewDocument,
+  initializeDocumentContent,
+  getTargetContent
+} from "../api/api.js";
 import { navigate, routes } from "../router/router.js";
 
-
-
 // 문서 목록을 가져와 동적 링크 생성
-// let isListCreated = false;
-
 export const createDocumentsList = async (documentList) => {
-  // if (isListCreated) return;
-  // isListCreated = true;
-
   try {
     const docsJSON = await getRootDocuments();
     docsJSON.forEach((doc) => {
@@ -21,11 +19,17 @@ export const createDocumentsList = async (documentList) => {
 };
 
 // 문서 생성 및 사이드바에 링크 추가
-export const createDocumentItem = (docId, docTitle, parentElement) => {
+export const createDocumentItem = (docId, docTitle, parentElement = null) => {
   const path = `/documents/${docId}`;
+  const initialDocData = initializeDocumentContent(docId);
 
   // 라우트 등록
-  routes.set(path, `<h1>${docTitle}</h1><p>내용 없음</p>`);
+  routes.set(path, {
+    id: initialDocData.id,
+    title: initialDocData.title,
+    content: initialDocData.content,
+    parent: initialDocData.parent,
+  });
 
   // 문서 항목 생성
   const newDocumentItem = document.createElement("li");
@@ -33,31 +37,47 @@ export const createDocumentItem = (docId, docTitle, parentElement) => {
 
   newDocumentItem.innerHTML = `
   <div id="document-container-${docId}">
-  <a href="#" class="document-link" data-  url="doc${docId}">
+    <a href="#" class="document-link" data-url="doc${docId}">
       ${docTitle}
     </a>
     <button class="add-subdoc-btn" data-parent-id="${docId}">+</button>
-    </div>
-    <ul class="sub-document-list"></ul>
+  </div>
+  <ul class="sub-document-list"></ul>
   `;
 
   parentElement.appendChild(newDocumentItem);
 
-  // 링크 클릭 시 라우팅
-  newDocumentItem.querySelector(".document-link").onclick = (event) => {
+  // 링크 클릭 시 라우팅 및 내용 불러오기
+  newDocumentItem.querySelector(".document-link").onclick = async (event) => {
     event.preventDefault();
     navigate(path);
+  
+    // 문서 내용 가져오기
+    const docData = await getTargetContent(docId);
+  
+    // 편집기 영역에 제목과 내용 표시
+    const titleElement = document.getElementById("editor__title-input");
+    const contentElement = document.getElementById("editor__content-input");
+    titleElement.value = docData.title || '';
+    contentElement.value = docData.content || '';
+    
+    // 편집 가능한 상태로 설정
+    titleElement.disabled = false;
+    contentElement.disabled = false;
   };
+  
 };
 
-// 문서 목록을 관리할 요소 선택
-const documentList = document.getElementById("sidebar__menuWrapper");
-// 새 페이지 버튼에 이벤트 리스너 추가
-const createDocumentButton = document.getElementById(
-  "sideBar__hideButton"
-);
+
+
+// // 문서 목록을 관리할 요소 선택
+// const documentList = document.getElementById("sidebar__menuWrapper");
+// // 새 페이지 버튼에 이벤트 리스너 추가
+// const createDocumentButton = document.getElementById(
+//   "sideBar__hideButton"
+// );
 // Root Document 생성
-export const addRootDoc = async () => {
+export const addRootDoc = async (documentList) => {
   try {
     const newDocument = await postNewDocument("제목 없음");
     createDocumentItem(newDocument.id, newDocument.title, documentList);
@@ -75,8 +95,10 @@ document.getElementById('sideBar__hideButton').addEventListener('click', () => {
 
 // 하위 페이지 생성
 export const addDoc = async (parentId) => {
-  const parentElement = document.getElementById(`document-container-${parentId}`);
-  const subDocumentList = parentElement.nextElementSibling; // `<ul>` 요소
+  const parentElement = document.getElementById(
+    `document-container-${parentId}`
+  );
+  const subDocumentList = parentElement.nextElementSibling;
 
   try {
     const newDocument = await postNewDocument("제목 없음", parentId);
