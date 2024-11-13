@@ -59,13 +59,12 @@ function getPages() {
         newList(data[key].id, data[key].title)
       );
     });
-    console.log(pages);
     pageGo();
   });
 }
 getPages();
 
-// 개인 페이지의 페이지 클릭시 해당 id값에 맞는 페이지 SPA로 보여주기
+// 개인 페이지 리스트 클릭 기능(개인 페이지의 페이지 클릭시 해당 id값에 맞는 페이지 SPA로 보여주기)
 function pageGo() {
   const notionWrap__section = document.querySelector(".notionWrap__section");
   const ListItem__pageLink = document.querySelectorAll(".ListItem__pageLink");

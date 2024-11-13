@@ -157,6 +157,8 @@ a {
 }
 .personalPage__PageList {
   display: none;
+  height: 400px;
+  overflow-y: scroll;
 }
 .personalPage__PageList.on {
   display: block;
