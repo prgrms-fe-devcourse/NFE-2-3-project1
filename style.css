@@ -121,6 +121,14 @@ textarea {
 }
 
 /* 페이지 삭제 할 때 */
+.icon__delete {
+  display: inline-block;
+}
+
+.icon__delete.hidden {
+  display: none; /* 아이콘 숨기기 */
+}
+
 .icon__delete:hover {
   cursor: pointer; /* 포인터 추가 */
   filter: invert(40%) sepia(71%) saturate(6175%) hue-rotate(347deg)
