@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('버튼을 찾을 수 없습니다.');
   }
 });
-
+//
 // api입력
 async function createNewPage(parentId) {
   try {
