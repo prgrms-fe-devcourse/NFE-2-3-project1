@@ -17,7 +17,7 @@ export const createAndSaveBlocks = async (id) => {
   const docTitleInput = document.getElementById("doc-title__input");
   const docContents = document.getElementById("doc-contents");
 
-  const title = docTitleInput.value || "제목 없음";
+  const title = docTitleInput.value;
   const blocks = docContents.value.split("\n").join("\n"); //줄바꿈으로 블록 처리
   console.log("저장할 제목: ", title);
   console.log("블록 단위로 나눔: ", blocks);
