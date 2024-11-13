@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/editor.css" />
     <link rel="stylesheet" href="./styles/sideBar.css" />
+    <link rel="stylesheet" href="./styles/breadCrums.css" />
   </head>
   <body class="screen">
     <!-- 사이드바 -->
@@ -17,14 +18,17 @@
         <div class="sidebar__titleContainer">
           <div>🐭 도시쥐와 시골쥐의 space</div>
           <div class="red sidebar__iconWrap">
-            <button class="sideBar__hideButton" id="sideBar__hideButton">
+            <button class="sideBar__button" id="sideBar__hideButton">
               <img
                 src="./src/asset/sideBar-hide.svg"
                 alt="sideBar-hide"
                 class="sidebar__icon"
               />
             </button>
-            <button id="sidebar__createDocument--button" class="sideBar__hideButton">
+            <button
+              id="sidebar__createDocument--button"
+              class="sideBar__button"
+            >
               <img
                 src="./src/asset/edit.svg"
                 alt="edit_btn"
@@ -41,7 +45,20 @@
     <!-- 메인 -->
     <main class="screen__pageView">
       <ul class="pageView__breadCrumbs">
-        <li>bread crumb..</li>
+        <!-- 사이드바 메뉴 버튼 -->
+        <div class="breadCrumbs__wrap">
+          <button
+            class="sideBar__button breadCrumbs__hamburger--hidden"
+            id="sideBar__hamburger"
+          >
+            <img
+              src="./src/asset/menu-burger.svg"
+              alt=""
+              class="sidebar__icon"
+            />
+          </button>
+          <li>bread crumb..</li>
+        </div>
         <button>삭제</button>
       </ul>
       <section class="editor">
