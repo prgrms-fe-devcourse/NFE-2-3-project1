@@ -15,16 +15,16 @@ export const renderEditor = (doc) => {
     }
 
     // 문서 제목과 내용 표시
-    docTitleInput.value = doc.title || "제목 없음";
+    docTitleInput.innerText = doc.title || "제목 없음";
     docTitle.innerText = doc.title || "제목 없음";
-    docContents.value = doc.content || "아름다운 글을 작성해보세요!!";
+    docContents.innerText = doc.content || "아름다운 글을 작성해보세요!!";
   };
 
   displayDocumentContent(doc);
 
   //자동 저장, 수동 저장
-  autoSaveDocument();
-  manualSaveDocument();
+  //autoSaveDocument();
+  //manualSaveDocument();
 };
 
 export const renderSidebar = (docs) => {

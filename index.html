@@ -95,17 +95,19 @@
           <form action="#">
             <div class="doc__article-title">
               <h1 class="none">Title</h1>
-              <textarea
-                type="text"
+              <div
+                contenteditable="true"
                 id="doc-title__input"
-                placeholder="제목 없음"
-                rows="5"
-              ></textarea>
+                data-placeholder="제목 없음"
+                spellcheck="false"
+              ></div>
             </div>
-            <textarea
+            <div
+              contenteditable="true"
               id="doc-contents"
-              placeholder="아름다운 글을 작성해보세요!!"
-            ></textarea>
+              data-placeholder="아름다운 글을 작성해보세요!!"
+              spellcheck="false"
+            ></div>
           </form>
         </article>
         <footer class="doc__footer">

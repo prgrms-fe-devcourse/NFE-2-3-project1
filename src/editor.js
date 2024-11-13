@@ -18,18 +18,25 @@ export const createAndSaveBlocks = async (id) => {
   const docTitleInput = document.getElementById("doc-title__input");
   const docContents = document.getElementById("doc-contents");
 
-  const title = docTitleInput.value || "제목 없음";
-  const blocks = docContents.value.split("\n").join("\n"); //줄바꿈으로 블록 처리
-  console.log("저장할 제목: ", title);
-  console.log("블록 단위로 나눔: ", blocks);
+  const title = docTitleInput.innerText || "제목 없음";
+  const blocks = docContents.innerText.split("\n").join("\n"); //줄바꿈으로 블록 처리
+  console.log("저장할 제목:", title);
+  console.log("블록 단위로 나눔:", blocks);
 
-  docContents.addEventListener("doc-contents", () => {
-    docContents.style.height = "auto";
-    docContents.style.height = `${docContents.scrollHeight}px`;
+  // contenteditable 처리
+  docTitleInput.addEventListener("input", function () {
+    if (docTitleInput.innerText.trim() !== "") {
+      docTitleInput.classList.add("has-content");
+    } else {
+      docTitleInput.classList.remove("has-content");
+    }
   });
-  docTitleInput.addEventListener("doc-title__input", () => {
-    docTitleInput.style.height = "auto";
-    docTitleInput.style.height = `${docTitleInput.scrollHeight}px`;
+  docContents.addEventListener("input", function () {
+    if (docContents.innerText.trim() !== "") {
+      docContents.classList.add("has-content");
+    } else {
+      docContents.classList.remove("has-content");
+    }
   });
 
   try {
@@ -47,15 +54,15 @@ export const createAndSaveBlocks = async (id) => {
     });
 
     if (!response.ok) throw new Error("블록 저장을 실패했습니다.");
-    console.log("블록을 성공적으로 저장하였습니다");
+    console.log("✅블록을 성공적으로 저장하였습니다");
   } catch (error) {
-    console.log("블록 저장 실패", error);
+    console.log("❌블록 저장 실패", error);
   }
 };
 
-// 자동 저장 (타이머와 주기적 실행)
+// 자동 저장
 export const autoSaveDocument = (id) => {
-  clearInterval(autoSaveInterval); // 기존 자동 저장 주기 제거
+  clearInterval(autoSaveInterval);
   autoSaveInterval = setInterval(() => {
     console.log("10초마다 자동 저장 중");
     createAndSaveBlocks(id);
@@ -70,7 +77,7 @@ export const autoSaveDocument = (id) => {
   function handleAutoSaveInput() {
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(() => {
-      console.log("자동 저장 중");
+      console.log("3초 간 입력 없으면 자동 저장 중");
       createAndSaveBlocks(id);
     }, 3000); // 3초 동안 입력 없으면 자동 저장
   }

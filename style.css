@@ -31,8 +31,7 @@ ul {
   padding: 0;
 }
 
-input,
-textarea {
+input {
   border: none;
   resize: none;
   outline: none;
@@ -279,6 +278,7 @@ textarea {
 }
 
 #doc-title__input {
+  outline: none;
   width: 100%;
   font-size: var(--font-size-lg);
   font-weight: 700;
@@ -287,7 +287,23 @@ textarea {
 }
 
 #doc-contents {
+  outline: none;
   width: 100%;
+}
+
+#doc-title__input[data-placeholder]:empty::before,
+#doc-contents[data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--color-tertiary);
+  position: absolute;
+  top: 0;
+  left: 5px;
+  pointer-events: none;
+}
+
+#doc-title__input.has-content[data-placeholder]:empty::before,
+#doc-contents.has-content[data-placeholder]:empty::before {
+  display: none; /* .has-content 클래스가 있을 때는 placeholder 숨기기 */
 }
 
 .doc__footer {
