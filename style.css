@@ -241,6 +241,7 @@ textarea {
   justify-content: space-between;
   padding: 0 8px;
   overflow-y: auto; /* 사이드바 내에서 스크롤 가능하도록 설정 */
+  margin-bottom: 40px;
 }
 
 .side-bar__nav-list {
@@ -279,8 +280,12 @@ textarea {
 }
 
 .side-bar__new-page {
+  width: 174px;
   height: 40px;
+  background-color: var(--color-background-accent);
   border-top: 1px solid var(--color-border);
+  position: fixed;
+  bottom: 0;
 }
 
 .side-bar__new-page > button {
