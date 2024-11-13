@@ -1,3 +1,4 @@
+//getdata.js
 // API GET
 export async function getData() {
   try {
@@ -55,4 +56,14 @@ export async function delData(targetId) {
     const err = "에러발생";
     return err;
   }
+}
+
+export async function getContent(id) {
+  const data = await fetch(`https://kdt-api.fe.dev-cos.com/documents/${id}`, {
+    headers: {
+      "x-username": "team6",
+    },
+  });
+  const parse = await data.json();
+  return parse;
 }
