@@ -283,7 +283,6 @@ a {
 }
 
 .textarea-wrapper {
-  height: 100%;
 }
 
 .notionWrap__section_text textarea {
@@ -297,8 +296,27 @@ a {
   outline: none;
   height: 24px;
 }
+.textareas {
+  color: black;
+  border: none;
+  font-size: 16px;
+  line-height: 24px;
+
+  resize: none; /* 크기 조정 비활성화 */
+  width: 100%;
+  outline: none;
+  height: 24px;
+}
 
 .notionWrap__section_text textarea:empty::before {
+  content: attr(placeholder);
+  color: gray;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  pointer-events: none;
+}
+.textareas :empty::before {
   content: attr(placeholder);
   color: gray;
   position: absolute;

@@ -1,4 +1,4 @@
-import { getData, postData } from "./getdata.js";
+import { getContent, getData, postData } from "./getdata.js";
 
 // API데이터 가져오기
 getData().then((data) => {
@@ -72,8 +72,86 @@ function pageGo() {
     list.addEventListener("click", function (e) {
       e.preventDefault();
       const url = e.currentTarget.dataset.url;
+      getContent(url).then((data) => {
+        console.log(data);
+        const title = data.title;
+        const content = data.content || ""; // content가 null이면 빈 문자열로 설정
+        console.log(title, content);
+        notionWrap__section.innerHTML = `
+        <!-- 타이틀 영역  -->
+        <h1 class="notionWrap__section_title">
+          <input placeholder="여기에 제목 입력" value="${title}" />
+        </h1>
+        <!-- 컨텐츠 영역 -->
+        <section class="notionWrap__section_text">
+        </section>
+      `;
+
+        const contentArr = content.includes("\n\n")
+          ? content.split("\n\n")
+          : [content];
+        console.log("wtf", contentArr);
+        // content가 존재하면 최상단에 textarea 생성하지 않도록 처리
+        if (contentArr.length > 0 && contentArr[0] !== "") {
+          contentArr.forEach((content) => {
+            createTextarea(content);
+          });
+        } else {
+          // content가 없다면 최상단 textarea 생성
+          initializeTextarea();
+        }
+      });
       history.pushState({ page: url, custom: "test" }, "", `/${url}`);
-      notionWrap__section.innerHTML = pages[url];
+
+      function initializeTextarea() {
+        if (notionWrap__section.querySelectorAll("textarea").length === 0) {
+          createTextarea();
+        }
+      }
+
+      function createTextarea(content = "", showPlaceholder = true) {
+        // 새로운 div 생성 (textarea와 버튼을 포함할 래퍼)
+        const textareaWrapper = document.createElement("div");
+        textareaWrapper.classList.add("textarea-wrapper");
+
+        // 새로운 textarea 생성
+        const newTextarea = document.createElement("textarea");
+        newTextarea.className = "gothic-a1-regular textareas";
+        newTextarea.placeholder = showPlaceholder
+          ? "Write something, or press 'space' for AI, '/' for commands..."
+          : "";
+
+        // 만약 content가 있으면, 그 내용을 textarea에 설정
+        if (content) {
+          newTextarea.value = content;
+        }
+
+        // textarea를 textareaWrapper에 추가
+        textareaWrapper.appendChild(newTextarea);
+
+        // notionWrapSection에 새 textarea가 포함된 div 추가
+        notionWrap__section.appendChild(textareaWrapper);
+
+        // 생성한 textarea에 포커스
+        newTextarea.focus();
+
+        // 초기높이조절
+        adjustTextareaHeight(newTextarea);
+      }
+
+      function adjustTextareaHeight(textarea) {
+        // textarea의 line-height 값을 가져옵니다.
+        const lineHeight = parseInt(getComputedStyle(textarea).lineHeight, 10);
+
+        // 텍스트 길이를 기준으로 줄 수를 계산합니다.
+        const textLength = textarea.value.split("\n").length;
+
+        // 계산된 줄 수에 따라 높이를 설정
+        const calculatedHeight = lineHeight * textLength; // 줄 수에 따른 높이 계산
+
+        // 높이를 설정
+        textarea.style.height = `${calculatedHeight}px`;
+      }
     });
   });
 }

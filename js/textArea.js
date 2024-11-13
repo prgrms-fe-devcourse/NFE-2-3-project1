@@ -6,7 +6,7 @@ const notionSection = document.querySelector(".notionWrap__section");
 const notionWrapSection = document.querySelector(".notionWrap__section_text");
 
 //content 받아오기
-getContent(138692).then((data) => {
+getContent(138696).then((data) => {
   const titleInputEl = document
     .querySelector(".notionWrap__section_title")
     .querySelector("input");
@@ -157,7 +157,6 @@ function adjustTextareaHeight(textarea) {
 document.querySelectorAll("textarea").forEach((textarea) => {
   adjustTextareaHeight(textarea); // 초기화 시 높이 맞추기
 });
-
 
 // 입력이 있을 때마다 높이 자동 조정, put으로 제목, 내용 수정
 const titleInputEl = document
