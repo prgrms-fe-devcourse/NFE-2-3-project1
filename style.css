@@ -240,6 +240,7 @@ textarea {
   flex-direction: column;
   justify-content: space-between;
   padding: 0 8px;
+  overflow-x: hidden;
   overflow-y: auto; /* 사이드바 내에서 스크롤 가능하도록 설정 */
   margin-bottom: 40px;
 }
