@@ -127,3 +127,12 @@ window.addEventListener("click", function (e) {
     deleteModal.style.display = "none";
   }
 });
+
+//버튼 눌러서 화면 맨 위로 올라가기
+const toTopButton = document.getElementById("toTop");
+toTopButton.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
