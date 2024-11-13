@@ -20,7 +20,26 @@ export const renderEditor = (doc) => {
     docContents.value = doc.content;
   };
 
+  const displayChildDocs = (childDocs) => {
+    const childDocsEl = document.querySelector(".doc__childDocs");
+    childDocsEl.innerHTML = "";
+
+    childDocs.forEach((childDoc) => {
+      const pathname = `/${childDoc.title}`;
+      const title = childDoc.title || "제목 없음";
+
+      const html = `
+        <div class="doc__childDoc">
+            <img src="../assets/file-icon.svg" class="icon" />
+            <a href=${pathname} data-id=${childDoc.id}>${title}</a>
+        </div>
+      `;
+      childDocsEl.innerHTML += html;
+    });
+  };
+
   displayDocumentContent(doc);
+  displayChildDocs(doc.documents);
 
   //자동 저장, 수동 저장
   autoSaveDocument();
@@ -75,25 +94,7 @@ export const renderSidebar = (docs) => {
 
   const navListEl = document.getElementById("side-bar__nav-list");
   navListEl.innerHTML = "";
-
   makeDocuments(docs);
-  navListEl.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const target = e.target;
-    const id = target.dataset.id;
-
-    if (target.tagName === "A") {
-      console.log(`클릭한 문서 ID : `, id);
-      // 이전에 선택된 문서가 있을 시, 비활성화
-      const prevSelectedDoc = document.querySelector(".selected");
-      if (prevSelectedDoc) {
-        prevSelectedDoc.classList.remove("selected");
-      }
-
-      // 현재 선택된 문서를 활성화
-      target.parentElement.classList.add("selected");
-    }
-  });
 
   const toggleButtons = document.querySelectorAll(".flex");
 
