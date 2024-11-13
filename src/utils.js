@@ -47,3 +47,20 @@ export const navigateTo = async (state = { id: null }, pathname) => {
   const documentContent = await fetchDocumentContent(state.id);
   renderEditor(documentContent);
 };
+
+export const fetchDeleteDocument = async (docId = "") => {
+  try {
+    const response = await fetch(`${BASE_URL}/${docId}`, {
+      method: "DELETE",
+      headers: { "x-username": username },
+    });
+
+    if (!response.ok) throw new Error(`문서 ${docId}를 삭제하지 못했습니다.`);
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("문서 내용 요청 실패:", error);
+  }
+};
