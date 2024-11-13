@@ -47,17 +47,16 @@ export const renderSidebar = (docs) => {
           </div>
         `;
 
-      // 하위 문서가 있을 경우, 하위 문서 목록 생성
       const subList = document.createElement("ul");
+      subList.classList.add("hidden");
+
+      // 하위 문서가 있을 경우, 하위 문서 목록 생성
       if (doc.documents.length > 0) {
         subList.classList.add("indent");
-        listItem.appendChild(subList);
-
         makeDocuments(doc.documents, subList);
-      } else {
-        listItem.appendChild(subList);
       }
 
+      listItem.appendChild(subList);
       parentsElement.appendChild(listItem);
     });
   };
@@ -92,9 +91,12 @@ export const renderSidebar = (docs) => {
     button.addEventListener("click", function () {
       // 클릭된 버튼 내의 .indent 요소를 찾아 토글
       const subList = button.nextElementSibling;
+      subList.classList.toggle("hidden");
 
       // 하위 페이지가 비어있을 경우 "하위 페이지 없음" 메시지 표시
-      if (subList.children.length === 0) {
+      const isEmpty = subList.children.length === 0;
+      const isNotHidden = !subList.classList.contains("hidden");
+      if (isEmpty && isNotHidden) {
         const message = document.createElement("p");
         message.classList.add("no-sub-pages");
         message.textContent = "하위 페이지 없음";
@@ -105,8 +107,6 @@ export const renderSidebar = (docs) => {
         if (noSubPagesMessage) {
           noSubPagesMessage.remove();
         }
-
-        subList.classList.toggle("hidden");
       }
 
       // 클릭된 .flex 요소에 active 클래스를 추가하여 아이콘 회전 효과를 주기
