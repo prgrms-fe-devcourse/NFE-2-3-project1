@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeSidebarBtn = document.getElementById("close-sidebar-btn");
   const openSidebarBtn = document.getElementById("open-sidebar-btn");
   const sidebar = document.getElementById("side-bar");
-
   // 사이드바 닫기 버튼 클릭 시
   closeSidebarBtn.addEventListener("click", function () {
     sidebar.classList.add("closed");

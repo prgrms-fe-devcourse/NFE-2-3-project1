@@ -17,7 +17,7 @@ export const createAndSaveBlocks = async (id) => {
   const docTitleInput = document.getElementById("doc-title__input");
   const docContents = document.getElementById("doc-contents");
 
-  const title = docTitleInput.innerText || "제목 없음";
+  const title = docTitleInput.innerText;
   const blocks = docContents.innerText.split("\n").join("\n"); //줄바꿈으로 블록 처리
   console.log("저장할 제목:", title);
   console.log("블록 단위로 나눔:", blocks);
@@ -52,7 +52,9 @@ export const createAndSaveBlocks = async (id) => {
       body: JSON.stringify({ title, content: blocks }),
     });
 
-    if (!response.ok) throw new Error("블록 저장을 실패했습니다.");
+    if (!response.ok) {
+      throw new Error("블록 저장을 실패했습니다.");
+    }
     console.log("✅블록을 성공적으로 저장하였습니다");
   } catch (error) {
     console.log("❌블록 저장 실패", error);
