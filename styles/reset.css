@@ -178,3 +178,10 @@ input:focus {
   box-shadow: none;
   border: none;
 }
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
