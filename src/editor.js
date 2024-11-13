@@ -48,9 +48,9 @@ export const createAndSaveBlocks = async (id) => {
 export const autoSaveDocument = (id) => {
   clearInterval(autoSaveInterval); // 기존 자동 저장 주기 제거
   autoSaveInterval = setInterval(() => {
-    console.log("30초마다 자동 저장 중");
+    console.log("15초마다 자동 저장 중");
     createAndSaveBlocks(id);
-  }, 30000); // 30초마다 자동 저장
+  }, 15000); // 15초마다 자동 저장
 
   let typingTimeout;
   const docContents = document.getElementById("doc-contents");
