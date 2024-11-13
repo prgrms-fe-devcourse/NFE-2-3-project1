@@ -153,6 +153,7 @@ a {
   position: relative;
   font-size: 12px;
   color: gray;
+  cursor: pointer;
 }
 .personalPage__PageList {
   display: none;

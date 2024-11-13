@@ -23,6 +23,30 @@ function personalPageToggle() {
   });
 }
 personalPageToggle();
+
+function SPA() {
+  const buildIcon = document.querySelector(".buildIcon");
+  const notionWrap__section = document.querySelector(".notionWrap__section");
+  const pages = {
+    home: "Home 페이지",
+  };
+  buildIcon.addEventListener("click", function (e) {
+    e.preventDefault();
+    const url = e.currentTarget.dataset.url;
+    history.pushState({ page: url, custom: "test" }, "", `/${url}`);
+    notionWrap__section.textContent = pages[url];
+  });
+  window.addEventListener("popstate", function (e) {
+    if (e.state) {
+      const url = e.state.page;
+      notionWrap__section.textContent = pages[url];
+    } else {
+      notionWrap__section.textContent = "";
+    }
+  });
+}
+SPA();
+
 // async function getData() {
 //   const data = await fetch("https://kdt-api.fe.dev-cos.com/documents", {
 //     headers: {
