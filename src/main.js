@@ -1,4 +1,5 @@
 import { createDocumentsList } from "./components/DocumentManager.js";
+import { initializeEditor } from "./components/Editor.js";
 import { setEventListener } from "./listeners/eventListeners.js";
 import { router } from "./router/router.js";
 
@@ -19,4 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // 문서 목록 생성
   createDocumentsList(documentList);
+
+  // 에디터 초기화
+  initializeEditor();
 });
