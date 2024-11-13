@@ -120,6 +120,12 @@ textarea {
   padding-left: 8px; /* .flex와 정렬을 맞추기 위해 */
 }
 
+.icon__delete:hover {
+  cursor: pointer; /* 포인터 추가 */
+  filter: invert(16%) sepia(89%) saturate(6054%) hue-rotate(358deg)
+    brightness(97%) contrast(113%); /* 송원 추가 : 휴지통 아이콘에 마우스 올렸을 때 색상 변경 */
+}
+
 /* 하위 페이지가 없을 때 */
 .no-sub-pages {
   margin-left: 20px;

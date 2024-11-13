@@ -71,8 +71,12 @@
             </ul>
           </nav>
           <form action="#" class="side-bar__new-page">
-            <button>
-              <img src="./assets/plus-icon.svg" alt="새 페이지 추가 버튼" class="icon" />
+            <button type="button" id="new-page__button">
+              <img
+                src="./assets/plus-icon.svg"
+                alt="새 페이지 추가 버튼"
+                class="icon"
+              />
               <p>새 페이지</p>
             </button>
           </form>
@@ -82,7 +86,7 @@
         <header class="doc__header">
           <form action="#">
             <button id="doc__title">Document Title</button>
-            <button>
+            <button type="button" id="icon__delete" class="icon__delete">
               <img src="./assets/delete-icon.svg" alt="" class="icon" />
             </button>
           </form>
@@ -98,7 +102,10 @@
                 placeholder="제목 없음"
               ></textarea>
             </div>
-            <textarea id="doc-contents" placeholder="아름다운 글을 작성해보세요!!"></textarea>
+            <textarea
+              id="doc-contents"
+              placeholder="아름다운 글을 작성해보세요!!"
+            ></textarea>
           </form>
         </article>
         <footer class="doc__footer">
