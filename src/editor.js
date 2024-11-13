@@ -107,6 +107,7 @@ confirmDeleteButton.addEventListener("click", async function () {
 
   deleteModal.style.display = "none"; // 모달 닫기
   deleteAlert.style.display = "block"; // 삭제 완료 알림 표시
+  navigateTo(null, "/");
 });
 
 // 모달의 "취소" 버튼 클릭 시 모달 닫기
