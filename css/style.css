@@ -228,6 +228,7 @@ a {
   padding-top: 152px;
   padding-left: 336px;
   background-color: #fff;
+  cursor: text;
 }
 
 .notionWrap__section_add {
@@ -249,6 +250,7 @@ a {
 .notionWrap__section_title {
   caret-color: rgb(55, 53, 47);
   font-size: 28px;
+  padding: 3px 2px;
 }
 
 .notionWrap__section_title input {
@@ -259,14 +261,20 @@ a {
   color: #e1e1e0;
 }
 
+.textarea-wrapper {
+  height: 100%;
+}
+
 .notionWrap__section_text textarea {
-  margin-top: 17px;
-  color: #b3b2b0;
+  color: black;
   border: none;
   font-size: 16px;
+  line-height: 24px;
+
   resize: none; /* 크기 조정 비활성화 */
   width: 100%;
   outline: none;
+  height: 24px;
 }
 
 .notionWrap__section_text textarea:empty::before {
@@ -276,6 +284,25 @@ a {
   top: 10px;
   left: 10px;
   pointer-events: none;
+}
+
+.add-textarea-btn {
+  position: absolute;
+  top: -7px;
+  left: -30px;
+  background-color: white;
+  color: #b8b8b3;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  display: none; /* 기본적으로 숨김 */
+  cursor: pointer;
+}
+/* textarea hover 시 + 버튼 보이기 */
+.textarea-wrapper:hover .add-textarea-btn {
+  display: block;
 }
 
 .notionWrap__section_newPage {
