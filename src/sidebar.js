@@ -27,9 +27,9 @@ export async function createNewPage(parentId) {
         "x-username": "potatoes",
       },
       body: JSON.stringify({
-        title: "새 페이지",
+        title: "",
         content: "",
-        parent: parentId, // parentId추가
+        parent: parentId, // parentId 추가
       }),
     });
     if (!response.ok) {
