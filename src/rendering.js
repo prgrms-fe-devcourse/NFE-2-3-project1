@@ -48,17 +48,18 @@ export const renderSidebar = (docs) => {
           </div>
         `;
 
-      // 하위 문서가 있을 경우, 하위 문서 목록 생성
       const subList = document.createElement("ul");
+      subList.classList.add("hidden");
+
+      // 하위 문서가 있을 경우, 하위 문서 목록 생성
       if (doc.documents.length > 0) {
         subList.classList.add("indent");
-        listItem.appendChild(subList);
-
         makeDocuments(doc.documents, subList);
       } else {
         listItem.appendChild(subList);
       }
 
+      listItem.appendChild(subList);
       parentsElement.appendChild(listItem);
 
       // 하위 문서 추가 버튼에 이벤트 리스너 추가
