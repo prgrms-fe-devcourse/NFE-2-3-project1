@@ -22,7 +22,7 @@ const HamburgerHandler = () => {
   hamburger.addEventListener("mouseenter", () => {
     hamburgerImg.src = "/src/asset/sideBar-open.svg";
     // 이미 hover 상태인 경우 무시
-    if (isHovered) return;
+    // if (isHovered) return;
 
     hoverTimer = setTimeout(() => {
       sideBar.classList.add("screen_miniSidebar");
@@ -34,12 +34,11 @@ const HamburgerHandler = () => {
     hamburgerImg.src = "/src/asset/menu-burger.svg";
     clearTimeout(hoverTimer); // 타이머 초기화
     leaveTimer = setTimeout(() => {
-      console.log("찾았다 범인");
       if (hamburger.style.display === "none") return;
       if (sideBar.contains(event.relatedTarget)) return;
       sideBar.classList.remove("screen_miniSidebar");
       sideBar.classList.add("sidebar__hide");
-      isHovered = false; // hover 상태 초기화
+      // isHovered = false; // hover 상태 초기화
     }, 1000); // 1초 후에 동작 실행
   });
   // 햄버거 클릭했을 때 사이드바 나오게하기
@@ -61,7 +60,7 @@ const HamburgerHandler = () => {
       setTimeout(() => {
         sideBar.classList.remove("screen_miniSidebar");
         sideBar.classList.add("sidebar__hide");
-        isHovered = false; // hover 상태 초기화
+        // isHovered = false; // hover 상태 초기화
       }, 1000); // 1초 뒤에 동작 실행
     }
   });
