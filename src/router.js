@@ -115,3 +115,34 @@ window.addEventListener("popstate", async (e) => {
 
   render(id, "editor");
 });
+
+// 기본 페이지 휴지통 삭제
+document.addEventListener("DOMContentLoaded", function () {
+  // 페이지 로드 시 기본 페이지인지 확인하고, 아이콘 상태 설정
+  toggleTrashIcon(window.location.pathname); // 현재 경로를 기준으로 아이콘 상태 설정
+});
+
+document.body.addEventListener("click", function (e) {
+  // 링크 클릭 시 페이지 이동 후 아이콘 상태 갱신
+  if (e.target.tagName === "A") {
+    const pathname = new URL(e.target.href).pathname; // 링크의 경로 가져오기
+    toggleTrashIcon(pathname); // 경로에 맞춰 아이콘 상태 갱신
+  }
+});
+
+// 기본 페이지인지 확인하고 아이콘을 숨기거나 보이게 처리하는 함수
+function toggleTrashIcon(pathname) {
+  const iconDelete = document.getElementById("icon__delete");
+
+  if (!iconDelete) {
+    console.error("휴지통 아이콘을 찾을 수 없습니다.");
+    return;
+  }
+
+  // 경로가 기본 페이지('/')일 경우 아이콘 숨기기
+  if (pathname === "/") {
+    iconDelete.classList.add("hidden"); // 기본 페이지에서 아이콘 숨기기
+  } else {
+    iconDelete.classList.remove("hidden"); // 기본 페이지가 아니면 아이콘 보이기
+  }
+}
