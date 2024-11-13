@@ -71,18 +71,17 @@ export const autoSaveDocument = (id) => {
 };
 
 //수동 저장 (Ctrl + s or Command + s)
-function handleManualSave(event, id) {
+function handleManualSave(event) {
+  const id = history.state?.id;
   if ((event.ctrlKey || event.metaKey) && event.key === "s") {
     event.preventDefault();
     console.log("수동 저장 중");
     createAndSaveBlocks(id);
   }
 }
-export const manualSaveDocument = (id) => {
-  document.removeEventListener("keydown", (event) =>
-    handleManualSave(event, id)
-  );
-  document.addEventListener("keydown", (event) => handleManualSave(event, id));
+export const manualSaveDocument = () => {
+  document.removeEventListener("keydown", handleManualSave);
+  document.addEventListener("keydown", handleManualSave);
 };
 
 document
