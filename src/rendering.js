@@ -1,5 +1,4 @@
 import { createNewPage } from "./sidebar.js";
-import { autoSaveDocument, manualSaveDocument } from "./editor.js";
 
 export const renderEditor = (doc) => {
   console.log("문서 내용 : ", doc);
@@ -20,26 +19,25 @@ export const renderEditor = (doc) => {
     docContents.innerText = doc.content;
   };
 
-  displayDocumentContent(doc);
-  displayChildDocs(doc.documents);
-
   const displayChildDocs = (childDocs) => {
     const childDocsEl = document.querySelector(".doc__childDocs");
     childDocsEl.innerHTML = "";
 
     childDocs.forEach((childDoc) => {
-      const pathname = `/${childDoc.title}`;
       const title = childDoc.title || "제목 없음";
 
       const html = `
         <div class="doc__childDoc">
             <img src="../assets/file-icon.svg" class="icon" />
-            <a href=${pathname} data-id=${childDoc.id}>${title}</a>
+            <a href="/${title}" data-id="${childDoc.id}">${title}</a>
         </div>
       `;
       childDocsEl.innerHTML += html;
     });
   };
+
+  displayDocumentContent(doc);
+  displayChildDocs(doc.documents);
 };
 
 export const renderSidebar = (docs) => {
