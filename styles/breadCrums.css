@@ -1,0 +1,9 @@
+@import url("/styles/variables.css");
+.breadCrumbs__hamburger--hidden {
+  display: none;
+}
+.breadCrumbs__wrap {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}

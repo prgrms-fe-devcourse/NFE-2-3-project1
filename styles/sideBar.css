@@ -63,7 +63,7 @@
 }
 
 /* 사이드바 아이콘 */
-.sideBar__hideButton {
+.sideBar__button {
   box-sizing: border-box;
   width: 20px;
   height: 20px;
@@ -73,7 +73,7 @@
   background: none;
   cursor: pointer;
 }
-.sideBar__hideButton:hover {
+.sideBar__button:hover {
   background-color: var(--bg100);
   border-radius: 4px;
 }
