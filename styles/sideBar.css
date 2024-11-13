@@ -8,7 +8,7 @@
   padding-inline: 8px;
   display: flex;
   flex-direction: column;
-  gap: 1.43rem;
+  gap: 1.2rem;
 }
 .screen_miniSidebar {
   position: absolute;
@@ -30,24 +30,26 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  box-sizing: content-box;
+}
+.space_name {
+  padding-top: 0.4rem;
 }
 .sidebar__menuWrapper {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 6px;
 }
 .sidebar__menuWrapper--documets {
-  border: 1px solid red;
   padding: 0 8px;
 }
 .sub-document-list {
-  margin-left: 20px;
+  padding-left: 1.42rem;
   list-style-type: none;
   display: none;
 }
 .sidebar__menuWrapper--documet {
   height: 30px;
-  border: 1px solid blue;
   padding-left: 8px;
   display: flex;
   align-items: center;
@@ -55,18 +57,58 @@
 }
 
 /* 사이드 바 내부 document list의 item에 적용할 스타일 */
-.sidebar__menuWrapper a {
+.document-content,
+.sidebar__menuWrapper--document {
   border-radius: 4px;
-  display: inline-block;
+  display: block;
   padding: 5px 8px;
+  position: relative;
 }
-.acitve__document-item {
-  /* 클릭했을 때 : active 클래스 적용 */
+.add-subdoc-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 4px;
+  background-color: transparent;
+  border: none;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 3px;
+  padding: 1px 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.2rem;
+  color: var(--black200);
+}
+.sidebar__menuWrapper a.document-content {
+  display: inline-block;
+  padding: 10px 16px;
+}
+.sidebar__menuWrapper a.document-content:hover {
   background-color: var(--bg100);
+  color: var(--black200);
+  transition: background-color 0.2s ease;
 }
+
+.sidebar__menuWrapper--document:hover .add-subdoc-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.add-subdoc-btn:hover {
+  background-color: var(--bg200);
+}
+
+/* hover, active 스타일도 transition 추가 */
 .hover__document-item {
-  /* hover했을 때 : hover 클래스 적용 */
   background-color: var(--bg100);
+  color: var(--black200);
+  transition: background-color 0.2s ease;
+}
+
+.acitve__document-item {
+  background-color: var(--bg200);
+  transition: background-color 0.2s ease;
 }
 
 /* 사이드바 아이콘 */

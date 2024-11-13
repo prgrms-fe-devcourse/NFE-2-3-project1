@@ -144,7 +144,8 @@ textarea {
   resize: none;
   overflow-y: hidden;
   min-height: 50px;
-  height: auto;
+  height: 80vh;
+  overflow: scroll;
   width: 100%;
   background: none;
   border: none;
