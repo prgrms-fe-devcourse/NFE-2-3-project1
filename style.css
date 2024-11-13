@@ -231,10 +231,9 @@ textarea {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
   padding: 0 8px;
-
-  /* display: none; */
+  transition: transform 0.3s ease, width 0.3s ease;
+  transform: translateX(0);
 }
 
 .side-bar__user {
@@ -249,6 +248,7 @@ textarea {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+
   overflow-x: hidden;
   overflow-y: auto; /* 사이드바 내에서 스크롤 가능하도록 설정 */
   margin-bottom: 40px;
@@ -323,6 +323,9 @@ textarea {
 /* MAIN */
 #doc {
   width: 100%;
+  /* 사이드바 모션 */
+  transition: margin-left 0.3s ease;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -377,9 +380,27 @@ textarea {
   left: 20px;
 }
 
-/* 사이드바 */
-.sidebar-toggle {
+/* 사이드바 열고 닫기 */
+.side-bar__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.close-btn,
+.open-btn {
+  cursor: pointer;
+}
+
+.open-btn {
+  position: fixed;
+  top: 12px;
+  left: 15px;
+  z-index: 1000;
+}
+
+#side-bar.closed {
+  transform: translateX(-100%); /* 화면 왼쪽으로 슬라이드 */
+  width: 0;
+  margin-right: 15px;
 }

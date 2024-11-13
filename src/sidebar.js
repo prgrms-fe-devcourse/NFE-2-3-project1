@@ -46,3 +46,22 @@ export async function createNewPage(parentId) {
     alert("페이지 생성 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.");
   }
 }
+
+// 사이드바 열고 닫기
+document.addEventListener("DOMContentLoaded", function () {
+  const closeSidebarBtn = document.getElementById("close-sidebar-btn");
+  const openSidebarBtn = document.getElementById("open-sidebar-btn");
+  const sidebar = document.getElementById("side-bar");
+
+  // 사이드바 닫기 버튼 클릭 시
+  closeSidebarBtn.addEventListener("click", function () {
+    sidebar.classList.add("closed");
+    openSidebarBtn.classList.remove("hidden");
+  });
+
+  // 메뉴 버튼 클릭 시 사이드바 열기
+  openSidebarBtn.addEventListener("click", function () {
+    sidebar.classList.remove("closed");
+    openSidebarBtn.classList.add("hidden");
+  });
+});
