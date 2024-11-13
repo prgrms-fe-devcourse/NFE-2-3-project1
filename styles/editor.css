@@ -1,0 +1,25 @@
+@import url("/styles/variables.css");
+
+.editor {
+  height: 100%;
+  padding-top: 105px;
+  display: flex;
+  justify-content: center;
+  color: var(--black300);
+}
+.editor__body {
+  border: 1px solid blue;
+  width: 708px;
+}
+
+.editor h1 {
+  font-size: 2.28rem;
+  font-weight: bolder;
+  padding: 2px 4px;
+  margin-bottom: 15px;
+}
+
+.editor textarea {
+  font-size: 1.14rem;
+  padding: 2px 4px;
+}

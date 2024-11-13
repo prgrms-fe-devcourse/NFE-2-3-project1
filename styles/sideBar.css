@@ -1,0 +1,96 @@
+@import url("/styles/variables.css");
+
+.screen__sidebar {
+  /* border: 1px solid red; */
+  width: 250px;
+  min-width: 250px; /* flex-shrink 방지 */
+  transition: width 0.3s ease;
+  background-color: var(--gray100);
+  padding-inline: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.43rem;
+}
+.sidebar__pageTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  padding: 0.86rem 1rem;
+  border: 1px solid red;
+}
+.sidebar__titleContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.sidebar__menuWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sidebar__menuWrapper--documets {
+  border: 1px solid red;
+  padding: 0 8px;
+}
+.sub-document-list {
+  margin-left: 20px;
+  list-style-type: none;
+}
+.sidebar__menuWrapper--documet {
+  height: 30px;
+  border: 1px solid blue;
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+/* 사이드 바 내부 document list의 item에 적용할 스타일 */
+.sidebar__menuWrapper a {
+  border-radius: 4px;
+  display: inline-block;
+  padding: 5px 8px;
+}
+.acitve__document-item {
+  /* 클릭했을 때 : active 클래스 적용 */
+  background-color: var(--bg100);
+}
+.hover__document-item {
+  /* hover했을 때 : hover 클래스 적용 */
+  background-color: var(--bg100);
+}
+
+/* 사이드바 아이콘 */
+.sideBar__hideButton {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+
+  background: none;
+  cursor: pointer;
+}
+.sideBar__hideButton:hover {
+  background-color: var(--bg100);
+  border-radius: 4px;
+}
+.sidebar__icon {
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+}
+.sidebar__iconWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* 사이드바 숨기기 css */
+.sidebar__hide {
+  min-width: 0px;
+  width: 0px;
+  padding: 0px;
+  transform: translateX(-250px);
+}
