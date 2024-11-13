@@ -167,6 +167,20 @@ a {
   border-radius: 5px;
   position: relative;
 }
+.ListItem__buildBtn {
+  visibility: hidden;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 5px;
+  border-radius: 5px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
 .ListItem__underBtn {
   width: 20px;
   height: 20px;
@@ -208,7 +222,7 @@ a {
 }
 .personalPage__ListItem:hover > .ListItem__addBtn,
 .personalPage__ListItem:hover > .ListItem__delBtn,
-.personalPage__toggleBtnWrap:hover > .ListItem__addBtn {
+.personalPage__toggleBtnWrap:hover > .ListItem__buildBtn {
   visibility: visible;
   opacity: 1;
 }
