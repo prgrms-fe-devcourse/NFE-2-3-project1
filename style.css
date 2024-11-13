@@ -82,6 +82,7 @@ textarea {
 }
 .flex:hover {
   background-color: var(--color-border);
+  border-radius: 4px;
 }
 .flex:active {
   background-color: var(--color-border);
@@ -89,7 +90,7 @@ textarea {
 }
 
 .indent {
-  margin-left: 8px;
+  padding-left: 8px; /* .flex와 정렬을 맞추기 위해 */
   display: none;
 }
 
@@ -126,7 +127,7 @@ textarea {
   padding: 0 8px;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /*김수현 추가*/
+  overflow: hidden;
 }
 
 .side-bar__user {
@@ -135,11 +136,11 @@ textarea {
   font-size: var(--font-size-md);
 }
 .side-bar__wrapper {
-  flex: 1; /* 남은 공간을 채우도록 설정 */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: auto; /* 사이드바 내에서 스크롤 가능하도록 설정 */
+  overflow-y: auto;
 }
 
 /* 리스트 이름의 길이가 길어지면 말 줄임표로 대체 */
