@@ -100,7 +100,6 @@ function presonalPage_MakeNewPage() {
     postData().then((data) => {
       const url = data.id;
       pages[url] = newPage(data.title);
-      console.log(pages);
       history.pushState({ page: url, custom: "test" }, "", `/${url}`);
       notionWrap__section.innerHTML = newPage(data.title);
     });
