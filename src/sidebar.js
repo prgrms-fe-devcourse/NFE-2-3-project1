@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 //
 // api입력
-async function createNewPage(parentId) {
+export async function createNewPage(parentId) {
   try {
     const response = await fetch("https://kdt-api.fe.dev-cos.com/documents", {
       method: "POST",

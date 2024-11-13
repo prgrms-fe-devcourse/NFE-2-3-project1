@@ -1,3 +1,4 @@
+import { createNewPage } from "./sidebar.js";
 import { autoSaveDocument, manualSaveDocument } from "./editor.js";
 import { navigateTo } from "./utils.js";
 
@@ -54,10 +55,22 @@ export const renderSidebar = (docs) => {
       if (doc.documents.length > 0) {
         subList.classList.add("indent");
         makeDocuments(doc.documents, subList);
+      } else {
+        listItem.appendChild(subList);
       }
 
       listItem.appendChild(subList);
       parentsElement.appendChild(listItem);
+
+      // 하위 문서 추가 버튼에 이벤트 리스너 추가
+      const addButton = listItem.querySelector(".doc-item__add");
+      if (addButton) {
+        addButton.addEventListener("click", async (e) => {
+          e.stopPropagation(); // 클릭 이벤트가 부모에게 전파되지 않도록 함
+          const parentId = doc.id; // 현재 문서 ID를 parentId로 사용
+          await createNewPage(parentId); // 하위 문서 생성 함수 호출
+        });
+      }
     });
   };
 
