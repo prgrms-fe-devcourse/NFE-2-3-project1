@@ -250,6 +250,13 @@ a {
   display: block;
   padding-left: 20px;
 }
+.ListItem__pageLink > span {
+  display: block;
+  width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .icon {
   width: 100%;
   height: 100%;

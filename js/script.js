@@ -1,6 +1,5 @@
 import { getContent, getData, postData, delData } from "./getdata.js";
-import { textAreaAll } from "./textarea.js";
-
+import { editContent } from "./putdata.js";
 ////////////////////////////////////전역변수//////////////////////////////
 // 페이지 전역변수
 const pages = {};
@@ -77,6 +76,8 @@ function getPages() {
     });
     pageGo();
     addDeleteListeners();
+    underPageToggle();
+    MakeUnderPage();
   });
 }
 getPages();
@@ -85,17 +86,46 @@ getPages();
 function MakeNewPage(className) {
   const buildBtn = document.querySelector(`.${className}`);
   const notionWrap__section = document.querySelector(".notionWrap__section");
+  const personalPage__PageList = document.querySelector(
+    ".personalPage__PageList"
+  );
   buildBtn.addEventListener("click", function () {
     postData().then((data) => {
       const url = data.id;
       pages[url] = newPage(data.title);
       history.pushState({ page: url, custom: "test" }, "", `/${url}`);
       notionWrap__section.innerHTML = newPage(data.title);
+      personalPage__PageList.appendChild(newList(data.id, data.title));
+      addDeleteListeners();
+      pageGo();
     });
   });
 }
 MakeNewPage("ListItem__buildBtn");
 MakeNewPage("buildIcon");
+
+//////////////////////////////////////////////
+// 하위 페이지 추가 버튼(리스트의 +버튼들)
+function MakeUnderPage() {
+  const ListItem__addBtn = document.querySelectorAll(".ListItem__addBtn");
+  const notionWrap__section = document.querySelector(".notionWrap__section");
+  ListItem__addBtn.forEach((list, idx) => {
+    list.addEventListener("click", function () {
+      const targetA = document.querySelectorAll(".ListItem__pageLink");
+      const url = targetA[idx].dataset.url;
+      postData(url).then((data) => {
+        pages[url] = underList(data.id, data.title);
+        history.pushState({ page: url, custom: "test" }, "", `/${url}`);
+        notionWrap__section.innerHTML = newPage(data.title);
+        targetA[idx].parentElement.after(underList(data.id, data.title));
+        addDeleteListeners();
+        pageGo();
+        MakeUnderPage();
+      });
+    });
+  });
+}
+//////////////////////////////////////////////
 
 // 페이지 삭제
 function addDeleteListeners() {
@@ -103,7 +133,6 @@ function addDeleteListeners() {
   delIcons.forEach((delIcon) =>
     delIcon.addEventListener("click", function (e) {
       e.target.parentNode.parentNode.style.display = "none";
-
       delData(e.target.id);
     })
   );
@@ -113,13 +142,38 @@ function addDeleteListeners() {
 function pageGo() {
   const notionWrap__section = document.querySelector(".notionWrap__section");
   const ListItem__pageLink = document.querySelectorAll(".ListItem__pageLink");
+
+  // 페이지 이동 시 기존 이벤트 리스너 제거
+  function removeEventListeners() {
+    // 기존 이벤트 리스너를 제거할 부분이 여기입니다.
+    notionWrap__section.removeEventListener("keydown", keydownListener);
+    notionWrap__section.removeEventListener("input", inputListener);
+    notionWrap__section.removeEventListener("focus", focusListener, true);
+    notionWrap__section.removeEventListener("blur", blurListener, true);
+    notionWrap__section.removeEventListener("click", clickListener);
+  }
+
+  // 키보드, 입력, 포커스 등 이벤트 리스너 정의
+  let keydownListener,
+    inputListener,
+    focusListener,
+    blurListener,
+    clickListener;
+
   ListItem__pageLink.forEach((list) => {
     list.addEventListener("click", function (e) {
       e.preventDefault();
       const url = e.currentTarget.dataset.url;
+
+      // 기존의 이벤트 리스너 제거
+      removeEventListeners();
+
+      // 새로운 페이지 콘텐츠 로드
       getContent(url).then((data) => {
+        console.log(data);
         const title = data.title;
         const content = data.content || ""; // content가 null이면 빈 문자열로 설정
+
         notionWrap__section.innerHTML = `
           <!-- 타이틀 영역  -->
           <h1 class="notionWrap__section_title">
@@ -133,6 +187,7 @@ function pageGo() {
         const contentArr = content.includes("\n\n")
           ? content.split("\n\n")
           : [content];
+
         // content가 존재하면 최상단에 textarea 생성하지 않도록 처리
         if (contentArr.length > 0 && contentArr[0] !== "") {
           contentArr.forEach((content) => {
@@ -142,60 +197,170 @@ function pageGo() {
           // content가 없다면 최상단 textarea 생성
           initializeTextarea();
         }
+
+        // 제목(input) 변경 시 PUT 요청
+        const titleInput = notionWrap__section.querySelector(
+          ".notionWrap__section_title input"
+        );
+        titleInput.addEventListener("input", function () {
+          const updatedTitle = titleInput.value;
+          const updatedContent = getAllTextareasContent();
+          editContent(url, updatedTitle, updatedContent);
+        });
+
+        // 콘텐츠 영역에서 textarea의 내용이 변경될 때마다 업데이트
+        inputListener = function (event) {
+          const target = event.target;
+          if (target.tagName === "TEXTAREA") {
+            const updatedTitle = titleInput.value;
+            const updatedContent = getAllTextareasContent();
+            console.log(updatedContent);
+            editContent(url, updatedTitle, updatedContent);
+          }
+        };
+        notionWrap__section.addEventListener("input", inputListener);
+
+        // 페이지 내에서 Enter/Backspace 키 이벤트 처리
+        keydownListener = function (event) {
+          const target = event.target;
+          if (target.tagName !== "TEXTAREA") return;
+
+          if (event.key === "Enter") {
+            if (event.shiftKey) {
+              requestAnimationFrame(() => adjustTextareaHeight(target));
+              return;
+            } else {
+              event.preventDefault();
+              createTextarea();
+              updatePlaceholders();
+              return;
+            }
+          }
+
+          if (event.key === "Backspace") {
+            if (target.value === "") {
+              const textareas = Array.from(
+                notionWrap__section.querySelectorAll("textarea")
+              );
+              const index = textareas.indexOf(target);
+
+              if (index > 0) {
+                event.preventDefault();
+                target.remove();
+                textareas[index - 1].focus();
+              }
+            } else {
+              requestAnimationFrame(() => adjustTextareaHeight(target));
+            }
+          }
+        };
+        notionWrap__section.addEventListener("keydown", keydownListener);
+
+        // focus와 blur 이벤트로 placeholder 토글
+        focusListener = function (event) {
+          if (event.target.tagName === "TEXTAREA") {
+            event.target.placeholder =
+              "Write something, or press 'space' for AI, '/' for commands...";
+          }
+        };
+        blurListener = function (event) {
+          if (event.target.tagName === "TEXTAREA") {
+            event.target.placeholder = "";
+          }
+        };
+
+        notionWrap__section.addEventListener("focus", focusListener, true);
+        notionWrap__section.addEventListener("blur", blurListener, true);
+
+        // 최하단의 `textarea`에 포커스
+        clickListener = function (event) {
+          if (event.target === notionWrap__section) {
+            focusLastTextarea();
+          }
+        };
+        notionWrap__section.addEventListener("click", clickListener);
+
+        // 페이지 히스토리 상태 변경
+        history.pushState({ page: url, custom: "test" }, "", `/${url}`);
       });
-      history.pushState({ page: url, custom: "test" }, "", `/${url}`);
-
-      function initializeTextarea() {
-        if (notionWrap__section.querySelectorAll("textarea").length === 0) {
-          createTextarea();
-        }
-      }
-
-      function createTextarea(content = "", showPlaceholder = true) {
-        // 새로운 div 생성 (textarea와 버튼을 포함할 래퍼)
-        const textareaWrapper = document.createElement("div");
-        textareaWrapper.classList.add("textarea-wrapper");
-
-        // 새로운 textarea 생성
-        const newTextarea = document.createElement("textarea");
-        newTextarea.className = "gothic-a1-regular textareas";
-        newTextarea.placeholder = showPlaceholder
-          ? "Write something, or press 'space' for AI, '/' for commands..."
-          : "";
-
-        // 만약 content가 있으면, 그 내용을 textarea에 설정
-        if (content) {
-          newTextarea.value = content;
-        }
-
-        // textarea를 textareaWrapper에 추가
-        textareaWrapper.appendChild(newTextarea);
-
-        // notionWrapSection에 새 textarea가 포함된 div 추가
-        notionWrap__section.appendChild(textareaWrapper);
-
-        // 생성한 textarea에 포커스
-        newTextarea.focus();
-
-        // 초기높이조절
-        adjustTextareaHeight(newTextarea);
-      }
-
-      function adjustTextareaHeight(textarea) {
-        // textarea의 line-height 값을 가져옵니다.
-        const lineHeight = parseInt(getComputedStyle(textarea).lineHeight, 10);
-
-        // 텍스트 길이를 기준으로 줄 수를 계산합니다.
-        const textLength = textarea.value.split("\n").length;
-
-        // 계산된 줄 수에 따라 높이를 설정
-        const calculatedHeight = lineHeight * textLength; // 줄 수에 따른 높이 계산
-
-        // 높이를 설정
-        textarea.style.height = `${calculatedHeight}px`;
-      }
     });
   });
+
+  // 페이지 내에서 `textarea`를 초기화하는 함수
+  function initializeTextarea() {
+    if (notionWrap__section.querySelectorAll("textarea").length === 0) {
+      createTextarea();
+    }
+  }
+
+  // textarea 생성 함수
+  function createTextarea(content = "") {
+    const textareaWrapper = document.createElement("div");
+    textareaWrapper.classList.add("textarea-wrapper");
+
+    const newTextarea = document.createElement("textarea");
+    newTextarea.className = "gothic-a1-regular textareas";
+
+    if (content) {
+      newTextarea.value = content;
+    }
+
+    textareaWrapper.appendChild(newTextarea);
+    notionWrap__section.appendChild(textareaWrapper);
+
+    newTextarea.focus();
+    adjustTextareaHeight(newTextarea);
+    updatePlaceholders();
+  }
+
+  // 콘텐츠가 포함된 모든 textarea의 값 가져오기
+  function getAllTextareasContent() {
+    const textareas = notionWrap__section.querySelectorAll("textarea");
+    let combinedText = "";
+
+    textareas.forEach((textarea, index) => {
+      combinedText += textarea.value;
+      if (index !== textareas.length - 1) {
+        combinedText += "\n\n";
+      }
+    });
+
+    return combinedText;
+  }
+
+  // placeholder가 최하단의 textarea에만 나타나도록 처리
+  function updatePlaceholders() {
+    const textareas = notionWrap__section.querySelectorAll("textarea");
+    textareas.forEach((textarea, index) => {
+      textarea.placeholder =
+        index === textareas.length - 1
+          ? "Write something, or press 'space' for AI, '/' for commands..."
+          : "";
+    });
+  }
+
+  // 텍스트 영역 높이 자동 조정 함수
+  function adjustTextareaHeight(textarea) {
+    const lineHeight = parseInt(getComputedStyle(textarea).lineHeight, 10);
+    const textLength = textarea.value.split("\n").length;
+    const calculatedHeight = lineHeight * textLength;
+    textarea.style.height = `${calculatedHeight}px`;
+  }
+
+  // 페이지 로드 시 각 textarea의 높이를 자동으로 맞추기
+  document.querySelectorAll("textarea").forEach((textarea) => {
+    adjustTextareaHeight(textarea); // 초기화 시 높이 맞추기
+  });
+
+  // 최하단의 `textarea`에 포커스
+  function focusLastTextarea() {
+    const textareas = notionWrap__section.querySelectorAll("textarea");
+    if (textareas.length > 0) {
+      textareas[textareas.length - 1].focus();
+    } else {
+      createTextarea();
+    }
+  }
 }
 
 // 뒤로가기 SPA 업데이트
@@ -284,4 +449,61 @@ function newPage(title, content) {
     <!-- 하위 페이지 생성시 예시 -->
   `;
   return pageTemplet;
+}
+
+///////////////////////////////////////////////////예정
+
+// 하위 페이지 토글
+function underPageToggle() {
+  const ListItem__underBtn = document.querySelectorAll(".ListItem__underBtn");
+  const ListItem__pageLink = document.querySelectorAll(".ListItem__pageLink");
+  ListItem__underBtn.forEach((list, idx) => {
+    list.addEventListener("click", function () {
+      const url = ListItem__pageLink[idx].dataset.url;
+      getContent(url).then((content) => {
+        const docs = content.documents;
+        docs.forEach((doc) => {
+          console.log(doc.id, doc.title);
+        });
+      });
+    });
+  });
+}
+
+// 하위페이지 리스트 포맷
+function underList(id, title) {
+  const underListTemplet = document.createElement("li");
+  underListTemplet.classList.add("personalPage__ListItem--next");
+  underListTemplet.innerHTML = `
+    <ul class="personalPage__PageList--next">
+      <li class="personalPage__ListItem bgChange">
+        <div class="ListItem__underBtn bgChange">
+          <img
+            class="docIcon icon"
+            src="./img/document.png"
+            alt="문서 아이콘"
+          />
+        </div>
+        <a href="${id}" data-url="${id}" class="ListItem__pageLink">
+          <span>${title}</span>
+        </a>
+        <div class="ListItem__delBtn bgChange">
+          <img
+            class="delIcon icon"
+            id="${id}"
+            src="../img/send-to-trash.png"
+            alt="삭제 아이콘"
+          />
+        </div>
+        <div class="ListItem__addBtn bgChange">
+          <img
+            class="addIcon icon"
+            src="../img/plus-icon.png"
+            alt="추가 아이콘"
+          />
+        </div>
+      </li>
+    </ul>
+  `;
+  return underListTemplet;
 }
