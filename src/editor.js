@@ -68,34 +68,21 @@ export const autoSaveDocument = (id) => {
     console.log("10초마다 자동 저장 중");
     createAndSaveBlocks(id);
   }, 10000); // 10초마다 자동 저장
-
-  let typingTimeout;
-  const docContents = document.getElementById("doc-contents");
-
-  docContents.removeEventListener("input", handleAutoSaveInput);
-  docContents.addEventListener("input", handleAutoSaveInput);
-
-  function handleAutoSaveInput() {
-    clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(() => {
-      console.log("3초 간 입력 없으면 자동 저장 중");
-      createAndSaveBlocks(id);
-    }, 3000); // 3초 동안 입력 없으면 자동 저장
-  }
 };
 
 //수동 저장 (Ctrl + s or Command + s)
-export const manualSaveDocument = (id) => {
-  document.removeEventListener("keydown", handleManualSave);
-  document.addEventListener("keydown", handleManualSave);
-
-  function handleManualSave(event) {
-    if ((event.ctrlKey || event.metaKey) && event.key === "s") {
-      event.preventDefault();
-      console.log("수동 저장 중");
-      createAndSaveBlocks(id);
-    }
+function handleManualSave(event, id) {
+  if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+    event.preventDefault();
+    console.log("수동 저장 중");
+    createAndSaveBlocks(id);
   }
+}
+export const manualSaveDocument = (id) => {
+  document.removeEventListener("keydown", (event) =>
+    handleManualSave(event, id)
+  );
+  document.addEventListener("keydown", (event) => handleManualSave(event, id));
 };
 
 document
