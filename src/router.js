@@ -118,19 +118,15 @@ window.addEventListener("popstate", async (e) => {
 
 // 기본 페이지 휴지통 삭제
 document.addEventListener("DOMContentLoaded", function () {
-  // 페이지 로드 시 아이콘 상태 초기화
-  toggleTrashIcon();
+  // 페이지 로드 시 기본 페이지인지 확인하고, 아이콘 상태 설정
+  toggleTrashIcon(window.location.pathname); // 현재 경로를 기준으로 아이콘 상태 설정
 });
 
 document.body.addEventListener("click", function (e) {
-  e.preventDefault(); // 기본 동작을 막음 (링크 클릭 시 페이지 이동을 막음)
-  const target = e.target;
-
-  // 다른 링크 클릭 시
-  if (target.tagName === "A") {
-    const pathname = new URL(target.href).pathname; // 링크의 경로 가져오기
-    // 경로가 기본 페이지인지 확인하고 아이콘 처리
-    toggleTrashIcon(pathname);
+  // 링크 클릭 시 페이지 이동 후 아이콘 상태 갱신
+  if (e.target.tagName === "A") {
+    const pathname = new URL(e.target.href).pathname; // 링크의 경로 가져오기
+    toggleTrashIcon(pathname); // 경로에 맞춰 아이콘 상태 갱신
   }
 });
 
