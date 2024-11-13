@@ -2,7 +2,7 @@ import {
   getRootDocuments,
   postNewDocument,
   initializeDocumentContent,
-  getTargetContent
+  getTargetContent,
 } from "../api/api.js";
 import { navigate, routes } from "../router/router.js";
 
@@ -19,9 +19,9 @@ export const createDocumentsList = async (documentList) => {
 };
 
 // 문서 생성 및 사이드바에 링크 추가
-export const createDocumentItem = (docId, docTitle, parentElement = null) => {
+export const createDocumentItem = async (docId, docTitle, parentElement = null) => {
   const path = `/documents/${docId}`;
-  const initialDocData = initializeDocumentContent(docId);
+  const initialDocData = await initializeDocumentContent(docId);
 
   // 라우트 등록
   routes.set(path, {
@@ -48,7 +48,7 @@ export const createDocumentItem = (docId, docTitle, parentElement = null) => {
   parentElement.appendChild(newDocumentItem);
 
   // 링크 클릭 시 라우팅 및 내용 불러오기
-  newDocumentItem.querySelector(".document-link").onclick = async (event) => {
+  newDocumentItem.querySelector(".document-link").addEventListener("click", async (event) => {
     event.preventDefault();
     navigate(path);
   
@@ -58,54 +58,39 @@ export const createDocumentItem = (docId, docTitle, parentElement = null) => {
     // 편집기 영역에 제목과 내용 표시
     const titleElement = document.getElementById("editor__title-input");
     const contentElement = document.getElementById("editor__content-input");
-    titleElement.value = docData.title || '';
-    contentElement.value = docData.content || '';
-    
+    titleElement.value = docData.title || "";
+    contentElement.value = docData.content || "";
+  
     // 편집 가능한 상태로 설정
     titleElement.disabled = false;
     contentElement.disabled = false;
-  };
+  });
   
 };
 
-
-
-// // 문서 목록을 관리할 요소 선택
-// const documentList = document.getElementById("sidebar__menuWrapper");
-// // 새 페이지 버튼에 이벤트 리스너 추가
-// const createDocumentButton = document.getElementById(
-//   "sideBar__hideButton"
-// );
 // Root Document 생성
 export const addRootDoc = async (documentList) => {
   try {
-    const newDocument = await postNewDocument("제목 없음");
+    const newDocument = await postNewDocument("untitled");
     createDocumentItem(newDocument.id, newDocument.title, documentList);
     navigate(`/documents/${newDocument.id}`);
   } catch (error) {
     console.error("새 페이지 생성 실패:", error);
-    alert("페이지 생성에 실패했습니다.");
   }
 };
-// 버튼 클릭 시 Root Document 생성
-document.getElementById('sideBar__hideButton').addEventListener('click', () => {
-  addRootDoc();
-});
-
 
 // 하위 페이지 생성
 export const addDoc = async (parentId) => {
   const parentElement = document.getElementById(
     `document-container-${parentId}`
   );
-  const subDocumentList = parentElement.nextElementSibling;
+  const subDocumentList = parentElement.nextElementSibling || document.createElement("ul");
 
   try {
-    const newDocument = await postNewDocument("제목 없음", parentId);
+    const newDocument = await postNewDocument("untitled", parentId);
     createDocumentItem(newDocument.id, newDocument.title, subDocumentList);
     navigate(`/documents/${newDocument.id}`);
   } catch (error) {
     console.error("하위 페이지 생성 실패:", error);
-    alert("하위 페이지 생성에 실패했습니다.");
   }
 };
