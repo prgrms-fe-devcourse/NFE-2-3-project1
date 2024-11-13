@@ -1,6 +1,5 @@
 import { BASE_URL, x_username } from "../constants/urls.js";
-// api.js
-// API GET 요청으로 문서 목록 가져오기
+
 export const getRootDocuments = async () => {
   try {
     const response = await fetch(BASE_URL, {
@@ -8,22 +7,24 @@ export const getRootDocuments = async () => {
         "x-username": x_username,
       },
     });
+    if (!response.ok) throw new Error("document 불러오기 실패");
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.error("Document 불러오기 실패:", error);
   }
 };
 
 export const getTargetContent = async (docId) => {
   try {
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(`${BASE_URL}/${docId}`, {
       headers: {
         "x-username": x_username,
       },
     });
+    if (!response.ok) throw new Error("document 불러오기 실패");
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.error("Document 불러오기 실패:", error);
   }
 };
 
@@ -41,13 +42,46 @@ export const postNewDocument = async (title, parentId = null) => {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error("Document 생성에 실패했습니다.");
-    }
-
+    if (!response.ok) throw new Error("Document 생성에 실패했습니다.");
     return await response.json();
   } catch (error) {
     console.error("Document 생성 중 오류 발생:", error);
-    throw error;
+  }
+};
+
+export const initializeDocumentContent = async (docId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${docId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-username": x_username,
+      },
+      body: JSON.stringify({ title: "제목", content: "내용" }),
+    });
+    return response;
+  } catch (error) {
+    console.error("Document 초기화 중 오류 발생:", error);
+  }
+};
+
+export const AutoSave = async (docId, title, content) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${docId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-username": x_username,
+      },
+      body: JSON.stringify({ title, content }),
+    });
+
+    if (!response.ok) throw new Error("document 수정 실패");
+
+    const savedDoc = await response.json();
+    console.log("Document 수정됨:", savedDoc);
+    return savedDoc;
+  } catch (error) {
+    console.error("Document 수정 실패:", error);
   }
 };
