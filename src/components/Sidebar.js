@@ -11,6 +11,7 @@ const onclickSideBarHide = () => {
     hamburger.style.display = "block";
   });
 };
+
 // hover햇을때 햄버거 이미지 바꾸기
 const HamburgerHandler = () => {
   const hamburgerImg = document.querySelector("#sideBar__hamburger img");
