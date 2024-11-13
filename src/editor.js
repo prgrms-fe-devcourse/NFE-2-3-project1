@@ -4,6 +4,8 @@ const deleteButton = document.getElementById("icon__delete");
 const deleteModal = document.getElementById("deleteModal");
 const confirmDeleteButton = document.getElementById("confirmDelete");
 const cancelDeleteButton = document.getElementById("cancelDelete");
+const deleteAlert = document.getElementById("deleteAlert");
+const closeAlertButton = document.getElementById("closeAlert");
 
 // 삭제 버튼 클릭 시 커스텀 모달 열기
 deleteButton.addEventListener("click", function (e) {
@@ -23,8 +25,7 @@ confirmDeleteButton.addEventListener("click", async function () {
   deleteTarget.remove();
 
   deleteModal.style.display = "none"; // 모달 닫기
-  alert("삭제되었습니다."); // 삭제 완료 메시지
-  navigateTo("", "/");
+  deleteAlert.style.display = "block"; // 삭제 완료 알림 표시
 });
 
 // 모달의 "취소" 버튼 클릭 시 모달 닫기
@@ -32,7 +33,12 @@ cancelDeleteButton.addEventListener("click", function () {
   deleteModal.style.display = "none";
 });
 
-// 모달 외부를 클릭했을 때도 모달 닫기
+// 알림창의 "닫기" 버튼 클릭 시 알림창 닫기
+closeAlertButton.addEventListener("click", function () {
+  deleteAlert.style.display = "none";
+});
+
+// 모달 외부 클릭 시 모달 닫기
 window.addEventListener("click", function (e) {
   if (e.target === deleteModal) {
     deleteModal.style.display = "none";
