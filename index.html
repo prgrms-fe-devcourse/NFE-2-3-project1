@@ -29,7 +29,7 @@
           <div class="selectUser">
             <span class="selectUser__text">유저 선택</span>
           </div>
-          <a href="##" class="buildIcon bgChange"
+          <a href="/home" data-url="home" class="buildIcon bgChange"
             ><img
               src="./img/buildIcon.png"
               alt="새 글 작성 아이콘"
@@ -51,9 +51,19 @@
         <!-- 숨겨진 메뉴 -->
         <!-- 개인 페이지 -->
         <article class="personalPage">
-          <a href="#" class="personalPage__toggleBtn bgChange">개인 페이지</a>
+          <div class="personalPage__toggleBtnWrap">
+            <div class="personalPage__toggleBtn bgChange">개인 페이지</div>
+            <!-- 클래스명 addBtn -> buildBtn으로 수정했습니다. -->
+            <div class="ListItem__buildBtn bgChange">
+              <img
+                class="addIcon icon"
+                src="../img/plus-icon.png"
+                alt="추가 아이콘"
+              />
+            </div>
+          </div>
           <ul class="personalPage__PageList">
-            <li class="personalPage__ListItem bgChange">
+            <!-- <li class="personalPage__ListItem bgChange">
               <div class="ListItem__underBtn bgChange">
                 <img
                   class="docIcon icon"
@@ -134,80 +144,13 @@
                   alt="추가 아이콘"
                 />
               </div>
-            </li>
+            </li> -->
           </ul>
         </article>
         <!-- 개인 페이지 -->
       </aside>
       <!-- 메인영역 -->
       <section class="notionWrap__section">
-        <!-- 타이틀 상단 add버튼 영역-->
-        <!-- <div class="notionWrap__section_add">
-          <div class="notionWrap__section_add_icon">
-            <svg
-              role="graphics-symbol"
-              viewBox="0 0 14 14"
-              class="addPage"
-              style="
-                width: 14px;
-                height: 14px;
-                display: block;
-                fill: rgba(55, 53, 47, 0.35);
-                flex-shrink: 0;
-                margin-right: 6px;
-              "
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M7 0c3.861 0 7 3.139 7 7s-3.139 7-7 7-7-3.139-7-7 3.139-7 7-7zM3.561 5.295a1.027 1.027 0 1 0 2.054 0 1.027 1.027 0 0 0-2.054 0zm5.557 1.027a1.027 1.027 0 1 1 0-2.054 1.027 1.027 0 0 1 0 2.054zm1.211 2.816a.77.77 0 0 0-.124-1.087.786.786 0 0 0-1.098.107c-.273.407-1.16.958-2.254.958-1.093 0-1.981-.55-2.244-.945a.788.788 0 0 0-1.107-.135.786.786 0 0 0-.126 1.101c.55.734 1.81 1.542 3.477 1.542 1.668 0 2.848-.755 3.476-1.541z"
-              ></path>
-            </svg>
-            <p>Add icon</p>
-          </div>
-          <div class="notionWrap__section_add_cover">
-            <svg
-              role="graphics-symbol"
-              viewBox="0 0 14 14"
-              class="addPageCover"
-              style="
-                width: 14px;
-                height: 14px;
-                display: block;
-                fill: rgba(55, 53, 47, 0.35);
-                flex-shrink: 0;
-                margin-right: 6px;
-              "
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M2 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm0 12h10L8.5 5.5l-2 4-2-1.5L2 12z"
-              ></path>
-            </svg>
-            <p>Add Cover</p>
-          </div>
-          <div class="notionWrap__section_add_comment">
-            <svg
-              role="graphics-symbol"
-              viewBox="0 0 16 16"
-              class="addPageDiscussion"
-              style="
-                width: 14px;
-                height: 14px;
-                display: block;
-                fill: rgba(55, 53, 47, 0.35);
-                flex-shrink: 0;
-                margin-right: 6px;
-              "
-            >
-              <path
-                d="M4.095 15.465c.287 0 .499-.137.84-.444l2.523-2.277 4.47.007c2.058 0 3.214-1.19 3.214-3.22V4.22c0-2.03-1.156-3.22-3.213-3.22H3.213C1.163 1 0 2.19 0 4.22V9.53c0 2.037 1.196 3.22 3.165 3.213h.273v1.983c0 .45.24.738.657.738zM3.958 5.156a.454.454 0 01-.444-.45c0-.24.198-.438.444-.438h7.157c.246 0 .445.198.445.437a.45.45 0 01-.445.451H3.958zm0 2.256a.454.454 0 01-.444-.451c0-.24.198-.444.444-.444h7.157a.448.448 0 010 .895H3.958zm0 2.256a.448.448 0 010-.896h4.669c.246 0 .437.206.437.452a.438.438 0 01-.437.444H3.958z"
-              ></path>
-            </svg>
-            <p>Add Comment</p>
-          </div>
-        </div> -->
         <!-- 타이틀 영역  -->
         <h1 class="notionWrap__section_title">
           <input placeholder="New Page" />
