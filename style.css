@@ -81,6 +81,18 @@ textarea {
   margin-right: 5px;
 }
 
+.toggle-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px; /*김수현 5px에서 변경 후 애니 추가*/
+  transition: transform 0.3s ease;
+  transform: rotate(-90deg);
+}
+
+.toggle-icon.active {
+  transform: rotate(0deg); /* 하위 페이지가 열리면 아래로 회전 */
+}
+
 .none {
   display: none;
 }
@@ -88,7 +100,16 @@ textarea {
 .flex {
   display: flex;
   align-items: center;
-  padding: 5px 0;
+  padding: 5px 5px;
+  cursor: pointer; /*포인터 추가*/
+}
+.flex:hover {
+  background-color: var(--color-border);
+  border-radius: 4px;
+}
+.flex:active {
+  background-color: var(--color-border);
+  font-weight: bold;
 }
 
 .relative {
@@ -96,7 +117,21 @@ textarea {
 }
 
 .indent {
-  margin-left: 8px;
+  padding-left: 8px; /* .flex와 정렬을 맞추기 위해 */
+  display: none;
+}
+
+.indent.visible {
+  display: block; /* 'visible' 클래스가 추가되면 하위 리스트 보임 */
+}
+
+/* 하위 페이지가 없을 때 */
+.no-sub-pages {
+  margin-left: 20px;
+  font-size: var(--font-size-sm);
+  color: var(--color-tertiary);
+  padding: 8px 0;
+  width: 100%;
 }
 
 /* WRAPPER */
@@ -109,10 +144,11 @@ textarea {
 #side-bar {
   width: 248px;
   height: 100vh;
-  background-color: var(--color-background-primary);
+  background-color: var(--color-background-accent);
   border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .side-bar__user {
@@ -122,12 +158,18 @@ textarea {
   padding: 0 13px;
 }
 .side-bar__wrapper {
-  flex: 1; /* 남은 공간을 채우도록 설정 */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0 8px;
   overflow-y: auto; /* 사이드바 내에서 스크롤 가능하도록 설정 */
+}
+
+.side-bar__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 /* 리스트 이름의 길이가 길어지면 말 줄임표로 대체 */
@@ -145,12 +187,18 @@ textarea {
   align-items: center;
   position: absolute;
   right: 0;
-  top: 8.5px;
+  top: 5px;
   opacity: 0;
   transition: all 0.1s;
 }
 .flex:hover .doc-item__add {
   opacity: 1;
+}
+
+.selected {
+  background-color: var(--color-border);
+  font-weight: bold;
+  border-radius: 4px;
 }
 
 .side-bar__new-page {
