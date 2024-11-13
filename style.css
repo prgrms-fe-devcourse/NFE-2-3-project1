@@ -99,7 +99,8 @@ textarea {
 .flex {
   display: flex;
   align-items: center;
-  padding: 5px 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   cursor: pointer; /*포인터 추가*/
 }
 .flex:hover {
@@ -264,6 +265,8 @@ textarea {
 .doc-item {
   display: block;
   width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-right: 20px;
   white-space: nowrap;
   overflow: hidden;
