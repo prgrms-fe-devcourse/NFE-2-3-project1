@@ -93,7 +93,7 @@ textarea {
   transform: rotate(0deg); /* 하위 페이지가 열리면 아래로 회전 */
 }
 
-.none {
+.hidden {
   display: none;
 }
 
@@ -118,11 +118,6 @@ textarea {
 
 .indent {
   padding-left: 8px; /* .flex와 정렬을 맞추기 위해 */
-  display: none;
-}
-
-.indent.visible {
-  display: block; /* 'visible' 클래스가 추가되면 하위 리스트 보임 */
 }
 
 /* 하위 페이지가 없을 때 */
