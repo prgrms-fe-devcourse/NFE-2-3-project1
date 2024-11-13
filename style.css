@@ -390,9 +390,6 @@ input {
 #doc-contents[data-placeholder]:empty::before {
   content: attr(data-placeholder);
   color: var(--color-tertiary);
-  position: absolute;
-  top: 0;
-  left: 5px;
   pointer-events: none;
 }
 
