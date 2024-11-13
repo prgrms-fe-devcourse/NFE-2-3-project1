@@ -13,12 +13,13 @@ const render = async (docId = "", target = "all") => {
 
   if (pathname === "/") {
     document.getElementById("doc-title__input").innerText = `🥔 감자의 Notion`;
-    document.getElementById("doc__title").innerText = `🥔 감자의 Notion`;
+    document.querySelector(".doc__title-box").innerHTML = `🥔 감자의 Notion`;
     document.getElementById(
       "doc-contents"
     ).innerText = `🥔 감자의 Notion에 오신 것을 환영합니다!
 작성한 문서를 확인해보세요! 새로운 문서를 추가하거나 기존 문서를 삭제하는 것도 가능합니다.
     `;
+    document.querySelector(".doc__childDocs").innerHTML = "";
   } else {
     switch (target) {
       case "all":
@@ -41,7 +42,7 @@ const render = async (docId = "", target = "all") => {
   }
 };
 
-const renderInit = async () => {
+export const renderInit = async () => {
   const documentsForSidebar = await fetchDocuments();
   renderSidebar(documentsForSidebar);
   render();

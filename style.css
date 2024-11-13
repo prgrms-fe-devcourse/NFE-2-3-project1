@@ -344,12 +344,24 @@ input {
   position: relative;
 }
 
+.doc__title-box {
+  display: flex;
+  gap: 10px;
+}
 #doc__title {
   padding: 3px 6px;
+  position: relative;
 }
 #doc__title:hover {
   background-color: var(--color-background-primary);
   border-radius: 4px;
+}
+#doc__title:not(:last-child):after {
+  display: block;
+  content: "/";
+  position: absolute;
+  top: 2px;
+  right: -8px;
 }
 
 .doc__header {
