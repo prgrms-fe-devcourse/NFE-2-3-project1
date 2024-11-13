@@ -97,6 +97,11 @@ textarea {
   display: block; /* 'visible' 클래스가 추가되면 하위 리스트 보임 */
 }
 
+.icon__delete:hover {
+  filter: invert(16%) sepia(89%) saturate(6054%) hue-rotate(358deg)
+    brightness(97%) contrast(113%);
+}
+
 /* 하위 페이지가 없을 때 */
 .no-sub-pages {
   margin-left: 20px;
