@@ -231,6 +231,10 @@ textarea {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  padding: 0 8px;
+
+  /* display: none; */
 }
 
 .side-bar__user {
@@ -245,7 +249,6 @@ textarea {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  padding: 0 8px;
   overflow-x: hidden;
   overflow-y: auto; /* 사이드바 내에서 스크롤 가능하도록 설정 */
   margin-bottom: 40px;
@@ -372,4 +375,11 @@ textarea {
   position: absolute;
   bottom: 12px;
   left: 20px;
+}
+
+/* 사이드바 */
+.sidebar-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
