@@ -1,4 +1,5 @@
 @import url("/styles/variables.css");
+
 .breadCrumbs__hamburger--hidden {
   display: none;
 }
@@ -6,4 +7,8 @@
   display: flex;
   align-items: center;
   gap: 26px;
+}
+
+.pageView__breadCrumbs {
+  padding-block: 8px;
 }
