@@ -1,4 +1,6 @@
-// sidebar
+import { renderSidebar } from "./rendering.js";
+import { fetchDocuments } from "./utils.js";
+
 // 새 페이지 생성
 document.addEventListener("DOMContentLoaded", function () {
   // 이벤트 리스너
@@ -36,6 +38,9 @@ async function createNewPage(parentId) {
     }
     const newPageData = await response.json();
     console.log("API 응답 데이터:", newPageData);
+
+    const documents = await fetchDocuments();
+    renderSidebar(documents);
   } catch (error) {
     console.error("페이지 생성 중 오류 발생:", error);
     alert("페이지 생성 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.");
