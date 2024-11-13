@@ -15,9 +15,9 @@ export const renderEditor = (doc) => {
     }
 
     // 문서 제목과 내용 표시
-    docTitleInput.value = doc.title || "제목 없음";
-    docTitle. = doc.title.split("\n")[0] || "제목 없음";
-    docContents.value = doc.content || "아름다운 글을 작성해보세요!!";
+    docTitleInput.value = doc.title;
+    docTitle.innerText = doc.title.split("\n")[0];
+    docContents.value = doc.content;
   };
 
   displayDocumentContent(doc);
