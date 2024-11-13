@@ -1,7 +1,9 @@
+import { createNewPage } from "./sidebar.js";
+import { autoSaveDocument, manualSaveDocument } from "./editor.js";
 import { navigateTo } from "./utils.js";
 
 export const renderEditor = (doc) => {
-  console.log(`문서 내용 : `, doc);
+  console.log("문서 내용 : ", doc);
 
   const displayDocumentContent = (doc) => {
     const docTitleInput = document.getElementById("doc-title__input");
@@ -20,6 +22,10 @@ export const renderEditor = (doc) => {
   };
 
   displayDocumentContent(doc);
+
+  //자동 저장, 수동 저장
+  autoSaveDocument();
+  manualSaveDocument();
 };
 
 export const renderSidebar = (docs) => {
@@ -31,22 +37,39 @@ export const renderSidebar = (docs) => {
       const listItem = document.createElement("li");
       const title = doc.title || "제목 없음";
 
+      // 리스트 항목의 HTML 구조 생성
       listItem.innerHTML = `
-          <div class="flex">
+          <div class="flex relative">
             <img src="./assets/toggle-icon.svg" alt="토글 아이콘" class="toggle-icon" />
             <a href="${title}" class="doc-item" data-id="${doc.id}">${title}</a>
+            <button class="doc-item__add">
+              <img src="./assets/plus-icon.svg" alt="새 페이지 추가 버튼" class="icon" />
+            </button>
           </div>
         `;
 
-      if (doc.documents && doc.documents.length > 0) {
-        const subList = document.createElement("ul");
+      // 하위 문서가 있을 경우, 하위 문서 목록 생성
+      const subList = document.createElement("ul");
+      if (doc.documents.length > 0) {
         subList.classList.add("indent");
         listItem.appendChild(subList);
 
         makeDocuments(doc.documents, subList);
+      } else {
+        listItem.appendChild(subList);
       }
 
       parentsElement.appendChild(listItem);
+
+      // 하위 문서 추가 버튼에 이벤트 리스너 추가
+      const addButton = listItem.querySelector(".doc-item__add");
+      if (addButton) {
+        addButton.addEventListener("click", async (e) => {
+          e.stopPropagation(); // 클릭 이벤트가 부모에게 전파되지 않도록 함
+          const parentId = doc.id; // 현재 문서 ID를 parentId로 사용
+          await createNewPage(parentId); // 하위 문서 생성 함수 호출
+        });
+      }
     });
   };
 
@@ -57,12 +80,52 @@ export const renderSidebar = (docs) => {
   navListEl.addEventListener("click", async (e) => {
     e.preventDefault();
     const target = e.target;
-    if (target.tagName === "A") {
-      const id = e.target.dataset.id;
-      const pathname = new URL(e.target.href).pathname;
+    const id = target.dataset.id;
+    const pathname = new URL(target.href).pathname;
 
+    if (target.tagName === "A") {
       console.log(`클릭한 문서 ID : `, id);
+      // 이전에 선택된 문서가 있을 시, 비활성화
+      const prevSelectedDoc = document.querySelector(".selected");
+      if (prevSelectedDoc) {
+        prevSelectedDoc.classList.remove("selected");
+      }
+
+      // 현재 선택된 문서를 활성화
+      target.parentElement.classList.add("selected");
       navigateTo({ id }, pathname);
     }
+  });
+
+  const toggleButtons = document.querySelectorAll(".flex");
+
+  toggleButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      // 클릭된 버튼 내의 .indent 요소를 찾아 토글
+      const subList = button.nextElementSibling;
+      subList.classList.toggle("hidden");
+
+      // 하위 페이지가 비어있을 경우 "하위 페이지 없음" 메시지 표시
+      const isEmpty = subList.children.length === 0;
+      const isNotHidden = !subList.classList.contains("hidden");
+      if (isEmpty && isNotHidden) {
+        const message = document.createElement("p");
+        message.classList.add("no-sub-pages");
+        message.textContent = "하위 페이지 없음";
+        subList.appendChild(message);
+      } else {
+        // "하위 페이지 없음" 메시지가 있으면 제거
+        const noSubPagesMessage = subList.querySelector(".no-sub-pages");
+        if (noSubPagesMessage) {
+          noSubPagesMessage.remove();
+        }
+      }
+
+      // 클릭된 .flex 요소에 active 클래스를 추가하여 아이콘 회전 효과를 주기
+      const toggleIcon = button.querySelector(".toggle-icon");
+      if (toggleIcon) {
+        toggleIcon.classList.toggle("active");
+      }
+    });
   });
 };
