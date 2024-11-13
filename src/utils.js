@@ -1,3 +1,4 @@
+import { autoSaveDocument, manualSaveDocument } from "./editor.js";
 import { renderEditor } from "./rendering.js";
 
 const BASE_URL = `https://kdt-api.fe.dev-cos.com/documents`;
@@ -46,6 +47,9 @@ export const navigateTo = async (state = { id: null }, pathname) => {
 
   const documentContent = await fetchDocumentContent(state.id);
   renderEditor(documentContent);
+
+  autoSaveDocument(state.id);
+  manualSaveDocument(state.id);
 };
 
 export const fetchDeleteDocument = async (docId = "") => {
