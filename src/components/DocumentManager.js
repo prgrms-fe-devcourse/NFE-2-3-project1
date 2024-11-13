@@ -50,16 +50,28 @@ export const createDocumentItem = (docId, docTitle, parentElement) => {
   };
 };
 
+// 문서 목록을 관리할 요소 선택
+const documentList = document.getElementById("sidebar__menuWrapper");
+// 새 페이지 버튼에 이벤트 리스너 추가
+const createDocumentButton = document.getElementById(
+  "sideBar__hideButton"
+);
 // Root Document 생성
 export const addRootDoc = async () => {
   try {
     const newDocument = await postNewDocument("제목 없음");
     createDocumentItem(newDocument.id, newDocument.title, documentList);
+    navigate(`/documents/${newDocument.id}`);
   } catch (error) {
     console.error("새 페이지 생성 실패:", error);
     alert("페이지 생성에 실패했습니다.");
   }
 };
+// 버튼 클릭 시 Root Document 생성
+document.getElementById('sideBar__hideButton').addEventListener('click', () => {
+  addRootDoc();
+});
+
 
 // 하위 페이지 생성
 export const addDoc = async (parentId) => {
@@ -75,12 +87,3 @@ export const addDoc = async (parentId) => {
     alert("하위 페이지 생성에 실패했습니다.");
   }
 };
-
-
-
-
-
-
-
-
-
