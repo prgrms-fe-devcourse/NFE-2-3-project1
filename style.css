@@ -98,10 +98,86 @@ textarea {
   display: block; /* 'visible' 클래스가 추가되면 하위 리스트 보임 */
 }
 
+/* 페이지 삭제 할 때 */
+
 .icon__delete:hover {
   cursor: pointer; /* 포인터 추가 */
   filter: invert(16%) sepia(89%) saturate(6054%) hue-rotate(358deg)
     brightness(97%) contrast(113%); /* 송원 추가 : 휴지통 아이콘에 마우스 올렸을 때 색상 변경 */
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.modal-btn {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.cancel {
+  background-color: #ccc;
+  color: black;
+}
+
+.alert-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.alert-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.alert-close-btn {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: black;
 }
 
 /* 하위 페이지가 없을 때 */
