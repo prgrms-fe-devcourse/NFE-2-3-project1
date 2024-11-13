@@ -1,0 +1,37 @@
+name: Deployment
+
+on:
+  pull_request:
+  	# 'main' 브랜치에 푸시할때마다 워크플로우 트리거
+    branches: [main]    
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest 
+     # GITHUB_TOKEN을 사용하는 작업 내의 액세스를 추가하거나 제거
+    permissions:   
+      # 작업이 릴리스를 만들 수 있도록 허용
+      contents: write    
+        
+    # 동일한 동시성 그룹을 사용하는 단일 작업 또는 워크플로우만 한 번에 실행
+    concurrency:    
+      # 여러 워크플로우가 있는 경우 다른 워크플로우의 작업이 취소되지 않도록 동시성 그룹을 빌드
+      group: ${{ github.workflow }}-${{ github.ref }}   
+
+    steps:
+    - uses: actions/checkout@v3
+
+	# node.js 사용
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18 
+	
+    # npm install 보다 빠른 npm ci로 빌드 및 테스트
+    - run: npm ci 
+    - run: npm run build
+    
+    - uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}     
+        # 배포할 디렉토리 이름 (꼭 확인!)
+        publish_dir: ./build
