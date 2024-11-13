@@ -1,6 +1,5 @@
-// editor
-
-import { fetchDeleteDocument, navigateTo } from "./utils.js";
+import { navigateTo } from "./router.js";
+import { fetchDeleteDocument } from "./utils.js";
 
 const deleteButton = document.getElementById("icon__delete");
 const deleteModal = document.getElementById("deleteModal");
@@ -107,7 +106,7 @@ confirmDeleteButton.addEventListener("click", async function () {
 
   deleteModal.style.display = "none"; // 모달 닫기
   deleteAlert.style.display = "block"; // 삭제 완료 알림 표시
-  navigateTo(null, "/");
+  navigateTo({ id: docId }, "/");
 });
 
 // 모달의 "취소" 버튼 클릭 시 모달 닫기
