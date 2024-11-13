@@ -1,5 +1,5 @@
 const listPages = document.querySelectorAll(".list__page");
-const mainPage = document.querySelector(".main");
+const mainPage = document.querySelector(".document");
 
 const pages = {
   home: `<h1>시작 페이지</h1>

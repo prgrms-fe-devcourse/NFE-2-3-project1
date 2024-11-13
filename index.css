@@ -1,3 +1,10 @@
+:root {
+  --content-width: minmax(auto, 708px);
+  --margin-width: minmax(96px, 1fr);
+  --button-hover: #e8e8e6;
+}
+
+/* reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,6 +23,7 @@
 /* sidebar */
 .sidebar {
   width: 248px;
+  flex-shrink: 0;
   height: 100%;
   background-color: rgb(247, 247, 245);
   box-shadow: rgba(0, 0, 0, 0.02, 4);
@@ -23,39 +31,50 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  /*사이드 바 고정 */
+  position: fixed; /* 화면에 고정 */
+  top: 0; /* 화면 상단에 위치 */
+  left: 0; /* 화면 왼쪽에 위치 */
+  z-index: 1000; /* 다른 요소들 위에 놓이도록 설정 */
 }
 
 .sidebar__header {
   font-size: 14px;
   display: flex;
   flex-direction: row;
-}
-
-.sidebar__header::after {
-  background-color: black;
-  width: 100%;
+  margin: 6px 8px 12px 8px;
+  padding: 4px 8px;
 }
 
 .header__icon {
   width: 20px;
   height: 20px;
+  margin-right: 8px;
 }
 
 .list {
   flex-grow: 1;
+  padding: 0px 8px 20px 8px;
+  /* 제안: 넘치는 부분을 ...으로 표현하는건? */
+  overflow-y: auto;
 }
 
-.list__header {
-  font-size: 12px;
-  line-height: 1;
-  color: rgb(145, 145, 142);
-  font-weight: 500;
+.list__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .list__page {
   display: flex;
   list-style: none;
-  padding-left: 0px;
+  padding: 7px 10px;
+  border-radius: 6px;
+}
+
+.list__page:hover {
+  background-color: var(--button-hover);
 }
 
 .page__link {
@@ -64,9 +83,117 @@
   flex-grow: 1;
 }
 
-/* main Page */
-.main {
-  height: 100%;
+.sidebar__divider {
+  width: 100%;
+  height: 1px;
+  background-color: #e6e6e6;
+  border: none;
+}
+
+.sidebar__newContent {
+  display: flex;
+  align-items: center;
+  height: 27px;
+  margin: 10px 8px;
+  padding: 0 14px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.sidebar__newContent:hover {
+  background-color: var(--button-hover);
+}
+
+.divider {
+  /* background-color: #e6e6e6; */
+  background-color: red;
+  width: 100px;
+  border: none;
+}
+
+/* 전체 너비 off인 노션 버전 */
+/* text editor */
+
+.icon:hover {
+  background-color: #f3f3f3;
+  cursor: pointer;
+}
+
+.document {
+  /* height: 100%; */
   background-color: white;
   flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
+
+.document__header {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
+  align-items: center;
+  height: 44px;
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 10px;
+}
+
+.document__header--button {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  border-radius: 6px;
+  padding: 0 8px;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+  /* font-family: "Inter", "Noto Sans KR", sans-serif; */
+}
+
+.document__content {
+  display: grid;
+  grid-template-columns: var(--margin-width) var(--content-width) var(
+      --margin-width
+    );
+  grid-template-rows: max-content;
+  /* height: calc(100vh - 44px - 44px); */
+  height: calc(100vh - 44px);
+  overflow-y: auto;
+}
+
+.document__content--title,
+.document__content--detail {
+  grid-column: 2;
+}
+
+.document__content--title::placeholder,
+.document__content--detail::placeholder {
+  color: #dbdad9;
+}
+
+.document__content--title {
+  margin-top: 96px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.document__content--detail {
+  margin-top: 24px;
+  margin-bottom: 178px;
+  font-size: 16px;
+}
+
+/* .document__footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 44px;
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 10px;
+} */

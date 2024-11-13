@@ -46,11 +46,41 @@
           </li> -->
         </ul>
       </section>
+      <hr class="sidebar__divider" />
       <p class="sideBar__newContent">+ new</p>
+      <hr class="divider" />
     </nav>
-    <main class="main">
-      <h1>시작 페이지</h1>
-      <p>TEAM5의 노션입니다.</p>
+    <main class="document">
+      <header class="document__header">
+        <div role="button" class="icon document__header--button">쓰레기통</div>
+      </header>
+      <article class="document__content">
+        <!-- 선택 구현 -->
+        <!-- <h1 id="document-title" class="document__content--title">
+          시작 페이지
+        </h1>
+        <p id="document-detail" class="document__content--detail">
+          TEAM5의 노션입니다.
+        </p> -->
+        <input
+          id="document-title"
+          class="document__content--title"
+          placeholder="내용을 입력하세요"
+          rows=""
+          type="text"
+        />
+        <textarea
+          id="document-detail"
+          class="document__content--detail"
+          placeholder="내용을 입력하세요."
+          rows=""
+        ></textarea>
+      </article>
+      <!-- 선택 구현 -->
+      <!-- <footer class="document__footer">
+        <p>하위 페이지 1</p>
+        <p>하위 페이지 2</p>
+      </footer> -->
     </main>
   </body>
 </html>
