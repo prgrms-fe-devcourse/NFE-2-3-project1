@@ -74,10 +74,12 @@ function getPages() {
         newList(data[key].id, data[key].title)
       );
     });
-    pageGo();
-    addDeleteListeners();
-    underPageToggle();
-    MakeUnderPage();
+    resetClickEventAll(
+      addDeleteListeners,
+      pageGo,
+      underPageToggle,
+      MakeUnderPage
+    );
   });
 }
 getPages();
@@ -89,6 +91,7 @@ function MakeNewPage(className) {
   const personalPage__PageList = document.querySelector(
     ".personalPage__PageList"
   );
+
   buildBtn.addEventListener("click", function () {
     postData().then((data) => {
       const url = data.id;
@@ -96,8 +99,12 @@ function MakeNewPage(className) {
       history.pushState({ page: url, custom: "test" }, "", `/${url}`);
       notionWrap__section.innerHTML = newPage(data.title);
       personalPage__PageList.appendChild(newList(data.id, data.title));
-      addDeleteListeners();
-      pageGo();
+      resetClickEventAll(
+        addDeleteListeners,
+        pageGo,
+        underPageToggle,
+        MakeUnderPage
+      );
     });
   });
 }
@@ -105,22 +112,30 @@ MakeNewPage("ListItem__buildBtn");
 MakeNewPage("buildIcon");
 
 //////////////////////////////////////////////
-// 하위 페이지 추가 버튼(리스트의 +버튼들)
+// 하위 페이지 추가 버튼(리스트의 +버튼들) 보류
 function MakeUnderPage() {
-  const ListItem__addBtn = document.querySelectorAll(".ListItem__addBtn");
   const notionWrap__section = document.querySelector(".notionWrap__section");
+  const ListItem__addBtn = document.querySelectorAll(".ListItem__addBtn");
   ListItem__addBtn.forEach((list, idx) => {
-    list.addEventListener("click", function () {
+    list.replaceWith(list.cloneNode(true));
+
+    const newList = document.querySelectorAll(".ListItem__addBtn")[idx];
+
+    newList.addEventListener("click", function () {
       const targetA = document.querySelectorAll(".ListItem__pageLink");
       const url = targetA[idx].dataset.url;
       postData(url).then((data) => {
+        console.log(underList(data.id, data.title));
         pages[url] = underList(data.id, data.title);
         history.pushState({ page: url, custom: "test" }, "", `/${url}`);
         notionWrap__section.innerHTML = newPage(data.title);
         targetA[idx].parentElement.after(underList(data.id, data.title));
-        addDeleteListeners();
-        pageGo();
-        MakeUnderPage();
+        resetClickEventAll(
+          addDeleteListeners,
+          pageGo,
+          underPageToggle,
+          MakeUnderPage
+        );
       });
     });
   });
@@ -170,7 +185,6 @@ function pageGo() {
 
       // 새로운 페이지 콘텐츠 로드
       getContent(url).then((data) => {
-        console.log(data);
         const title = data.title;
         const content = data.content || ""; // content가 null이면 빈 문자열로 설정
 
@@ -457,16 +471,56 @@ function newPage(title, content) {
 function underPageToggle() {
   const ListItem__underBtn = document.querySelectorAll(".ListItem__underBtn");
   const ListItem__pageLink = document.querySelectorAll(".ListItem__pageLink");
+
+  // 기존 이벤트 리스너 제거 후 새로 추가
   ListItem__underBtn.forEach((list, idx) => {
-    list.addEventListener("click", function () {
-      const url = ListItem__pageLink[idx].dataset.url;
-      getContent(url).then((content) => {
-        const docs = content.documents;
-        docs.forEach((doc) => {
-          console.log(doc.id, doc.title);
+    // 기존 이벤트 리스너 제거
+    list.replaceWith(list.cloneNode(true));
+
+    // 다시 querySelector로 새로 추가된 요소를 선택
+    const newList = document.querySelectorAll(".ListItem__underBtn")[idx];
+
+    // 새 이벤트 리스너 추가
+    newList.addEventListener("click", function () {
+      if (!newList.classList.contains("seen")) {
+        newList.classList.add("seen");
+        const url = ListItem__pageLink[idx].dataset.url;
+        getContent(url).then((content) => {
+          const docs = content.documents;
+          docs.forEach((doc) => {
+            console.log(doc);
+            getContent(doc.id).then((content) => {
+              pages[doc.id] = newPage(content.title, content.content);
+            });
+            newList.parentElement.after(underList(doc.id, doc.title));
+          });
+          resetClickEventAll(
+            addDeleteListeners,
+            pageGo,
+            underPageToggle,
+            MakeUnderPage
+          );
         });
-      });
+      } else {
+        newList.classList.remove("seen");
+        if (newList.parentElement.nextElementSibling) {
+          while (
+            newList.parentElement.nextElementSibling &&
+            newList.parentElement.nextElementSibling.classList.value ===
+              "personalPage__ListItem--next"
+          ) {
+            newList.parentElement.nextElementSibling.remove();
+          }
+        }
+      }
     });
+  });
+}
+
+// 이벤트리스너 한번에 추가하기
+function resetClickEventAll(...arg) {
+  arg.forEach((callback) => {
+    callback();
   });
 }
 
