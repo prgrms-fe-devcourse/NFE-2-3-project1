@@ -43,18 +43,14 @@ export const renderSidebar = (docs) => {
         `;
 
       // 하위 문서가 있을 경우, 하위 문서 목록 생성
-      if (doc.documents && doc.documents.length > 0) {
-        const subList = document.createElement("ul");
-        subList.classList.add("indent", "visible");
+      const subList = document.createElement("ul");
+      if (doc.documents.length > 0) {
+        subList.classList.add("indent");
         listItem.appendChild(subList);
 
         makeDocuments(doc.documents, subList);
       } else {
-        // 하위 페이지가 없으면 "하위 페이지 없음" 메시지 표시
-        const message = document.createElement("p");
-        message.classList.add("no-sub-pages");
-        message.textContent = "하위 페이지 없음";
-        listItem.appendChild(message);
+        listItem.appendChild(subList);
       }
 
       parentsElement.appendChild(listItem);
@@ -67,21 +63,21 @@ export const renderSidebar = (docs) => {
   makeDocuments(docs);
   navListEl.addEventListener("click", async (e) => {
     e.preventDefault();
-    const target = e.target.closest("div");
-    if (target) {
+    const target = e.target;
+    const id = target.dataset.id;
+    const pathname = new URL(target.href).pathname;
+
+    if (target.tagName === "A") {
+      console.log(`클릭한 문서 ID : `, id);
+      // 이전에 선택된 문서가 있을 시, 비활성화
       const prevSelectedDoc = document.querySelector(".selected");
       if (prevSelectedDoc) {
         prevSelectedDoc.classList.remove("selected");
       }
 
-      const id = e.target.dataset.id;
-      const pathname = new URL(e.target.href).pathname;
-      const prevDocTitle = target.innerText;
-
-      console.log(`클릭한 문서 ID : `, id);
-      target.classList.add("selected");
-
-      navigateTo({ id, prevDocTitle }, pathname);
+      // 현재 선택된 문서를 활성화
+      target.parentElement.classList.add("selected");
+      navigateTo({ id }, pathname);
     }
   });
 
@@ -90,21 +86,22 @@ export const renderSidebar = (docs) => {
   toggleButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       // 클릭된 버튼 내의 .indent 요소를 찾아 토글
+      const subList = button.nextElementSibling;
 
-      if (button && button.classList.contains("indent")) {
-        // 하위 페이지가 비어있을 경우 "하위 페이지 없음" 메시지 표시
-        if (button.children.length === 0 && !button.querySelector(".no-sub-pages")) {
-          const message = document.createElement("p");
-          message.classList.add("no-sub-pages");
-          message.textContent = "하위 페이지 없음";
-          subList.appendChild(message);
-        } else {
-          // "하위 페이지 없음" 메시지가 있으면 제거
-          const noSubPagesMessage = subList.querySelector(".no-sub-pages");
-          if (noSubPagesMessage) {
-            noSubPagesMessage.remove();
-          }
+      // 하위 페이지가 비어있을 경우 "하위 페이지 없음" 메시지 표시
+      if (subList.children.length === 0) {
+        const message = document.createElement("p");
+        message.classList.add("no-sub-pages");
+        message.textContent = "하위 페이지 없음";
+        subList.appendChild(message);
+      } else {
+        // "하위 페이지 없음" 메시지가 있으면 제거
+        const noSubPagesMessage = subList.querySelector(".no-sub-pages");
+        if (noSubPagesMessage) {
+          noSubPagesMessage.remove();
         }
+
+        subList.classList.toggle("hidden");
       }
 
       // 클릭된 .flex 요소에 active 클래스를 추가하여 아이콘 회전 효과를 주기
