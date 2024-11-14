@@ -6,6 +6,7 @@ import {
 } from "../api/api.js";
 import { navigate, routes } from "../router/router.js";
 import { updateBreadcrumb } from "./breadcrumb.js";
+import { sidebarButton } from "./Sidebar.js";
 
 // 문서 목록을 가져와 동적 링크 생성
 export const createDocumentsList = async () => {
@@ -53,15 +54,7 @@ export const createDocumentItem = async (doc, parentElement = null) => {
   newDocumentItem.classList.add("sidebar__menuWrapper--document");
   newDocumentItem.id = `document-container-${doc.id}`;
 
-  newDocumentItem.innerHTML = `
-    <div class="document-content">
-      <a href="#" class="document-link" data-url="doc${doc.id}">
-        ${doc.title}
-      </a>
-      <button class="add-subdoc-btn" data-parent-id="${doc.id}">+</button>
-    </div>
-    <ul class="sub-document-list" style="display: none;"></ul>
-  `;
+  newDocumentItem.innerHTML = sidebarButton(doc.id, doc.title);
 
   // 부모 요소가 있으면 그 안에, 없으면 document-list에 추가
   if (parentElement) {
@@ -83,14 +76,14 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     });
   }
 
-  // hover 이벤트 추가
-  newDocumentItem.addEventListener("mouseenter", () => {
-    newDocumentItem.classList.add("hover__document-item");
-  });
+  // // hover 이벤트 추가
+  // newDocumentItem.addEventListener("mouseenter", () => {
+  //   newDocumentItem.classList.add("hover__document-item");
+  // });
 
-  newDocumentItem.addEventListener("mouseleave", () => {
-    newDocumentItem.classList.remove("hover__document-item");
-  });
+  // newDocumentItem.addEventListener("mouseleave", () => {
+  //   newDocumentItem.classList.remove("hover__document-item");
+  // });
 
   // 문서 클릭 이벤트
   newDocumentItem.addEventListener("click", async (event) => {
@@ -102,7 +95,7 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     removeAllActiveClasses();
 
     // 현재 클릭된 항목에 active 클래스 추가
-    newDocumentItem.classList.add("acitve__document-item");
+    // newDocumentItem.classList.add("acitve__document-item");
 
     navigate(path);
 

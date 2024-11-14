@@ -1,4 +1,4 @@
-@import url("/styles/variables.css");
+@import url("./variables.css");
 
 .screen__sidebar {
   box-sizing: border-box;
@@ -10,6 +10,7 @@
   flex-direction: column;
   gap: 1.2rem;
 }
+
 .screen_miniSidebar {
   position: absolute;
   left: 12px;
@@ -46,7 +47,6 @@
 .sub-document-list {
   padding-left: 1.42rem;
   list-style-type: none;
-  display: none;
 }
 .sidebar__menuWrapper--documet {
   height: 30px;
@@ -61,7 +61,6 @@
 .sidebar__menuWrapper--document {
   border-radius: 4px;
   display: block;
-  padding: 5px 8px;
   position: relative;
 }
 .add-subdoc-btn {
@@ -112,7 +111,7 @@
 }
 
 /* 사이드바 아이콘 */
-.sideBar__button {
+.sideBar__hideButton {
   box-sizing: border-box;
   width: 20px;
   height: 20px;
@@ -122,25 +121,58 @@
   background: none;
   cursor: pointer;
 }
-.sideBar__button:hover {
+
+.sideBar__hideButton:hover {
   background-color: var(--bg100);
   border-radius: 4px;
 }
+
 .sidebar__icon {
   box-sizing: border-box;
   width: fit-content;
   height: fit-content;
 }
+
 .sidebar__iconWrap {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 /* 사이드바 숨기기 css */
 .sidebar__hide {
   min-width: 0px;
   width: 0px;
   padding: 0px;
   transform: translateX(-250px);
-  display: none;
+}
+
+/* 사이드바 Item 스타일 */
+.sidebar_item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  padding: 5px 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar_item .sidebar_item_left_btn {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+}
+
+.sidebar_item:hover {
+  background-color: var(--bg100);
+  color: var(--black200);
+  transition: background-color 0.2s ease;
+}
+
+.sidebar_item-btn {
+  display: inline-flex;
+}
+
+.sidebar_item .add-subdoc-btn {
 }
