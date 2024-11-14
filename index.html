@@ -14,11 +14,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+KR:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <!-- icon -->
-    <script
-      src="https://kit.fontawesome.com/fe08d64e9b.js"
-      crossorigin="anonymous"
-    ></script>
     <!-- js files -->
     <script defer src="./index.js"></script>
     <script defer src="./sideBar.js"></script>
@@ -36,51 +31,60 @@
       </header>
       <section class="list">
         <p class="list__header">Shared</p>
-        <ul class="list__container">
-          <!-- 예시 -->
-          <!-- <li class="list__page" data-id="138860">
-            <a href="/" class="page__link">
-              <i class="fa-solid fa-dragon"></i>
-              <p class="link__title">title</p>
-            </a>
-          </li> -->
-        </ul>
+        <ul class="list__container"></ul>
       </section>
       <hr class="sidebar__divider" />
-      <p class="sideBar__newContent">+ new</p>
-      <hr class="divider" />
+      <p class="sidebar__newContent" role="button">+ new</p>
     </nav>
-    <main class="document">
+    <main id="document" class="document">
       <header class="document__header">
-        <div role="button" class="icon document__header--button">쓰레기통</div>
+        <p id="document-title-preview" class="document__header--title">
+          TEAM5의 Notion
+        </p>
+        <button
+          id="document-delete-button"
+          class="icon document__header--button"
+        >
+          <img src="./img/trash.svg" role="button" class="icon" />
+        </button>
       </header>
       <article class="document__content">
-        <!-- 선택 구현 -->
-        <!-- <h1 id="document-title" class="document__content--title">
-          시작 페이지
-        </h1>
-        <p id="document-detail" class="document__content--detail">
-          TEAM5의 노션입니다.
-        </p> -->
-        <input
+        <h1
           id="document-title"
           class="document__content--title"
-          placeholder="내용을 입력하세요"
-          rows=""
-          type="text"
-        />
-        <textarea
+          data-placeholder="새 페이지"
+        >
+          TEAM5의 Notion
+        </h1>
+        <table id="document-table" class="date-table" aria-label="페이지 속성">
+          <tr class="date-table__row">
+            <td class="date-table__row--cell">
+              <img src="./img/clock.svg" class="icon" /> 생성 일시
+            </td>
+            <td
+              id="document-table-created-at"
+              class="date-table__row--cell"
+            ></td>
+          </tr>
+          <tr class="date-table__row">
+            <td class="date-table__row--cell">
+              <img src="./img/clock.svg" class="icon" />최종 편집 일시
+            </td>
+            <td
+              id="document-table-updated-at"
+              class="date-table__row--cell"
+            ></td>
+          </tr>
+        </table>
+        <p
           id="document-detail"
           class="document__content--detail"
-          placeholder="내용을 입력하세요."
-          rows=""
-        ></textarea>
+          data-placeholder="내용을 입력하세요."
+        >
+          문서를 생성하거나 선택하여 내용을 작성해보세요!
+        </p>
       </article>
-      <!-- 선택 구현 -->
-      <!-- <footer class="document__footer">
-        <p>하위 페이지 1</p>
-        <p>하위 페이지 2</p>
-      </footer> -->
+      <footer id="document-footer" class="document__footer"></footer>
     </main>
   </body>
 </html>
