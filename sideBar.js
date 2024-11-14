@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   documentsContainer.addEventListener("click", async (e) => {
     const listItem = e.target.closest(".list__page");
     if (!listItem) return;
-
     const id = listItem.dataset.id;
 
     // 화살표 아이콘 클릭 시
@@ -28,11 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 나머지 아이콘 클릭 처리
+    // 페이지 넣기
     if (e.target.classList.contains("add-icon")) {
       const { id: newDocumentId } = await createDocument(id);
       history.pushState({ documentId: newDocumentId }, "", `/${newDocumentId}`);
       window.dispatchEvent(new Event("loadDocument"));
     } else if (e.target.classList.contains("trash-icon")) {
+      //문서 삭제 아이콘 넣기
       console.log();
       if (
         window.confirm(

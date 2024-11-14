@@ -196,17 +196,15 @@ function setDocumentData(data) {
   documentTitle.innerText = data.title;
   documentDetail.innerText = data.content;
   documentTitlePreview.innerText = data.title;
-
   documentTitle.contentEditable = "true";
   documentDetail.contentEditable = "true";
   deleteButton.style.display = "flex";
-
   documentTable.style.display = "block";
   documentTableCreatedAt.innerText = new Date(data.createdAt)
-    .toLocaleString()
+    .toLocaleString("ko-KR")
     .slice(0, -3);
   documentTableUpdatedAt.innerText = new Date(data.updatedAt)
-    .toLocaleString()
+    .toLocaleString("ko-KR")
     .slice(0, -3);
 }
 
@@ -229,16 +227,6 @@ function createChildDocumentElement(childDocument) {
 }
 
 const updateTimestamp = () => {
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  let hours = now.getHours();
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const ampm = hours >= 12 ? "오후" : "오전";
-  hours = hours % 12;
-  hours = hours ? hours : 12; // 0 should be 12
-  const formattedHours = String(hours).padStart(2, "0");
-  const formattedDate = `${year}년 ${month}월 ${day}일`;
-  const formattedTime = `${ampm} ${formattedHours}:${minutes}`;
-  documentTableUpdatedAt.innerText = `${formattedDate} ${formattedTime}`;
+  const updatedAt = new Date().toLocaleString("ko-KR").slice(0, -3);
+  documentTableUpdatedAt.innerText = updatedAt;
 };
