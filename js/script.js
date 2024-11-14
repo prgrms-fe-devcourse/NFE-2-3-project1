@@ -149,7 +149,10 @@ function addDeleteListeners() {
     delIcon.addEventListener("click", function (e) {
       e.target.parentNode.parentNode.style.display = "none";
       if (!e.target.classList.contains("del")) {
-        delData(e.target.id);
+        const id = e.target.id;
+        const newPageDiv = document.getElementById("new_page_" + id);
+        delData(id);
+        newPageDiv.style.display = "none";
         e.target.classList.add("del");
       }
     })
@@ -372,7 +375,7 @@ function pageGo() {
         // 하위 페이지 포맷
         function downPage(parent, title, id) {
           const page = `
-   <div class="notionWrap__section_newPage">
+   <div class="notionWrap__section_newPage" id="new_page_${id}">
           <svg
             role="graphics-symbol"
             viewBox="0 0 16 16"

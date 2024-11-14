@@ -133,7 +133,17 @@ a {
   align-items: center;
   gap: 10px;
 }
-
+/* (변경사항) arrowIcon hover이펙트 추가 */
+.arrowIcon {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.userBtn:hover .arrowIcon {
+  visibility: visible;
+  opacity: 1;
+}
+/* (변경사항) arrowIcon hover이펙트 추가 */
 .arrowIcon__img,
 .buildIcon__img {
   width: 15px;
