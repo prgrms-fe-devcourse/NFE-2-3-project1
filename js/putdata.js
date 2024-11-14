@@ -1,4 +1,6 @@
+
 //putdata.js
+
 export async function editContent(id, title, content) {
   const data = await fetch(`https://kdt-api.fe.dev-cos.com/documents/${id}`, {
     method: "PUT",
