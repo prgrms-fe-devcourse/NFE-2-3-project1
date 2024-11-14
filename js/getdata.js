@@ -4,7 +4,7 @@ export async function getData() {
   try {
     const data = await fetch("https://kdt-api.fe.dev-cos.com/documents", {
       headers: {
-        "x-username": "team6",
+        "x-username": "other",
       },
     });
     const parse = await data.json();
@@ -22,7 +22,7 @@ export async function postData(parent = null) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-username": "team6",
+        "x-username": "other",
       },
       body: JSON.stringify({
         title: "추가할게요",
@@ -46,7 +46,7 @@ export async function delData(targetId) {
       {
         method: "DELETE",
         headers: {
-          "x-username": "team6",
+          "x-username": "other",
         },
       }
     );
@@ -61,11 +61,9 @@ export async function delData(targetId) {
 export async function getContent(id) {
   const data = await fetch(`https://kdt-api.fe.dev-cos.com/documents/${id}`, {
     headers: {
-      "x-username": "team6",
+      "x-username": "other",
     },
   });
   const parse = await data.json();
   return parse;
-
 }
-

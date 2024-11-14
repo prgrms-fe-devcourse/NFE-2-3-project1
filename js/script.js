@@ -1,4 +1,3 @@
-
 import { getContent, getData, postData, delData } from "./getdata.js";
 import { editContent } from "./putdata.js";
 ////////////////////////////////////전역변수//////////////////////////////
@@ -187,7 +186,6 @@ function pageGo() {
       // 기존의 이벤트 리스너 제거
       removeEventListeners();
 
-
       // 새로운 페이지 콘텐츠 로드
       getContent(url).then((data) => {
         console.log(data);
@@ -195,11 +193,9 @@ function pageGo() {
         const content = data.content || ""; // content가 null이면 빈 문자열로 설정
 
         notionWrap__section.innerHTML = `
-          <!-- 타이틀 영역  -->
           <h1 class="notionWrap__section_title">
             <input placeholder="여기에 제목 입력" value="${title}" />
           </h1>
-          <!-- 컨텐츠 영역 -->
           <section class="notionWrap__section_text">
           </section>
         `;
@@ -227,49 +223,13 @@ function pageGo() {
           const updatedContent = getAllTextareasContent();
 
           // 제목 수정 후 PUT 요청을 통해 서버에 저장
-          editContent(url, updatedTitle, updatedContent)
-            .then(() => {
-              // PUT 요청이 성공적으로 완료된 후 사이드바에서 제목을 갱신
-              const personalPage__PageList = document.querySelector(
-                ".personalPage__PageList"
-              );
-
-              // 사이드바의 제목을 수정하는 부분
-              const listItem = personalPage__PageList.querySelector(
-                `.ListItem[data-url='${url}']`
-              );
-              if (listItem) {
-                // 수정된 제목을 반영
-                listItem.querySelector(".page-title").textContent =
-                  updatedTitle;
-              }
-
-              // 업데이트된 내용으로 사이드바 리스트를 다시 렌더링
-              getData().then((data) => {
-                // 기존의 페이지 리스트를 모두 제거하고 새로 렌더링
-                while (personalPage__PageList.hasChildNodes()) {
-                  personalPage__PageList.removeChild(
-                    personalPage__PageList.firstChild
-                  );
-                }
-
-                const dataKeys = Object.keys(data);
-                dataKeys.forEach((key) => {
-                  pages[data[key].id] = newPage(
-                    data[key].title,
-                    data[key].content
-                  );
-                  personalPage__PageList.appendChild(
-                    newList(data[key].id, data[key].title)
-                  );
-                });
-                // 페이지 변경 없이 사이드바만 업데이트
-                pageGo();
-              });
-            })
-            .catch((error) => {
-              console.error("Failed", error);
-            });
+          editContent(url, updatedTitle, updatedContent);
+          const sidebarItem = document.querySelector(
+            `.personalPage__PageList .ListItem__pageLink[data-url="${url}"]`
+          );
+          if (sidebarItem) {
+            sidebarItem.textContent = updatedTitle;
+          }
         });
 
         // 콘텐츠 영역에서 textarea의 내용이 변경될 때마다 업데이트
@@ -351,6 +311,47 @@ function pageGo() {
 
         // 페이지 히스토리 상태 변경
         history.pushState({ page: url, custom: "test" }, "", `/${url}`);
+        // 추가부분
+        const dPage = document.querySelectorAll(
+          ".notionWrap__section_downPage-text"
+        );
+        dPage.forEach((page) => {
+          page.addEventListener("click", function (e) {
+            e.preventDefault();
+            const url = e.currentTarget.dataset.url;
+            getContent(url).then((data) => {
+              console.log(data.title, data.content);
+              const title = data.title;
+              const content = data.content || ""; // content가 null이면 빈 문자열로 설정
+
+              notionWrap__section.innerHTML = `
+                <!-- 타이틀 영역  -->
+                <h1 class="notionWrap__section_title">
+                  <input placeholder="여기에 제목 입력" value="${title}" />
+                </h1>
+                <!-- 컨텐츠 영역 -->
+                <section class="notionWrap__section_text">
+                </section>
+              `;
+
+              const contentArr = content.includes("\n\n")
+                ? content.split("\n\n")
+                : [content];
+
+              // content가 존재하면 최상단에 textarea 생성하지 않도록 처리
+              if (contentArr.length > 0 && contentArr[0] !== "") {
+                contentArr.forEach((content) => {
+                  createTextarea(content);
+                });
+              } else {
+                // content가 없다면 최상단 textarea 생성
+                initializeTextarea();
+              }
+              history.pushState({ page: url, custom: "test" }, "", `/${url}`);
+            });
+          });
+        });
+        // 추가부분
       });
     });
   });
@@ -501,18 +502,19 @@ function newList(id, title) {
 // 신규 페이지 포맷
 function newPage(title, content) {
   const pageTemplet = `
-    <!-- 타이틀 영역  -->
     <h1 class="notionWrap__section_title">
       <input placeholder="여기에 제목 입력" value="${title}" />
     </h1>
-    <!-- 컨텐츠 영역 -->
-    <section class="notionWrap__section_text">
-      <textarea
-        placeholder="여기에 내용 입력"
-        value="${content}"
-      ></textarea>
-    </section>
-    <!-- 하위 페이지 생성시 예시 -->
+    <section class="notionWrap__section_text"></section>
+    <div class="textarea-wrapper">
+      <textarea 
+        class="gothic-a1-regular textareas" 
+        value="${content}" 
+        placeholder="" 
+        style="height: 24px;"
+      >
+      </textarea>
+    </div>
     <div class="notionWrap__section_newPage">
       <svg
         role="graphics-symbol"
@@ -532,7 +534,6 @@ function newPage(title, content) {
       </svg>
       <p class="notionWrap__section_newPage-text">New page</p>
     </div>
-    <!-- 하위 페이지 생성시 예시 -->
   `;
   return pageTemplet;
 }

@@ -1,4 +1,3 @@
-
 //putdata.js
 
 export async function editContent(id, title, content) {
@@ -6,7 +5,7 @@ export async function editContent(id, title, content) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "x-username": "team6",
+      "x-username": "other",
     },
     body: JSON.stringify({
       title,
