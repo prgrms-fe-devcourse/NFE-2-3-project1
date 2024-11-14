@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/src/css/notion.css" />
+    <link rel="stylesheet" href="./src/css/sidebar.css" />
+    <title>Notion</title>
+  </head>
+
+  <body>
+    <!-- sidebar.html -->
+    <!-- 사이드바 -->
+    <!-- (NEW 작성 추가!! 오버레이 기능 수정) -->
+    <aside>
+      <div class="upperSidebar">
+        <img src="./assets/profile.svg" alt="프로필이미지" />
+        <span class="isix">ISIX</span>
+        <button class="closeSidebarButton">
+          <img src="./assets/double_left.svg" alt="닫기" />
+        </button>
+      </div>
+
+      <!-- 여기에 spa.js를 통해 링크 추가 -->
+      <ul class="documentList"></ul>
+
+      <!-- 새 페이지 버튼 -->
+      <div class="bottomSidebar">
+        <button class="newDocumentButton">
+          <img src="./assets/add.svg" /> 새 페이지
+        </button>
+      </div>
+    </aside>
+    <!-- NEW 작성 추가!! 오버레이 햄버거 버튼 추가 -->
+    <button class="openSidebarButton hidden">
+      <img src="./assets/hamburger.svg" alt="열기" />
+    </button>
+
+    <!-- 메인에디터 -->
+    <main></main>
+
+    <!--사이드 바 "+새 페이지" 버튼 실행 시 document 가져오기-->
+    <script type="module" src="./src/js/sidebar/newSidePost.js"></script>
+    <!--(추가 작업) 사이드 바 "+" 버튼 실행 시 하위 document 생성-->
+    <script type="module" src="./src/js/sidebar/sidePlusBtn.js" defer></script>
+    <script type="module" src="./src/js/sidebar/sideMinusBtn.js"></script>
+
+    <script src="./src/js/sidebar/overlay.js" defer></script>
+    <!-- <script type="module" src="/src/js/editor/components/Posts.js"></script> -->
+    <script type="module" src="/src/js/editor/utils/breadCrumb.js"></script>
+    <!-- SPA -->
+    <script type="module" src="./src/js/spa/spa.js"></script>
+  </body>
+</html>

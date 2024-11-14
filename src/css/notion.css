@@ -1,0 +1,207 @@
+/* pretendard font */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  color: #2e2e2e;
+  background-color: #ffffff;
+}
+/* 초기화 */
+input,
+textarea {
+  font-family: "Pretendard", sans-serif;
+  background: transparent;
+  border: none;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+}
+a:link,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* aside */
+aside {
+  width: 337px;
+  background-color: #eef4f9;
+  box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  /* nav 위로 사이드바를 올림 */
+}
+
+/* main */
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+/* 수정 position: sticky */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  width: 100%;
+  height: 75px;
+  box-shadow: 0px 7px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 수정 마진 => padding: 75px 30px 0; */
+  padding: 75px 30px 0;
+  gap: 23px;
+  width: 100%;
+  height: 100%;
+  max-width: 950px;
+  max-height: calc(100% - 142px);
+  overflow-y: auto;
+}
+
+.save__box {
+  background-color: #82f5ff;
+  width: 200px;
+  height: 50px;
+  border: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s;
+  display: none;
+}
+
+.titleInput::placeholder,
+.contentInput::placeholder {
+  color: rgba(83, 115, 142, 0.5);
+}
+.titleInput,
+.contentInput {
+  width: 100%;
+  height: 90px;
+  text-align: left;
+}
+.titleInput {
+  margin-top: 123px;
+  font-size: 45px;
+  font-weight: 500;
+}
+.contentInput {
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.subLinks {
+  /* display: flex; */
+  position: absolute;
+  bottom: 20px;
+  left: 50px;
+  gap: 20px;
+}
+
+.subLinks__lists {
+  padding: 5px;
+  margin-top: 20px;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  width: calc(100vw - 500px);
+  overflow-x: auto;
+}
+
+.subLinks__lists::-webkit-scrollbar {
+  display: none;
+}
+
+.subLinks__lists--link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+  height: 47px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 2px 5px #afafaf;
+}
+
+/* 에디터 스타일 추가 */
+/* 버튼 초기화 */
+button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 27px;
+}
+.breadCrumb {
+  color: #53738e;
+  font-size: 18px;
+  font-weight: 500;
+}
+.breadCrumb {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+.breadCrumb > li:not(:last-child)::after {
+  content: " /";
+  margin-left: 9px;
+}
+.breadCrumb a {
+  /* /* 마우스 포인터 */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.breadCrumb a:hover {
+  text-decoration: underline;
+}
+.deleteBtn {
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+.deleteBtn:hover {
+  background-color: rgba(238, 244, 249, 0.6);
+}
+.nav img {
+  width: 30px;
+}
+.save__box {
+  width: 280px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 30px;
+  position: absolute;
+  top: 114px;
+  right: 30px;
+  color: rgba(83, 115, 142);
+  background-color: #ffffff;
+  border: 1px solid rgba(83, 115, 142, 0.5);
+  z-index: 300px;
+  transition: all 0.4s;
+  opacity: 0;
+}
+.save__box.on {
+  display: flex;
+  opacity: 1;
+}
