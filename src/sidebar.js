@@ -6,8 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", async function (e) {
       e.preventDefault();
       console.log("새 페이지 버튼이 클릭되었습니다!");
-      const parentId = history.state?.id;
-      await createNewPage(parentId);
+      await createNewPage(null);
     });
   } else {
     console.log("버튼을 찾을 수 없습니다.");
