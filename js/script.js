@@ -112,8 +112,12 @@ MakeNewPage("ListItem__buildBtn");
 MakeNewPage("buildIcon");
 
 //////////////////////////////////////////////
-// 하위 페이지 추가 버튼(리스트의 +버튼들) 보류
+// 하위 페이지 추가 버튼(변경시힝 - MakeUnderPage 추가할때 하위 페이지 안나오는 현상 수정[underPageToggle과 연계])
+
 function MakeUnderPage() {
+  const personalPage__ListItem = document.querySelectorAll(
+    ".personalPage__ListItem"
+  );
   const notionWrap__section = document.querySelector(".notionWrap__section");
   const ListItem__addBtn = document.querySelectorAll(".ListItem__addBtn");
   ListItem__addBtn.forEach((list, idx) => {
@@ -125,17 +129,20 @@ function MakeUnderPage() {
       const targetA = document.querySelectorAll(".ListItem__pageLink");
       const url = targetA[idx].dataset.url;
       postData(url).then((data) => {
-        console.log(underList(data.id, data.title));
-        pages[url] = underList(data.id, data.title);
         history.pushState({ page: url, custom: "test" }, "", `/${url}`);
         notionWrap__section.innerHTML = newPage(data.title);
-        targetA[idx].parentElement.after(underList(data.id, data.title));
         resetClickEventAll(
           addDeleteListeners,
           pageGo,
           underPageToggle,
           MakeUnderPage
         );
+        // 하위문서 토글 버튼 클릭
+        const under_btn = personalPage__ListItem[idx].querySelector(
+          ".ListItem__underBtn"
+        );
+        under_btn.click();
+        if (!under_btn.classList.contains("seen")) under_btn.click();
       });
     });
   });
@@ -588,7 +595,7 @@ function newPage(title, content) {
 
 ///////////////////////////////////////////////////예정
 
-// 하위 페이지 토글
+// 하위 페이지 토글(변경시힝 - MakeUnderPage 추가할때 하위 페이지 안나오는 현상 수정[underPageToggle과 연계])
 function underPageToggle() {
   const ListItem__underBtn = document.querySelectorAll(".ListItem__underBtn");
   const ListItem__pageLink = document.querySelectorAll(".ListItem__pageLink");
@@ -602,17 +609,21 @@ function underPageToggle() {
     const newList = document.querySelectorAll(".ListItem__underBtn")[idx];
 
     // 새 이벤트 리스너 추가
-    newList.addEventListener("click", function () {
-      if (!newList.classList.contains("seen")) {
-        newList.classList.add("seen");
+    newList.addEventListener("click", function (e) {
+      if (!this.classList.contains("seen")) {
+        this.classList.add("seen");
         const url = ListItem__pageLink[idx].dataset.url;
         getContent(url).then((content) => {
           const docs = content.documents;
+          console.log(docs);
+          if (docs.length === 0) {
+            this.classList.remove("seen");
+          }
           docs.forEach((doc) => {
             getContent(doc.id).then((content) => {
               pages[doc.id] = newPage(content.title, content.content);
             });
-            newList.parentElement.after(underList(doc.id, doc.title));
+            this.parentElement.after(underList(doc.id, doc.title));
           });
 
           resetClickEventAll(
@@ -621,16 +632,17 @@ function underPageToggle() {
             underPageToggle,
             MakeUnderPage
           );
+          e.stopImmediatePropagation();
         });
       } else {
-        newList.classList.remove("seen");
-        if (newList.parentElement.nextElementSibling) {
+        this.classList.remove("seen");
+        if (this.parentElement.nextElementSibling) {
           while (
-            newList.parentElement.nextElementSibling &&
-            newList.parentElement.nextElementSibling.classList.value ===
+            this.parentElement.nextElementSibling &&
+            this.parentElement.nextElementSibling.classList.value ===
               "personalPage__ListItem--next"
           ) {
-            newList.parentElement.nextElementSibling.remove();
+            this.parentElement.nextElementSibling.remove();
           }
         }
       }
