@@ -40,16 +40,10 @@ const removeAllActiveClasses = () => {
 
 export const createDocumentItem = async (doc, parentElement = null) => {
   const path = `/documents/${doc.id}`;
-<<<<<<< Updated upstream
-  const temp = await getTargetContent(doc.id);
-  console.log(temp);
-  const initialDocData = await editContent(doc.id, temp.tile, temp.content);
-=======
   // 11.14 강수영수정
   const temp = await getTargetContent(doc.id);
   const initialDocData = await editF(doc.id, temp.title, temp.content);
 
->>>>>>> Stashed changes
   routes.set(path, {
     id: initialDocData.id,
     title: initialDocData.title,
@@ -88,9 +82,9 @@ export const createDocumentItem = async (doc, parentElement = null) => {
 
   if (doc.documents && doc.documents.length > 0) {
     const subDocList = newDocumentItem.querySelector(".sub-document-list");
-    doc.documents.forEach((subdoc) => {
-      createDocumentItem(subdoc, subDocList);
-    });
+    for (const subdoc of doc.documents) {
+      await createDocumentItem(subdoc, subDocList);
+    }
   }
 
   // 추가 : hover 이벤트 추가
@@ -149,15 +143,11 @@ export const createDocumentItem = async (doc, parentElement = null) => {
 
     const titleElement = document.getElementById("editor__title-input");
     const contentElement = document.getElementById("editor__content-input");
-<<<<<<< Updated upstream
-    titleElement.dataset.id = doc.id;
-=======
 
     //11.14 강수영추가
     titleElement.dataset.id = doc.id;
     contentElement.dataset.id = doc.id;
 
->>>>>>> Stashed changes
     titleElement.value = docData.title || "";
     contentElement.value = docData.content || "";
 

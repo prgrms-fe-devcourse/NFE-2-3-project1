@@ -1,5 +1,8 @@
 @import url("/styles/variables.css");
-
+::-webkit-scrollbar {
+  width: 0; /* 세로 스크롤바 숨기기 */
+  height: 0; /* 가로 스크롤바 숨기기 */
+}
 .screen__sidebar {
   box-sizing: border-box;
   min-width: 250px;
@@ -19,10 +22,11 @@
   position: absolute;
   left: 12px;
   top: 40px;
-  height: fit-content;
+  min-height: fit-content;
   background-color: white;
   box-shadow: var(--box-shadow300);
   border-radius: 4px;
+  overflow: hidden;
 }
 .sidebar__pageTitle {
   display: flex;
