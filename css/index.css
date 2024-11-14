@@ -364,6 +364,15 @@ button {
   color: black;
 }
 
+/* 하위 문서가 있는 경우에만 hover 효과 적용 */
+.list__page:has(.arrow-icon):hover .default-icon {
+  display: none;
+}
+
+.list__page:has(.arrow-icon):hover .arrow-icon {
+  display: inline-block;
+}
+
 .trash-icon,
 .arrow-icon {
   width: 16px;

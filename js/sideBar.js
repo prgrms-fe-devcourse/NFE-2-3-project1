@@ -178,6 +178,40 @@ async function createDocument(parentId = null) {
   }
 }
 
+// function createDocumentHtml(doc, level = 0) {
+//   const { id, title, documents } = doc;
+//   const hasChildren = documents && documents.length > 0;
+
+//   let html = `
+//     <li class="list__page" data-id="${id}">
+//       <a href="/" class="page__link">
+//         <img src="./img/notion_project_file_icon.svg" class="file-icon default-icon" alt="File">
+//         ${
+//           hasChildren
+//             ? `<img src="./img/notion_project_arrow.svg" class="arrow-icon" alt="Arrow">`
+//             : ""
+//         }
+//         <p class="link__title">${title ? title : "새 페이지"}</p>
+//       </a>
+//       <div class="icon-container">
+//         <img src="./img/notion_project_add_icon.svg" class="add-icon" alt="Add">
+//         <img src="./img/notion_project_trash_icon.svg" class="trash-icon" alt="Delete">
+//       </div>
+//     </li>
+//   `;
+
+//   if (hasChildren) {
+//     html += `<div class="child-documents">`;
+
+//     for (const childDoc of documents) {
+//       html += createDocumentHtml(childDoc, level + 1);
+//     }
+//     html += `</div>`;
+//   }
+
+//   return html;
+// }
+
 function createDocumentHtml(doc, level = 0) {
   const { id, title, documents } = doc;
   const hasChildren = documents && documents.length > 0;
@@ -185,11 +219,11 @@ function createDocumentHtml(doc, level = 0) {
   let html = `
     <li class="list__page" data-id="${id}">
       <a href="/" class="page__link">
-        <img src="./img/notion_project_file_icon.svg" class="file-icon default-icon" alt="File">
         ${
           hasChildren
-            ? `<img src="./img/notion_project_arrow.svg" class="arrow-icon" alt="Arrow">`
-            : ""
+            ? `<img src="./img/notion_project_file_icon.svg" class="file-icon default-icon" alt="File">
+               <img src="./img/notion_project_arrow.svg" class="arrow-icon" alt="Arrow">`
+            : `<img src="./img/notion_project_file_icon.svg" class="file-icon" alt="File">`
         }
         <p class="link__title">${title ? title : "새 페이지"}</p>
       </a>
@@ -202,7 +236,6 @@ function createDocumentHtml(doc, level = 0) {
 
   if (hasChildren) {
     html += `<div class="child-documents">`;
-
     for (const childDoc of documents) {
       html += createDocumentHtml(childDoc, level + 1);
     }
