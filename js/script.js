@@ -181,6 +181,19 @@ function pageGo() {
   ListItem__pageLink.forEach((list) => {
     list.addEventListener("click", function (e) {
       e.preventDefault();
+      const personalPage__ListItem = document.querySelectorAll(
+        ".personalPage__ListItem"
+      );
+      // 중복 이벤트 발생 제게 추가(변경사항) ---------------------------------------------
+      personalPage__ListItem.forEach((list) => {
+        if (list.classList.contains("on")) {
+          e.stopImmediatePropagation();
+          list.classList.remove("on");
+        }
+      });
+      e.currentTarget.parentElement.classList.add("on");
+      // 중복 이벤트 발생 제게 추가 ---------------------------------------------
+
       url = e.currentTarget.dataset.url;
 
       // 기존의 이벤트 리스너 제거
