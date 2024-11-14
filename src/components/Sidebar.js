@@ -1,13 +1,13 @@
 const hamburger = document.getElementById("sideBar__hamburger");
 const sideBar = document.getElementById("sidebar");
-
+const mainSection = document.getElementById("mainSection");
 // 사이드바 숨기는 함수
 const onclickSideBarHide = () => {
   const hideButton = document.getElementById("sideBar__hideButton");
 
   hideButton.addEventListener("click", () => {
     sideBar.classList.add("sidebar__hide");
-
+    mainSection.classList.toggle("margin-left250");
     hamburger.style.display = "block";
   });
 };
@@ -30,7 +30,7 @@ const HamburgerHandler = () => {
       isHovered = true; // hover 상태로 설정
     }, 1000); // 1초 후에 동작 실행
   });
-  hamburger.addEventListener("mouseleave", () => {
+  hamburger.addEventListener("mouseleave", (event) => {
     hamburgerImg.src = "/src/asset/menu-burger.svg";
     clearTimeout(hoverTimer); // 타이머 초기화
     leaveTimer = setTimeout(() => {
@@ -47,6 +47,7 @@ const HamburgerHandler = () => {
     clearTimeout(hoverTimer); // 타이머 초기화
     sideBar.classList.remove("sidebar__hide");
     sideBar.classList.remove("screen_miniSidebar");
+    mainSection.classList.toggle("margin-left250");
     hamburger.style.display = "none";
   });
 
