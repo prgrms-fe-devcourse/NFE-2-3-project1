@@ -93,52 +93,10 @@ export const renderSidebar = (docs) => {
 
       listItem.appendChild(subList);
       parentsElement.appendChild(listItem);
-
-      // 하위 문서 추가 버튼에 이벤트 리스너 추가
-      const addButton = listItem.querySelector(".doc-item__add");
-      if (addButton) {
-        addButton.addEventListener("click", async (e) => {
-          e.stopPropagation(); // 클릭 이벤트가 부모에게 전파되지 않도록 함
-          const parentId = doc.id; // 현재 문서 ID를 parentId로 사용
-          await createNewPage(parentId); // 하위 문서 생성 함수 호출
-        });
-      }
     });
   };
 
   const navListEl = document.getElementById("side-bar__nav-list");
   navListEl.innerHTML = "";
   makeDocuments(docs);
-
-  const toggleButtons = document.querySelectorAll(".flex");
-
-  toggleButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      // 클릭된 버튼 내의 .indent 요소를 찾아 토글
-      const subList = button.nextElementSibling;
-      subList.classList.toggle("hidden");
-
-      // 하위 페이지가 비어있을 경우 "하위 페이지 없음" 메시지 표시
-      const isEmpty = subList.children.length === 0;
-      const isNotHidden = !subList.classList.contains("hidden");
-      if (isEmpty && isNotHidden) {
-        const message = document.createElement("p");
-        message.classList.add("no-sub-pages");
-        message.textContent = "하위 페이지 없음";
-        subList.appendChild(message);
-      } else {
-        // "하위 페이지 없음" 메시지가 있으면 제거
-        const noSubPagesMessage = subList.querySelector(".no-sub-pages");
-        if (noSubPagesMessage) {
-          noSubPagesMessage.remove();
-        }
-      }
-
-      // 클릭된 .flex 요소에 active 클래스를 추가하여 아이콘 회전 효과를 주기
-      const toggleIcon = button.querySelector(".toggle-icon");
-      if (toggleIcon) {
-        toggleIcon.classList.toggle("active");
-      }
-    });
-  });
 };
