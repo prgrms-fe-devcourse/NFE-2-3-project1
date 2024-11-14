@@ -13,30 +13,14 @@ const username = `potatoes`;
 
 let autoSaveInterval;
 
-export const createAndSaveBlocks = async (id) => {
-  const docTitleInput = document.getElementById("doc-title__input");
-  const docContents = document.getElementById("doc-contents");
+const docTitleInput = document.getElementById("doc-title__input");
+const docContents = document.getElementById("doc-contents");
 
+export const createAndSaveBlocks = async (id) => {
   const title = docTitleInput.innerText;
   const blocks = docContents.innerText.split("\n").join("\n"); //줄바꿈으로 블록 처리
   console.log("저장할 제목:", title);
   console.log("블록 단위로 나눔:", blocks);
-
-  // contenteditable 처리
-  docTitleInput.addEventListener("input", function () {
-    if (docTitleInput.innerText.trim() !== "") {
-      docTitleInput.classList.add("has-content");
-    } else {
-      docTitleInput.classList.remove("has-content");
-    }
-  });
-  docContents.addEventListener("input", function () {
-    if (docContents.innerText.trim() !== "") {
-      docContents.classList.add("has-content");
-    } else {
-      docContents.classList.remove("has-content");
-    }
-  });
 
   try {
     if (!id) {
@@ -70,6 +54,27 @@ export const autoSaveDocument = (id) => {
   }, 10000); // 10초마다 자동 저장
 };
 
+function handleTitleInput() {
+  const id = history.state?.id;
+  const currentLink = document.querySelector(`[data-id='${id}']`);
+  docTitleInput.textContent = docTitleInput.textContent.replaceAll("\n", "");
+  currentLink.textContent = docTitleInput.textContent || "제목 없음";
+
+  if (docTitleInput.innerText.trim() !== "") {
+    docTitleInput.classList.add("has-content");
+  } else {
+    docTitleInput.classList.remove("has-content");
+  }
+}
+function handleContentsInput() {
+  docContents.textContent = docContents.textContent.replaceAll("\n", "");
+  if (docContents.innerText.trim() !== "") {
+    docContents.classList.add("has-content");
+  } else {
+    docContents.classList.remove("has-content");
+  }
+}
+
 //수동 저장 (Ctrl + s or Command + s)
 function handleManualSave(event) {
   const id = history.state?.id;
@@ -84,12 +89,9 @@ export const manualSaveDocument = () => {
   document.addEventListener("keydown", handleManualSave);
 };
 
-document
-  .getElementById("icon__delete")
-  .addEventListener("click", async function (e) {
-    e.preventDefault();
-    if (!history.state) return;
-  });
+// contenteditable 처리
+docTitleInput.addEventListener("input", handleTitleInput);
+docContents.addEventListener("input", handleContentsInput);
 
 // 삭제 버튼 클릭 시 커스텀 모달 열기
 deleteButton.addEventListener("click", function (e) {
