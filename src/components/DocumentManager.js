@@ -94,35 +94,54 @@ export const createDocumentItem = async (doc, parentElement = null) => {
 
   // 문서 클릭 이벤트
   newDocumentItem.addEventListener("click", async (event) => {
-    if (event.target.closest(".add-subdoc-btn")) return; // + 버튼 클릭시 이벤트 중단
+    // 추가 : 하위 문서 클릭 시 이벤트 전파 중단
+    if (event.target.closest(".sub-document-list")) {
+      event.stopPropagation(); // 버블링은 막되
+      // 필요한 네비게이션과 문서 로드는 실행되도록
+      const clickedLink = event.target.closest(".document-link");
+      if (clickedLink) {
+        const docId = clickedLink.dataset.url.replace("doc", "");
+        navigate(`/documents/${docId}`);
+
+        // 문서 내용 가져오기
+        const docData = await getTargetContent(docId);
+
+        // 편집기에 내용 표시
+        const titleElement = document.getElementById("editor__title-input");
+        const contentElement = document.getElementById("editor__content-input");
+        titleElement.value = docData.title || "";
+        contentElement.value = docData.content || "";
+
+        // breadcrumb 업데이트도 필요하다면
+        await updateBreadcrumb(docId);
+      }
+      return;
+    }
+    // 추가 : + 버튼 클릭 시 이벤트 중단
+    if (event.target.closest(".add-subdoc-btn")) return;
 
     event.preventDefault();
 
-    // 모든 active 클래스 제거
+    // 추가 : active 클래스 관리
     removeAllActiveClasses();
-
-    // 현재 클릭된 항목에 active 클래스 추가
     newDocumentItem.classList.add("acitve__document-item");
 
     navigate(path);
 
-    // 문서 내용 가져오기
     const docData = await getTargetContent(doc.id);
 
-    // 편집기 영역에 제목과 내용 표시
     const titleElement = document.getElementById("editor__title-input");
     const contentElement = document.getElementById("editor__content-input");
     titleElement.value = docData.title || "";
     contentElement.value = docData.content || "";
 
-    // 편집 가능한 상태로 설정
     titleElement.disabled = false;
     contentElement.disabled = false;
 
-    // breadcrumb 업데이트
+    // 추가 : breadcrumb 업데이트
     await updateBreadcrumb(doc.id);
 
-    // 하위 문서 리스트 토글
+    // 수정 : 하위 문서 리스트 토글 통합
     const subDocumentList = newDocumentItem.querySelector(".sub-document-list");
     subDocumentList.style.display =
       subDocumentList.style.display === "none" ? "block" : "none";

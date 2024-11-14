@@ -148,3 +148,8 @@
   transform: translateX(-250px);
   display: none;
 }
+
+.document-link {
+  display: inline-block;
+  width: 100%;
+}
