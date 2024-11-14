@@ -44,6 +44,7 @@ a {
 /* 고딕 폰트 */
 .notionWrap {
   display: flex;
+  min-height: 100vh;
 }
 /* 사이드바 */
 /* width 변경 , height 제거 */
@@ -296,7 +297,6 @@ a {
 /* 메인 페이지 */
 .editor {
   width: calc(100% - 240px);
-  height: 100vh;
 
   background-color: #fff;
   padding: 20px;
