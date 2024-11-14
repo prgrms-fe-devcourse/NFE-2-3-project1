@@ -29,12 +29,24 @@
           <div class="selectUser">
             <span class="selectUser__text">유저 선택</span>
           </div>
-          <a href="/home" data-url="home" class="buildIcon bgChange"
-            ><img
-              src="./img/buildIcon.png"
-              alt="새 글 작성 아이콘"
-              class="buildIcon__img"
-          /></a>
+          <!-- 숨김 버튼 & 새 글 작성 버튼 -->
+          <div class="iconGroup">
+            <div class="arrowIcon bgChange">
+              <img
+                src="./img/arrow_left.svg"
+                alt="숨김 버튼 아이콘"
+                class="arrowIcon__img"
+              />
+            </div>
+            <div href="/home" data-url="home" class="buildIcon bgChange">
+              <img
+                src="./img/buildIcon.png"
+                alt="새 글 작성 아이콘"
+                class="buildIcon__img"
+              />
+            </div>
+          </div>
+          <!-- 숨김 버튼 & 새 글 작성 버튼 -->
         </article>
         <!-- 최상단 버튼 -->
         <!-- 숨겨진 메뉴 -->
@@ -150,6 +162,7 @@
         <!-- 개인 페이지 -->
       </aside>
       <!-- 메인영역 -->
+
       <div class="editor">
         <nav class="nav">nav</nav>
         <section class="notionWrap__section">
@@ -187,7 +200,15 @@
           <!-- 하위 페이지 생성시 예시 -->
         </section>
       </div>
+
       <!-- 메인영역 -->
     </main>
+    <div href="#" class="openBtn" style="display: none">
+      <img
+        src="./img/arrow_right.svg"
+        alt="열기 버튼 아이콘"
+        class="arrowIcon__img"
+      />
+    </div>
   </body>
 </html>

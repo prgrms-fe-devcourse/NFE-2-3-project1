@@ -1,10 +1,10 @@
-import { getContent, getData, postData } from "./getdata.js";
-import { editContent } from "./putdata.js";
 
-// API데이터 가져오기
-getData().then((data) => {
-  console.log(data);
-});
+import { getContent, getData, postData, delData } from "./getdata.js";
+import { editContent } from "./putdata.js";
+////////////////////////////////////전역변수//////////////////////////////
+// 페이지 전역변수
+const pages = {};
+////////////////////////////////////전역변수//////////////////////////////
 
 // 최상단 버튼 숨겨진 메뉴 나타내기
 function hideMenuToggle() {
@@ -30,22 +30,37 @@ function personalPageToggle() {
 }
 personalPageToggle();
 
-// // spa 연습
-// function SPA(className) {
-//   const target = document.querySelector(className);
-//   const notionWrap__section = document.querySelector(".notionWrap__section");
+// 사이드바 토글 슬라이드
+function sidebarToggle() {
+  document.querySelector(".arrowIcon").addEventListener("click", function () {
+    const sidebar = document.querySelector(".notionWrap__sideBar");
+    const openBtn = document.querySelector(".openBtn");
+    const selectUser = document.querySelector(".selectUser");
+    const hideMenuBox = document.querySelector(".hideMenuBox");
+    const personalPage = document.querySelector(".personalPage");
 
-//   target.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     const url = e.currentTarget.dataset.url;
-//     history.pushState({ page: url, custom: "test" }, "", `/${url}`);
-//     notionWrap__section.innerHTML = pages[url];
-//   });
-// }
-// SPA(".buildIcon");
+    sidebar.classList.add("hidden");
+    personalPage.style.visibility = "hidden";
+    hideMenuBox.classList.remove("on");
+    selectUser.style.visibility = "hidden";
+    setTimeout(() => {
+      openBtn.style.display = "block";
+    }, 300);
+  });
 
-// 페이지 전역변수
-const pages = {};
+  document.querySelector(".openBtn").addEventListener("click", function () {
+    const sidebar = document.querySelector(".notionWrap__sideBar");
+    const openBtn = document.querySelector(".openBtn");
+    const selectUser = document.querySelector(".selectUser");
+    const personalPage = document.querySelector(".personalPage");
+
+    sidebar.classList.remove("hidden");
+    personalPage.style.visibility = "visible";
+    selectUser.style.visibility = "visible";
+    openBtn.style.display = "none";
+  });
+}
+sidebarToggle();
 
 // 처음 페이지 시작시 pages에 API 데이터 저장 + 개인 페이지 업데이트
 function getPages() {
@@ -60,10 +75,87 @@ function getPages() {
         newList(data[key].id, data[key].title)
       );
     });
-    pageGo();
+    resetClickEventAll(
+      addDeleteListeners,
+      pageGo,
+      underPageToggle,
+      MakeUnderPage
+    );
   });
 }
 getPages();
+
+// 신규 페이지 추가 버튼(페이지 최상단 버튼, 개인 페이지 버튼)
+function MakeNewPage(className) {
+  const buildBtn = document.querySelector(`.${className}`);
+  const notionWrap__section = document.querySelector(".notionWrap__section");
+  const personalPage__PageList = document.querySelector(
+    ".personalPage__PageList"
+  );
+
+  buildBtn.addEventListener("click", function () {
+    postData().then((data) => {
+      const url = data.id;
+      pages[url] = newPage(data.title);
+      history.pushState({ page: url, custom: "test" }, "", `/${url}`);
+      notionWrap__section.innerHTML = newPage(data.title);
+      personalPage__PageList.appendChild(newList(data.id, data.title));
+      resetClickEventAll(
+        addDeleteListeners,
+        pageGo,
+        underPageToggle,
+        MakeUnderPage
+      );
+    });
+  });
+}
+MakeNewPage("ListItem__buildBtn");
+MakeNewPage("buildIcon");
+
+//////////////////////////////////////////////
+// 하위 페이지 추가 버튼(리스트의 +버튼들) 보류
+function MakeUnderPage() {
+  const notionWrap__section = document.querySelector(".notionWrap__section");
+  const ListItem__addBtn = document.querySelectorAll(".ListItem__addBtn");
+  ListItem__addBtn.forEach((list, idx) => {
+    list.replaceWith(list.cloneNode(true));
+
+    const newList = document.querySelectorAll(".ListItem__addBtn")[idx];
+
+    newList.addEventListener("click", function () {
+      const targetA = document.querySelectorAll(".ListItem__pageLink");
+      const url = targetA[idx].dataset.url;
+      postData(url).then((data) => {
+        console.log(underList(data.id, data.title));
+        pages[url] = underList(data.id, data.title);
+        history.pushState({ page: url, custom: "test" }, "", `/${url}`);
+        notionWrap__section.innerHTML = newPage(data.title);
+        targetA[idx].parentElement.after(underList(data.id, data.title));
+        resetClickEventAll(
+          addDeleteListeners,
+          pageGo,
+          underPageToggle,
+          MakeUnderPage
+        );
+      });
+    });
+  });
+}
+//////////////////////////////////////////////
+
+// 페이지 삭제
+function addDeleteListeners() {
+  const delIcons = document.querySelectorAll(".delIcon.icon");
+  delIcons.forEach((delIcon) =>
+    delIcon.addEventListener("click", function (e) {
+      e.target.parentNode.parentNode.style.display = "none";
+      if (!e.target.classList.contains("del")) {
+        delData(e.target.id);
+        e.target.classList.add("del");
+      }
+    })
+  );
+}
 
 // 개인 페이지 리스트 클릭 기능(개인 페이지의 페이지 클릭시 해당 id값에 맞는 페이지 SPA로 보여주기)
 function pageGo() {
@@ -371,22 +463,6 @@ function popState() {
 }
 popState();
 
-// 개인 페이지에 신규 페이지 추가 버튼
-function presonalPage_MakeNewPage() {
-  const ListItem__buildBtn = document.querySelector(".ListItem__buildBtn");
-  const notionWrap__section = document.querySelector(".notionWrap__section");
-  ListItem__buildBtn.addEventListener("click", function () {
-    postData().then((data) => {
-      const url = data.id;
-      pages[url] = newPage(data.title);
-      console.log(pages);
-      history.pushState({ page: url, custom: "test" }, "", `/${url}`);
-      notionWrap__section.innerHTML = newPage(data.title);
-    });
-  });
-}
-presonalPage_MakeNewPage();
-
 // 개인 페이지 리스트 포맷
 function newList(id, title) {
   const listTemplet = document.createElement("li");
@@ -406,6 +482,7 @@ function newList(id, title) {
     <div class="ListItem__delBtn bgChange">
       <img
         class="delIcon icon"
+        id="${id}"
         src="../img/send-to-trash.png"
         alt="삭제 아이콘"
       />
@@ -458,4 +535,101 @@ function newPage(title, content) {
     <!-- 하위 페이지 생성시 예시 -->
   `;
   return pageTemplet;
+}
+
+///////////////////////////////////////////////////예정
+
+// 하위 페이지 토글
+function underPageToggle() {
+  const ListItem__underBtn = document.querySelectorAll(".ListItem__underBtn");
+  const ListItem__pageLink = document.querySelectorAll(".ListItem__pageLink");
+
+  // 기존 이벤트 리스너 제거 후 새로 추가
+  ListItem__underBtn.forEach((list, idx) => {
+    // 기존 이벤트 리스너 제거
+    list.replaceWith(list.cloneNode(true));
+
+    // 다시 querySelector로 새로 추가된 요소를 선택
+    const newList = document.querySelectorAll(".ListItem__underBtn")[idx];
+
+    // 새 이벤트 리스너 추가
+    newList.addEventListener("click", function () {
+      if (!newList.classList.contains("seen")) {
+        newList.classList.add("seen");
+        const url = ListItem__pageLink[idx].dataset.url;
+        getContent(url).then((content) => {
+          const docs = content.documents;
+          docs.forEach((doc) => {
+            getContent(doc.id).then((content) => {
+              pages[doc.id] = newPage(content.title, content.content);
+            });
+            newList.parentElement.after(underList(doc.id, doc.title));
+          });
+
+          resetClickEventAll(
+            addDeleteListeners,
+            pageGo,
+            underPageToggle,
+            MakeUnderPage
+          );
+        });
+      } else {
+        newList.classList.remove("seen");
+        if (newList.parentElement.nextElementSibling) {
+          while (
+            newList.parentElement.nextElementSibling &&
+            newList.parentElement.nextElementSibling.classList.value ===
+              "personalPage__ListItem--next"
+          ) {
+            newList.parentElement.nextElementSibling.remove();
+          }
+        }
+      }
+    });
+  });
+}
+
+// 이벤트리스너 한번에 추가하기
+function resetClickEventAll(...arg) {
+  arg.forEach((callback) => {
+    callback();
+  });
+}
+
+// 하위페이지 리스트 포맷
+function underList(id, title) {
+  const underListTemplet = document.createElement("li");
+  underListTemplet.classList.add("personalPage__ListItem--next");
+  underListTemplet.innerHTML = `
+    <ul class="personalPage__PageList--next">
+      <li class="personalPage__ListItem bgChange">
+        <div class="ListItem__underBtn bgChange">
+          <img
+            class="docIcon icon"
+            src="./img/document.png"
+            alt="문서 아이콘"
+          />
+        </div>
+        <a href="${id}" data-url="${id}" class="ListItem__pageLink">
+          <span>${title}</span>
+        </a>
+        <div class="ListItem__delBtn bgChange">
+          <img
+            class="delIcon icon"
+            id="${id}"
+            src="../img/send-to-trash.png"
+            alt="삭제 아이콘"
+          />
+        </div>
+        <div class="ListItem__addBtn bgChange">
+          <img
+            class="addIcon icon"
+            src="../img/plus-icon.png"
+            alt="추가 아이콘"
+          />
+        </div>
+      </li>
+    </ul>
+  `;
+  return underListTemplet;
 }

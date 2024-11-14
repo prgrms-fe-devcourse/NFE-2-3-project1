@@ -35,6 +35,7 @@ a {
   padding: 10px;
   background-color: #f7f7f5;
   position: relative;
+  transition: all 0.5s;
 }
 /* 좌측 최상단 유저 선택 버튼 */
 .userBtn {
@@ -121,20 +122,35 @@ a {
   width: 100%;
 }
 /* 새 글 작성 아이콘 */
-.buildIcon {
-  width: 30px;
-  height: 30px;
-  padding: 5px;
-  border-radius: 5px;
-  display: block;
+/* 새 글 작성 아이콘 및 숨기기 아이콘 */
+.iconGroup {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+.arrowIcon__img,
 .buildIcon__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+/* 열기 아이콘 */
+.openBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 999;
+  margin-left: 3px;
+}
+/* 사이드바 숨김 */
+.notionWrap__sideBar.hidden {
+  transform: translateX(-100%);
+  width: 0;
 }
 /* 사이드 - 개인 페이지 */
 .personalPage {
@@ -236,6 +252,13 @@ a {
   height: 100%;
   display: block;
   padding-left: 20px;
+}
+.ListItem__pageLink > span {
+  display: block;
+  width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .icon {
   width: 100%;
