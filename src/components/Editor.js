@@ -1,4 +1,4 @@
-import { getTargetContent, AutoSave } from "../api/api.js";
+import { getTargetContent, AutoSave, editF } from "../api/api.js";
 
 let debounceTimeout = null;
 
@@ -32,5 +32,35 @@ export const initializeEditor = async () => {
 
   contentElement.addEventListener("input", () => {
     debounceSave(documentId, titleElement.value, contentElement.value);
+  });
+};
+
+// 11.14 수정
+export const tempF = async () => {
+  const documentList1 = document.querySelectorAll("#document-list li");
+  documentList1.forEach((item) => {
+    item.addEventListener("click", async () => {
+      console.log(item.dataset.id);
+      const temp = await getTargetContent(item.dataset.id);
+      const title = document.querySelector(
+        `#editor__title-input[data-id="${item.dataset.id}"]`
+      );
+      console.log(title);
+      const content = document.querySelector(
+        `#editor__content-input[data-id="${item.dataset.id}"]`
+      );
+      // 제목그리기
+      title.addEventListener("keyup", async (e) => {
+        console.log(e.currentTarget.value);
+        await editF(item.dataset.id, e.currentTarget.value, temp.content);
+        // const titleSide = document.querySelector(
+        //   `#document-container-${item.dataset.id} div a`
+        // );
+        // console.log("title", titleSide);
+      });
+      content.addEventListener("keyup", async (e) => {
+        await editF(item.dataset.id, temp.title, e.currentTarget.value);
+      });
+    });
   });
 };

@@ -64,6 +64,22 @@ export const initializeDocumentContent = async (docId) => {
     console.error("Document 초기화 중 오류 발생:", error);
   }
 };
+// 11.14 강수영 수정
+export const editF = async (docId, title, content) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${docId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-username": x_username,
+      },
+      body: JSON.stringify({ title, content }),
+    });
+    return response;
+  } catch (error) {
+    console.error("Document 초기화 중 오류 발생:", error);
+  }
+};
 
 // 강수영 실험중
 export const editContent = async (docId, title, content) => {

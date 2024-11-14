@@ -13,6 +13,7 @@
   position: fixed;
   /* transform: translateX(0);
   transition: transform 0.3s ease; */
+  min-height: 100vh;
 }
 .screen_miniSidebar {
   position: absolute;
