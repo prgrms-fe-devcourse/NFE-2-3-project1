@@ -1,0 +1,76 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+@font-face {
+  font-family: "pretendard";
+  src: url("../assets/fonts/pretendard/woff2/Pretendard-Light.woff2")
+    format("woff2");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "pretendard";
+  src: url("../assets/fonts/pretendard/woff2/Pretendard-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "pretendard";
+  src: url("../assets/fonts/pretendard/woff2/Pretendard-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "pretendard";
+  src: url("../assets/fonts/pretendard/woff2/Pretendard-SemiBold.woff2")
+    format("woff2");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "pretendard";
+  src: url("../assets/fonts/pretendard/woff2/Pretendard-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "pretendard";
+  src: url("../assets/fonts/pretendard/woff2/Pretendard-Black.woff2")
+    format("woff2");
+  font-weight: 900;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "pretendard";
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  font-size: 14px;
+}
+input,
+textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+img {
+  display: block;
+  object-fit: cover;
+}

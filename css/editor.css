@@ -1,0 +1,109 @@
+.editor-content {
+  width: 100%;
+  max-width: 1108px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.text-block {
+  width: 100%;
+  max-width: 1008px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.text-block:hover {
+  background-color: var(--main-gray);
+}
+
+div.text-block {
+  font-size: 16px;
+}
+h2.text-block {
+  font-size: 28px;
+}
+h3.text-block {
+  font-size: 24px;
+}
+h4.text-block {
+  font-size: 20px;
+}
+/* text-block 안에 있는 <ul>과 <ol> 스타일 */
+.text-block ul,
+.text-block ol {
+  margin: 0;
+  padding-left: 20px; /* 리스트 항목 왼쪽 여백 */
+  list-style-position: inside; /* 불릿 또는 번호를 항목 안에 표시 */
+}
+
+.text-block li {
+  margin-bottom: 10px; /* 항목 간 간격 */
+  padding-left: 10px; /* 항목 내용과 불릿 간의 간격 */
+  list-style-position: inside;
+}
+
+/* 편집 가능하게 스타일링 */
+.editor-content ol li[contenteditable="true"],
+.editor-content ul li[contenteditable="true"],
+.text-block[contenteditable="true"] {
+  outline: none; /* 포커스시 기본 outline 제거 */
+}
+
+/* .editor-content 안의 리스트 스타일 */
+.editor-content ul li {
+  list-style: disc; /* 불릿 */
+  list-style-position: inside;
+}
+
+.editor-content ol li {
+  list-style: decimal; /* 번호 */
+  list-style-position: inside;
+}
+
+input.title-input {
+  width: 100%;
+  border: none;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 2rem;
+}
+input.title-input::placeholder {
+  color: #525252;
+  font-weight: bold;
+}
+
+.hr {
+  border: "none";
+  height: "2px";
+  background-color: "#000";
+  margin: "20px 0";
+  width: "100%";
+  cursor: "text";
+}
+
+.editor-bottom {
+  width: 100%;
+  max-width: 1108px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  padding: 1rem;
+  gap: 8px;
+}
+
+.editor-bottom a {
+  background-color: var(--main-gray);
+  display: inline-block;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.editor-bottom a:hover {
+  transition: all 0.2s ease-in-out;
+  background-color: var(--main-light-gray);
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notion</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main id="wrap">
+      <header id="sidebar" class="sidebar">
+        <div class="sidebar-box">
+          <h1 id="logo" class="sidebar-title">~의 노션</h1>
+          <button id="toggleSidebar" class="sidebar-toggle">
+            <img src="/assets/images/arrow.png" alt="direction-icon" />
+          </button>
+        </div>
+        <div class="sidebar-box">
+          <button class="sidebar-search">
+            <img src="/assets/images/search.png" alt="search-icon" /> 검색
+          </button>
+        </div>
+        <div class="sidebar-sub">Documents</div>
+        <nav class="sidebar-nav">
+          <ul></ul>
+        </nav>
+        <div class="sidebar-bottom">
+          <button id="createDocBtn" type="button" class="sidebar-add">
+            <img src="./assets/images/plus.png" alt="plus icon" />
+            새 페이지 추가
+          </button>
+        </div>
+      </header>
+      <section id="editor" contenteditable="false">
+        <div class="editor-top">
+          <div class="editor-dir"><a href="/">Home</a></div>
+        </div>
+        <div class="intro">Hello, World!</div>
+      </section>
+    </main>
+
+    <div class="modal-overlay">
+      <div class="modal">
+        <div class="modal-title">
+          <span>검색창</span>
+        </div>
+
+        <form class="modal-search">
+          <input type="text" placeholder="도큐먼트 제목을 입력하세요." />
+          <button type="submit">검색</button>
+        </form>
+
+        <div class="modal-contents"></div>
+      </div>
+    </div>
+    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/sidebar.js"></script>
+    <!-- <script type="module" src="./js/sidebar.test.js"></script> -->
+    <script type="module" src="./js/editorTopBar.js"></script>
+    <script type="module" src="./js/search.js"></script>
+  </body>
+</html>

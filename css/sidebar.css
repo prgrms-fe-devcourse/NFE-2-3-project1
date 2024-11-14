@@ -1,0 +1,124 @@
+#sidebar.hidden {
+  width: 1px;
+  min-width: auto;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.sidebar-search {
+  justify-content: start;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  font-size: 1rem;
+  background-color: var(--main-gray);
+}
+
+.sidebar-search img {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+.sidebar-search:hover {
+  background-color: var(--main-light-gray);
+}
+
+#sidebar {
+  transition: all 0.2s;
+}
+
+.sidebar-item ul {
+  padding-left: 1rem;
+  transition: all 0.2;
+  z-index: 1;
+  overflow: hidden;
+}
+.sidebar-item > ul .sidebar-item > ul {
+  padding-left: 40px;
+}
+.sidebar-item.close > ul {
+  height: 1px;
+  opacity: 0;
+}
+.sidebar-item.close > .sidebar-item-content > .sidebar-item-toggle {
+  transform: rotate(-90deg);
+}
+.sidebar-item a {
+  display: inline-block; /* flex 사용 */
+  height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.sidebar-item-add,
+.sidebar-item-remove,
+.sidebar-item-toggle {
+  position: relative;
+  background-color: inherit;
+}
+
+.sidebar-item-btns {
+  opacity: 0;
+}
+.sidebar-item-content:hover > .sidebar-item-btns {
+  opacity: 1;
+}
+
+.sidebar-item-add::after,
+.sidebar-item-remove::after,
+.sidebar-item-toggle::after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s;
+}
+
+.sidebar-item-add::after {
+  background-image: url("../assets/images/plus.png");
+}
+
+.sidebar-item-remove::after {
+  background-image: url("../assets/images/trash.png");
+}
+.sidebar-item-toggle::after {
+  background-image: url("../assets/images/arrowDown.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 60%;
+}
+
+.sidebar-btn.openBtn {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.sidebar-btn.openBtn::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 12px;
+  background-size: contain;
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  background-image: url("../assets/images/reArrow.png");
+  background-repeat: no-repeat;
+}
+.sidebar-btn:hover {
+  background-color: var(--main-light-gray);
+}
