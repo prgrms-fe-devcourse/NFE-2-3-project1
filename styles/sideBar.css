@@ -3,12 +3,16 @@
 .screen__sidebar {
   box-sizing: border-box;
   min-width: 250px;
-  transition: min-width 0.3s ease;
   background-color: var(--gray100);
   padding-inline: 8px;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  max-height: 100vh;
+  overflow-y: scroll;
+  position: fixed;
+  /* transform: translateX(0);
+  transition: transform 0.3s ease; */
 }
 .screen_miniSidebar {
   position: absolute;
