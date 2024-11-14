@@ -174,14 +174,17 @@ a {
 .personalPage__PageList {
   display: none;
   height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .personalPage__PageList.on {
   display: block;
 }
+.personalPage__PageList::-webkit-scrollbar {
+  display: none;
+}
 .personalPage__ListItem {
   width: 100%;
-  padding: 3px;
+  padding: 5px 3px; 
   border-radius: 5px;
   position: relative;
 }
@@ -266,13 +269,20 @@ a {
   padding-left: 10px;
 }
 /* 메인 페이지 */
-.notionWrap__section {
+.editor {
   width: calc(100% - 240px);
   height: 100vh;
-  padding-top: 10%;
-  padding-left: 20%;
+
   background-color: #fff;
+  padding: 20px;
+}
+.notionWrap__section {
   cursor: text;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+
 }
 
 .notionWrap__section_add {
@@ -293,16 +303,29 @@ a {
 
 .notionWrap__section_title {
   caret-color: rgb(55, 53, 47);
-  font-size: 28px;
+
+  font-size: 40px;
+  line-height: 40px;
   padding: 3px 2px;
+  width: 100%;
+  max-width: 710px;
+
 }
 
 .notionWrap__section_title input {
   all: unset;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .notionWrap__section_title input::placeholder {
   color: #e1e1e0;
+}
+
+.textarea-wrapper {
+  width: 100%;
+  max-width: 710px;
 }
 
 .notionWrap__section_text textarea {
@@ -311,10 +334,14 @@ a {
   font-size: 16px;
   line-height: 24px;
 
+
   resize: none; /* 크기 조정 비활성화 */
   width: 100%;
   outline: none;
-  height: 24px;
+
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 .textareas {
   color: black;
@@ -325,7 +352,14 @@ a {
   resize: none; /* 크기 조정 비활성화 */
   width: 100%;
   outline: none;
-  height: 24px;
+
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.textareas::-webkit-scrollbar {
+  display: none;
+
 }
 
 .notionWrap__section_text textarea:empty::before {
@@ -369,6 +403,8 @@ a {
   justify-content: flex-start;
   margin-top: 21px;
   cursor: pointer;
+  width: 100%;
+  max-width: 710px;
 }
 
 .notionWrap__section_newPage-text {
@@ -377,4 +413,8 @@ a {
   text-decoration: underline;
   text-decoration-color: #efefee;
   text-underline-offset: 5px;
+}
+
+.nav {
+  height: 44px;
 }

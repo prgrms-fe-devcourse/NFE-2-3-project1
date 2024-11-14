@@ -66,4 +66,6 @@ export async function getContent(id) {
   });
   const parse = await data.json();
   return parse;
+
 }
+
