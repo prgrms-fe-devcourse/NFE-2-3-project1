@@ -478,3 +478,16 @@ input {
   width: 0;
   margin-right: 15px;
 }
+
+/* 사이드바 위로 마우스를 올려야 close-sidaebar-btn이 보이도록 */
+#close-sidebar-btn {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+#side-bar:hover #close-sidebar-btn {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
