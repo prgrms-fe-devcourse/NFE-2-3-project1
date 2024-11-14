@@ -65,8 +65,9 @@ export const renderSidebar = (docs) => {
   ) => {
     docs.forEach((doc) => {
       const listItem = document.createElement("li");
-      const title = doc.title || "제목 없음";
+      const title = doc.title.replace("\n", "") || "제목 없음";
       const id = doc.id;
+      console.log(id, title);
       const pathname = pathnames.length ? `${pathnames.join("/")}/${id}` : id;
 
       // 리스트 항목의 HTML 구조 생성
