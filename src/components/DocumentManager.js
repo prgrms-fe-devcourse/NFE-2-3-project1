@@ -2,9 +2,7 @@ import {
   getRootDocuments,
   postNewDocument,
   initializeDocumentContent,
-  editF,
   getTargetContent,
-  editContent,
 } from "../api/api.js";
 import { navigate, routes } from "../router/router.js";
 // 추가 : breadcrumb 업데이트 기능 추가
@@ -20,10 +18,9 @@ export const createDocumentsList = async () => {
     }
 
     const docsJSON = await getRootDocuments();
-    // 11.14 강수영수정
-    for (const doc of docsJSON) {
-      await createDocumentItem(doc, documentList);
-    }
+    docsJSON.forEach((doc) => {
+      createDocumentItem(doc, documentList);
+    });
   } catch (error) {
     console.error("문서 목록 가져오기 실패:", error);
   }
@@ -40,16 +37,8 @@ const removeAllActiveClasses = () => {
 
 export const createDocumentItem = async (doc, parentElement = null) => {
   const path = `/documents/${doc.id}`;
-<<<<<<< Updated upstream
-  const temp = await getTargetContent(doc.id);
-  console.log(temp);
-  const initialDocData = await editContent(doc.id, temp.tile, temp.content);
-=======
-  // 11.14 강수영수정
-  const temp = await getTargetContent(doc.id);
-  const initialDocData = await editF(doc.id, temp.title, temp.content);
+  const initialDocData = await initializeDocumentContent(doc.id);
 
->>>>>>> Stashed changes
   routes.set(path, {
     id: initialDocData.id,
     title: initialDocData.title,
@@ -61,8 +50,7 @@ export const createDocumentItem = async (doc, parentElement = null) => {
   newDocumentItem.classList.add("sidebar__menuWrapper--document");
   // 수정 : id를 li 태그로 이동
   newDocumentItem.id = `document-container-${doc.id}`;
-  // 11.14 강수영 수정
-  newDocumentItem.dataset.id = doc.id;
+
   // 수정 : HTML 구조 변경 - document-content div 추가
   newDocumentItem.innerHTML = `
     <div class="document-content">
@@ -115,14 +103,10 @@ export const createDocumentItem = async (doc, parentElement = null) => {
 
         // 문서 내용 가져오기
         const docData = await getTargetContent(docId);
+
         // 편집기에 내용 표시
         const titleElement = document.getElementById("editor__title-input");
         const contentElement = document.getElementById("editor__content-input");
-
-        //11.14 강수영추가
-        titleElement.dataset.id = docId;
-        contentElement.dataset.id = docId;
-
         titleElement.value = docData.title || "";
         contentElement.value = docData.content || "";
 
@@ -143,32 +127,11 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     navigate(path);
 
     const docData = await getTargetContent(doc.id);
-    console.log(docData);
-
-    // 강수영 여기서부터 잠시 사용하겠습니다
 
     const titleElement = document.getElementById("editor__title-input");
     const contentElement = document.getElementById("editor__content-input");
-<<<<<<< Updated upstream
-    titleElement.dataset.id = doc.id;
-=======
-
-    //11.14 강수영추가
-    titleElement.dataset.id = doc.id;
-    contentElement.dataset.id = doc.id;
-
->>>>>>> Stashed changes
     titleElement.value = docData.title || "";
     contentElement.value = docData.content || "";
-
-    titleElement.addEventListener("keyup", async (e) => {
-      console.log(e.currentTarget.value);
-      await editContent(doc.id, e.currentTarget.value, contentElement.value);
-    });
-    contentElement.addEventListener("keyup", async (e) => {
-      console.log(e.currentTarget.value);
-      await editContent(doc.id, titleElement.value, e.currentTarget.value);
-    });
 
     titleElement.disabled = false;
     contentElement.disabled = false;

@@ -1,5 +1,5 @@
-import { createDocumentsList } from "./components/DocumentManager.js";
-import { initializeEditor, tempF } from "./components/Editor.js";
+import { createDocumentsList } from "./components/documentManager/CreateDocumentList.js";
+import { tempF } from "./components/Editor.js";
 import { setEventListener } from "./listeners/CreateNewDocListener.js";
 import { router } from "./router/router.js";
 import { initializeBreadcrumb } from "./components/breadcrumb.js";
