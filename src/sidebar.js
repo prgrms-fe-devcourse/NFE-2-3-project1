@@ -1,6 +1,3 @@
-import { renderSidebar } from "./rendering.js";
-import { fetchDocuments } from "./utils.js";
-
 // 새 페이지 생성
 document.addEventListener("DOMContentLoaded", function () {
   // 이벤트 리스너
@@ -39,8 +36,74 @@ export async function createNewPage(parentId) {
     const newPageData = await response.json();
     console.log("API 응답 데이터:", newPageData);
 
-    const documents = await fetchDocuments();
-    renderSidebar(documents);
+    const id = newPageData.id;
+    const title = newPageData.title || "제목 없음";
+    const parentDoc = document.querySelector(
+      `div.flex:has([data-id='${parentId}'])`
+    );
+
+    if (parentDoc) {
+      const parentUl = parentDoc.nextElementSibling;
+      const parentLink = parentDoc.querySelector(".doc-item");
+      const pathname = parentLink.href + `/${id}`;
+
+      const listItem = document.createElement("li");
+      listItem.innerHTML = `
+      <div class="flex relative">
+        <img src="/assets/toggle-icon.svg" alt="토글 아이콘" class="toggle-icon" />
+        <a href="${pathname}" class="doc-item" data-id="${id}">${title}</a>
+        <button class="doc-item__add">
+          <img src="/assets/plus-icon.svg" alt="새 페이지 추가 버튼" class="icon" />
+        </button>
+      </div>
+    `;
+
+      parentUl.classList.add("indent");
+      const subList = document.createElement("ul");
+
+      listItem.appendChild(subList);
+      parentUl.appendChild(listItem);
+
+      if (parentUl.classList.contains("hidden")) {
+        parentUl.classList.remove("hidden");
+      }
+
+      // 하위 페이지가 비어있을 경우 "하위 페이지 없음" 메시지 표시
+      const isEmpty = parentUl.children.length === 0;
+      const isNotHidden = !parentUl.classList.contains("hidden");
+      if (isEmpty && isNotHidden) {
+        const message = document.createElement("p");
+        message.classList.add("no-sub-pages");
+        message.textContent = "하위 페이지 없음";
+        parentUl.appendChild(message);
+      } else {
+        // "하위 페이지 없음" 메시지가 있으면 제거
+        const noSubPagesMessage = parentUl.querySelector(".no-sub-pages");
+        if (noSubPagesMessage) {
+          noSubPagesMessage.remove();
+        }
+      }
+    } else {
+      const navListEl = document.getElementById("side-bar__nav-list");
+      const pathname = `/documents/${id}`;
+
+      const listItem = document.createElement("li");
+      listItem.innerHTML = `
+      <div class="flex relative">
+        <img src="/assets/toggle-icon.svg" alt="토글 아이콘" class="toggle-icon" />
+        <a href="${pathname}" class="doc-item" data-id="${id}">${title}</a>
+        <button class="doc-item__add">
+          <img src="/assets/plus-icon.svg" alt="새 페이지 추가 버튼" class="icon" />
+        </button>
+      </div>
+    `;
+
+      const subList = document.createElement("ul");
+      subList.classList.add("hidden");
+
+      listItem.appendChild(subList);
+      navListEl.appendChild(listItem);
+    }
   } catch (error) {
     console.error("페이지 생성 중 오류 발생:", error);
     alert("페이지 생성 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.");
