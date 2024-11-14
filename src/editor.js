@@ -56,9 +56,12 @@ export const autoSaveDocument = (id) => {
 
 function handleTitleInput() {
   const id = history.state?.id;
+  const docTopTitle = document.querySelector(`#doc__title[data-id='${id}']`);
   const currentLink = document.querySelector(`[data-id='${id}']`);
+
   docTitleInput.textContent = docTitleInput.textContent.replaceAll("\n", "");
   currentLink.textContent = docTitleInput.textContent || "제목 없음";
+  docTopTitle.textContent = docTitleInput.textContent || "제목 없음";
 
   if (docTitleInput.innerText.trim() !== "") {
     docTitleInput.classList.add("has-content");
