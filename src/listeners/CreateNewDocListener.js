@@ -1,4 +1,7 @@
-import { addRootDoc, addDoc } from "../components/DocumentManager.js";
+import {
+  addRootDoc,
+  addDoc,
+} from "../components/documentManager/HandleDocFuncs.js";
 
 export const setEventListener = (documentList, createDocumentButton) => {
   // 새 문서 생성
