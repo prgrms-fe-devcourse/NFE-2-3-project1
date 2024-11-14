@@ -27,16 +27,18 @@ a {
 /* 고딕 폰트 */
 .notionWrap {
   display: flex;
+  min-height: 100vh;
 }
 /* 사이드바 */
+/* 변경사항 : 높이값 제거 ------------------------------------------------------------- */
 .notionWrap__sideBar {
   width: 240px;
-  height: 100vh;
   padding: 10px;
   background-color: #f7f7f5;
   position: relative;
   transition: all 0.5s;
 }
+/* 변경사항 : 높이값 제거 ------------------------------------------------------------- */
 /* 좌측 최상단 유저 선택 버튼 */
 .userBtn {
   width: 100%;
@@ -184,7 +186,7 @@ a {
 }
 .personalPage__ListItem {
   width: 100%;
-  padding: 5px 3px; 
+  padding: 5px 3px;
   border-radius: 5px;
   position: relative;
 }
@@ -269,20 +271,20 @@ a {
   padding-left: 10px;
 }
 /* 메인 페이지 */
+/* 변경사항 : 높이값 제거 ------------------------------------------------------------- */
 .editor {
   width: calc(100% - 240px);
-  height: 100vh;
 
   background-color: #fff;
   padding: 20px;
 }
+/* 변경사항 : 높이값 제거 ------------------------------------------------------------- */
 .notionWrap__section {
   cursor: text;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 7rem;
-
 }
 
 .notionWrap__section_add {
@@ -309,7 +311,6 @@ a {
   padding: 3px 2px;
   width: 100%;
   max-width: 710px;
-
 }
 
 .notionWrap__section_title input {
@@ -333,7 +334,6 @@ a {
   border: none;
   font-size: 16px;
   line-height: 24px;
-
 
   resize: none; /* 크기 조정 비활성화 */
   width: 100%;
@@ -359,7 +359,6 @@ a {
 }
 .textareas::-webkit-scrollbar {
   display: none;
-
 }
 
 .notionWrap__section_text textarea:empty::before {

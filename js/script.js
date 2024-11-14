@@ -312,6 +312,11 @@ function pageGo() {
         // 페이지 히스토리 상태 변경
         history.pushState({ page: url, custom: "test" }, "", `/${url}`);
         // 추가부분
+        if (data.documents.length > 0) {
+          data.documents.forEach((doc) => {
+            downPage(notionWrap__section, doc.title, doc.id);
+          });
+        }
         const dPage = document.querySelectorAll(
           ".notionWrap__section_downPage-text"
         );
@@ -351,6 +356,33 @@ function pageGo() {
             });
           });
         });
+        // 하위 페이지 포맷
+        function downPage(parent, title, id) {
+          const page = `
+   <div class="notionWrap__section_newPage">
+          <svg
+            role="graphics-symbol"
+            viewBox="0 0 16 16"
+            class="pageEmpty"
+            style="
+              width: 19.8px;
+              height: 19.8px;
+              display: block;
+              fill: rgb(145, 145, 142);
+              flex-shrink: 0;
+            "
+          >
+            <path
+              d="M4.35645 15.4678H11.6367C13.0996 15.4678 13.8584 14.6953 13.8584 13.2256V7.02539C13.8584 6.0752 13.7354 5.6377 13.1406 5.03613L9.55176 1.38574C8.97754 0.804688 8.50586 0.667969 7.65137 0.667969H4.35645C2.89355 0.667969 2.13477 1.44043 2.13477 2.91016V13.2256C2.13477 14.7021 2.89355 15.4678 4.35645 15.4678ZM4.46582 14.1279C3.80273 14.1279 3.47461 13.7793 3.47461 13.1436V2.99219C3.47461 2.36328 3.80273 2.00781 4.46582 2.00781H7.37793V5.75391C7.37793 6.73145 7.86328 7.20312 8.83398 7.20312H12.5186V13.1436C12.5186 13.7793 12.1836 14.1279 11.5205 14.1279H4.46582ZM8.95703 6.02734C8.67676 6.02734 8.56055 5.9043 8.56055 5.62402V2.19238L12.334 6.02734H8.95703Z"
+            ></path>
+          </svg>
+          <a href="${id}" data-url="${id}" class="notionWrap__section_downPage-text">
+          <span>${title}</span>
+        </a>
+        </div>
+  `;
+          parent.insertAdjacentHTML("beforeend", page);
+        }
         // 추가부분
       });
     });
