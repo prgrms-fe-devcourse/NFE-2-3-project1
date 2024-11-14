@@ -1,11 +1,3 @@
-// const listPages = document.querySelectorAll(".list__page");
-// const mainPage = document.querySelector(".document");
-
-// const pages = {
-//   home: `<h1>시작 페이지</h1>
-//       <p>TEAM5의 노션입니다.</p>`,
-// };
-
 // 전체 페이지 로직
 async function getContent(id) {
   try {
@@ -114,22 +106,22 @@ async function deleteDocument(documentId) {
   }
 }
 
-// sidebar logic
-// 이벤트 위임을 사용하여 동적으로 생성된 리스트 항목에 클릭 이벤트 추가
-const listContainer = document.querySelector(".list__container");
+// // sidebar logic
+// // 이벤트 위임을 사용하여 동적으로 생성된 리스트 항목에 클릭 이벤트 추가
+// const listContainer = document.querySelector(".list__container");
 
-listContainer.addEventListener("click", (e) => {
-  const listItem = e.target.closest(".list__page, .list__content");
-  if (listItem) {
-    e.preventDefault();
-    const id = listItem.dataset.id;
-    if (id === "home") {
-      // home인 경우 바로 렌더링
-      history.pushState({}, "", "/");
-      window.dispatchEvent(new Event("loadDefault"));
-    } else {
-      history.pushState({ documentId: id }, "", `/${id}`);
-      window.dispatchEvent(new Event("loadDocument"));
-    }
-  }
-});
+// listContainer.addEventListener("click", (e) => {
+//   const listItem = e.target.closest(".list__page, .list__content");
+//   if (listItem) {
+//     e.preventDefault();
+//     const id = listItem.dataset.id;
+//     if (id === "home") {
+//       // home인 경우 바로 렌더링
+//       history.pushState({}, "", "/");
+//       window.dispatchEvent(new Event("loadDefault"));
+//     } else {
+//       history.pushState({ documentId: id }, "", `/${id}`);
+//       window.dispatchEvent(new Event("loadDocument"));
+//     }
+//   }
+// });

@@ -304,7 +304,8 @@ button {
 .arrow-icon {
   width: 8px; /* 화살표 아이콘 크기 조정 */
   height: 8px; /* 화살표 아이콘 크기 조정 */
-  transform: rotate(-90deg); /* 오른쪽으로 90도 회전 */
+  rotate: 270deg;
+  transform: rotate(90deg); /* 오른쪽으로 90도 회전 */
 }
 
 .file-icon {

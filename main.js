@@ -1,33 +1,4 @@
-// // 임시로 만든 이벤트 리스너입니다.
-// document.getElementById("click1").addEventListener("click", function (event) {
-//     // SPA 구현하기
-//     history.pushState(
-//       { documentId: event.currentTarget.innerText },
-//       "",
-//       `/${event.currentTarget.innerText}`
-//     );
-
-//     // 커스텀 이벤트 트리거
-//     const customEvent = new Event("loadDocument");
-//     window.dispatchEvent(customEvent);
-//   });
-
-//   document.getElementById("click2").addEventListener("click", function (event) {
-//     history.pushState(
-//       { documentId: event.currentTarget.innerText },
-//       "",
-//       `/${event.currentTarget.innerText}`
-//     );
-
-//     // 커스텀 이벤트 트리거
-//     const customEvent = new Event("loadDocument");
-//     window.dispatchEvent(customEvent);
-//   });
-
-//   // 위의 코드는 원활한 테스트를 위해 임시로 작성된 코드입니다.
-//   /////////////////////////////////////////
-
-const DEFAULT_TITLE = "TEAM5의 Notion";
+const DEFAULT_TITLE = "Team5의 Notion 🥳";
 const DEFAULT_CONTENT = "문서를 생성하거나 선택하여 내용을 작성해보세요!";
 
 const documentTitle = document.getElementById("document-title");
@@ -114,7 +85,7 @@ function handleLoadDefault() {
 
 // 문서 삭제
 function handleDeleteButtonClick() {
-  if (!confirm("정말로 이 문서를 삭제하시겠습니까?")) return;
+  if (!confirm("이 문서를 삭제하시겠습니까?")) return;
   if (deleteDocument(history.state.documentId)) {
     alert("문서가 삭제되었습니다.");
     history.pushState({}, "", "/");
@@ -132,7 +103,8 @@ function handleTitleInput(event) {
   const documentElement = document.querySelector(
     `li[data-id="${documentId}"] a p`
   );
-  if (documentElement) documentElement.textContent = title;
+  if (documentElement)
+    documentElement.textContent = title === "" ? "새 페이지" : title;
   documentTitlePreview.innerText = title;
   handlePlaceholderClass(documentTitle, title);
   debounceUpdateDocument();

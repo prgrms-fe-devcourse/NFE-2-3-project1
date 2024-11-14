@@ -1,23 +1,21 @@
 const newDocumentButton = document.querySelector(".sidebar__newContent");
 const documentsContainer = document.querySelector(".list__container");
-getContentList();
 
 // 최적화용
 document.addEventListener("DOMContentLoaded", () => {
+  getContentList();
   newDocumentButton.addEventListener("click", async () => {
     const { id: newDocumentId } = await createDocument();
-    // history.pushState({ documentId: newDocumentId }, "", `/${newDocumentId}`);
-    // window.dispatchEvent(new Event("loadDocument"));
+    history.pushState({ documentId: newDocumentId }, "", `/${newDocumentId}`);
+    window.dispatchEvent(new Event("loadDocument"));
   });
-
   documentsContainer.addEventListener("click", async (e) => {
+    e.preventDefault(); // 기본 이벤트(페이지 이동) 방지
     const listItem = e.target.closest(".list__page");
     if (!listItem) return;
     const id = listItem.dataset.id;
-
     // 화살표 아이콘 클릭 시
     if (e.target.classList.contains("arrow-icon")) {
-      e.preventDefault(); // 기본 이벤트(페이지 이동) 방지
       const nextElement = listItem.nextElementSibling;
       if (nextElement && nextElement.classList.contains("child-documents")) {
         nextElement.classList.toggle("hidden");
@@ -25,16 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return; // 화살표 클릭 시 다른 이벤트 처리하지 않음
     }
-
     // 나머지 아이콘 클릭 처리
     // 페이지 넣기
     if (e.target.classList.contains("add-icon")) {
+      e.preventDefault();
       const { id: newDocumentId } = await createDocument(id);
       history.pushState({ documentId: newDocumentId }, "", `/${newDocumentId}`);
       window.dispatchEvent(new Event("loadDocument"));
+      return;
     } else if (e.target.classList.contains("trash-icon")) {
       //문서 삭제 아이콘 넣기
-      console.log();
       if (
         window.confirm(
           `"${e.target.parentElement.parentElement.innerText}" 문서를 삭제하시겠습니까?`
@@ -50,15 +48,86 @@ document.addEventListener("DOMContentLoaded", () => {
           });
           if (!response.ok) throw new Error("error");
           else alert("문서 삭제에 성공하셨습니다.");
+          if (id === history.state.documentId) {
+            history.pushState({}, "", "/");
+            window.dispatchEvent(new Event("loadDefault"));
+          }
         } catch (err) {
           console.error(err);
         } finally {
           getContentList();
         }
       }
+    } else {
+      if (id === "home") {
+        // home인 경우 바로 렌더링
+        history.pushState({}, "", "/");
+        window.dispatchEvent(new Event("loadDefault"));
+      } else {
+        history.pushState({ documentId: id }, "", `/${id}`);
+        window.dispatchEvent(new Event("loadDocument"));
+      }
     }
   });
 });
+
+// // 최적화용
+// document.addEventListener("DOMContentLoaded", () => {
+//   newDocumentButton.addEventListener("click", async () => {
+//     const { id: newDocumentId } = await createDocument();
+//     // history.pushState({ documentId: newDocumentId }, "", `/${newDocumentId}`);
+//     // window.dispatchEvent(new Event("loadDocument"));
+//   });
+
+//   documentsContainer.addEventListener("click", async (e) => {
+//     const listItem = e.target.closest(".list__page");
+//     if (!listItem) return;
+//     const id = listItem.dataset.id;
+
+//     // 화살표 아이콘 클릭 시
+//     if (e.target.classList.contains("arrow-icon")) {
+//       e.preventDefault(); // 기본 이벤트(페이지 이동) 방지
+//       const nextElement = listItem.nextElementSibling;
+//       if (nextElement && nextElement.classList.contains("child-documents")) {
+//         nextElement.classList.toggle("hidden");
+//         e.target.classList.toggle("rotated");
+//       }
+//       return; // 화살표 클릭 시 다른 이벤트 처리하지 않음
+//     }
+
+//     // 나머지 아이콘 클릭 처리
+//     // 페이지 넣기
+//     if (e.target.classList.contains("add-icon")) {
+//       const { id: newDocumentId } = await createDocument(id);
+//       history.pushState({ documentId: newDocumentId }, "", `/${newDocumentId}`);
+//       window.dispatchEvent(new Event("loadDocument"));
+//     } else if (e.target.classList.contains("trash-icon")) {
+//       //문서 삭제 아이콘 넣기
+//       console.log();
+//       if (
+//         window.confirm(
+//           `"${e.target.parentElement.parentElement.innerText}" 문서를 삭제하시겠습니까?`
+//         )
+//       ) {
+//         try {
+//           const url = `https://kdt-api.fe.dev-cos.com/documents/${id}`;
+//           const response = await fetch(url, {
+//             method: "DELETE",
+//             headers: {
+//               "x-username": "team5",
+//             },
+//           });
+//           if (!response.ok) throw new Error("error");
+//           else alert("문서 삭제에 성공하셨습니다.");
+//         } catch (err) {
+//           console.error(err);
+//         } finally {
+//           getContentList();
+//         }
+//       }
+//     }
+//   });
+// });
 
 async function getContentList() {
   try {
@@ -95,7 +164,7 @@ async function createDocument(parentId = null) {
         "x-username": "team5",
       },
       body: JSON.stringify({
-        title: parentId ? "새 하위 문서" : "새 문서",
+        title: "새 페이지",
         parent: parentId,
       }),
     });
@@ -122,7 +191,7 @@ function createDocumentHtml(doc, level = 0) {
             ? `<img src="./img/notion_project_arrow.svg" class="arrow-icon" alt="Arrow">`
             : ""
         }
-        <p class="link__title">${title}</p>
+        <p class="link__title">${title ? title : "새 페이지"}</p>
       </a>
       <div class="icon-container">
         <img src="./img/notion_project_add_icon.svg" class="add-icon" alt="Add">
