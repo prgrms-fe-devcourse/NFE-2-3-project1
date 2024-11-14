@@ -1,8 +1,24 @@
+/* jh  font-family 추가 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style: none;
+  font-family: "Inter", sans-serif;
+}
+/* 사이드바 닫기 버튼 */
+.arrowIcon {
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.userBtn:hover .arrowIcon {
+  visibility: visible;
+  opacity: 1;
+}
+.openBtn {
+  cursor: pointer;
 }
 a {
   text-decoration: none;
@@ -14,8 +30,9 @@ a {
 }
 /* 마우스 올릴때 배경색 변환 공통 */
 /* 고딕 폰트 */
+/* jh  font-family 삭제 , font-size 추가  */
 .gothic-a1-regular {
-  font-family: "Gothic A1", sans-serif;
+  font-size: 16px;
   font-weight: 400;
   font-style: normal;
 }
@@ -27,18 +44,16 @@ a {
 /* 고딕 폰트 */
 .notionWrap {
   display: flex;
-  min-height: 100vh;
 }
 /* 사이드바 */
-/* (변경사항) : 높이값 제거 ------------------------------------------------------------- */
+/* width 변경 , height 제거 */
 .notionWrap__sideBar {
-  width: 240px;
+  width: 20%;
   padding: 10px;
   background-color: #f7f7f5;
   position: relative;
   transition: all 0.5s;
 }
-/* (변경사항) : 높이값 제거 ------------------------------------------------------------- */
 /* 좌측 최상단 유저 선택 버튼 */
 .userBtn {
   width: 100%;
@@ -59,6 +74,7 @@ a {
 }
 .selectUser__text {
   position: relative;
+  font-size: 16px;
 }
 .selectUser__text::before {
   content: "";
@@ -133,17 +149,7 @@ a {
   align-items: center;
   gap: 10px;
 }
-/* (변경사항) arrowIcon hover이펙트 추가 */
-.arrowIcon {
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.5s;
-}
-.userBtn:hover .arrowIcon {
-  visibility: visible;
-  opacity: 1;
-}
-/* (변경사항) arrowIcon hover이펙트 추가 */
+
 .arrowIcon__img,
 .buildIcon__img {
   width: 15px;
@@ -183,9 +189,10 @@ a {
   color: gray;
   cursor: pointer;
 }
+/* jh  height 변경 */
 .personalPage__PageList {
   display: none;
-  height: 400px;
+  height: 600px;
   overflow-y: auto;
 }
 .personalPage__PageList.on {
@@ -194,17 +201,13 @@ a {
 .personalPage__PageList::-webkit-scrollbar {
   display: none;
 }
+
 .personalPage__ListItem {
   width: 100%;
   padding: 5px 3px;
   border-radius: 5px;
   position: relative;
 }
-/* 개인페이지 자료 클릭시 hover이벤트 유지(변경사항) */
-.personalPage__ListItem.on {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-/* 개인페이지 자료 클릭시 hover이벤트 유지(변경사항) */
 .ListItem__buildBtn {
   visibility: hidden;
   opacity: 0;
@@ -264,14 +267,19 @@ a {
   visibility: visible;
   opacity: 1;
 }
+
 .ListItem__pageLink {
   width: 100%;
   height: 100%;
   display: block;
   padding-left: 20px;
 }
+/* jh font-weigh, color 추가 */
 .ListItem__pageLink > span {
+  font-size: 14px;
   display: block;
+  font-weight: 200;
+  color: #333333;
   width: 70%;
   white-space: nowrap;
   overflow: hidden;
@@ -286,14 +294,13 @@ a {
   padding-left: 10px;
 }
 /* 메인 페이지 */
-/* (변경사항) : 높이값 제거 ------------------------------------------------------------- */
 .editor {
   width: calc(100% - 240px);
+  height: 100vh;
 
   background-color: #fff;
   padding: 20px;
 }
-/* (변경사항) : 높이값 제거 ------------------------------------------------------------- */
 .notionWrap__section {
   cursor: text;
   display: flex;
@@ -317,10 +324,10 @@ a {
   font-size: 14px;
   cursor: pointer;
 }
-
+/* jh ont-weight,color 추가  */
 .notionWrap__section_title {
-  caret-color: rgb(55, 53, 47);
-
+  font-weight: 600;
+  color: #333333;
   font-size: 40px;
   line-height: 40px;
   padding: 3px 2px;
@@ -358,8 +365,9 @@ a {
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
+/* jh color 추가 */
 .textareas {
-  color: black;
+  color: #333333;
   border: none;
   font-size: 16px;
   line-height: 24px;
@@ -431,4 +439,20 @@ a {
 
 .nav {
   height: 44px;
+}
+/* jh 아래 모두 추가 */
+.icon2 {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0; /* 두 번째 SVG는 처음에 숨겨둠 */
+}
+
+.icon-container:hover .icon1 {
+  opacity: 0; /* hover 시 첫 번째 SVG 숨기기 */
+}
+
+.icon-container:hover .icon2 {
+  opacity: 1; /* hover 시 두 번째 SVG 보이게 하기 */
 }

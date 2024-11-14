@@ -537,11 +537,11 @@ function newList(id, title) {
   listTemplet.classList.add("bgChange");
   listTemplet.innerHTML = `
     <div class="ListItem__underBtn bgChange">
-      <img
-        class="docIcon icon"
-        src="./img/document.png"
-        alt="문서 아이콘"
-      />
+      <div class="icon-container"> 
+              <svg class="icon1" width="16px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#949491" transform="matrix(-1, 0, 0, 1, 0, 0)" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.144"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M9.29289 1.29289C9.48043 1.10536 9.73478 1 10 1H18C19.6569 1 21 2.34315 21 4V20C21 21.6569 19.6569 23 18 23H6C4.34315 23 3 21.6569 3 20V8C3 7.73478 3.10536 7.48043 3.29289 7.29289L9.29289 1.29289ZM18 3H11V8C11 8.55228 10.5523 9 10 9H5V20C5 20.5523 5.44772 21 6 21H18C18.5523 21 19 20.5523 19 20V4C19 3.44772 18.5523 3 18 3ZM6.41421 7H9V4.41421L6.41421 7ZM7 13C7 12.4477 7.44772 12 8 12H16C16.5523 12 17 12.4477 17 13C17 13.5523 16.5523 14 16 14H8C7.44772 14 7 13.5523 7 13ZM7 17C7 16.4477 7.44772 16 8 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H8C7.44772 18 7 17.5523 7 17Z" fill="#949494"></path> </g></svg>    
+              <svg class="icon2" role="graphics-symbol" viewBox="0 0 12 12" style="width: 15px; height: 15px; display: block; fill: rgba(55, 53, 47, 0.35); flex-shrink: 0; transition: transform 200ms ease-out; transform: rotateZ(0deg);"><path d="M6.02734 8.80274C6.27148 8.80274 6.47168 8.71484 6.66211 8.51465L10.2803 4.82324C10.4268 4.67676 10.5 4.49609 10.5 4.28125C10.5 3.85156 10.1484 3.5 9.72363 3.5C9.50879 3.5 9.30859 3.58789 9.15234 3.74902L6.03223 6.9668L2.90722 3.74902C2.74609 3.58789 2.55078 3.5 2.33105 3.5C1.90137 3.5 1.55469 3.85156 1.55469 4.28125C1.55469 4.49609 1.62793 4.67676 1.77441 4.82324L5.39258 8.51465C5.58789 8.71973 5.78808 8.80274 6.02734 8.80274Z"></path></svg>
+              <svg class="icon3" role="graphics-symbol" viewBox="0 0 12 12" style=" opacity:0; width: 15px; height: 15px; display: block; fill: rgba(55, 53, 47, 0.35); flex-shrink: 0; transition: transform 200ms ease-out; transform: rotateZ(0deg);"><path d="M6.02734 8.80274C6.27148 8.80274 6.47168 8.71484 6.66211 8.51465L10.2803 4.82324C10.4268 4.67676 10.5 4.49609 10.5 4.28125C10.5 3.85156 10.1484 3.5 9.72363 3.5C9.50879 3.5 9.30859 3.58789 9.15234 3.74902L6.03223 6.9668L2.90722 3.74902C2.74609 3.58789 2.55078 3.5 2.33105 3.5C1.90137 3.5 1.55469 3.85156 1.55469 4.28125C1.55469 4.49609 1.62793 4.67676 1.77441 4.82324L5.39258 8.51465C5.58789 8.71973 5.78808 8.80274 6.02734 8.80274Z"></path></svg>
+            </div>
     </div>
     <a href="/${id}" data-url="${id}" class="ListItem__pageLink">
       <span>${title}</span>
@@ -606,7 +606,7 @@ function newPage(title, content) {
 
 ///////////////////////////////////////////////////예정
 
-// 하위 페이지 토글(변경시힝 - MakeUnderPage 추가할때 하위 페이지 안나오는 현상 수정[underPageToggle과 연계])
+// 하위 페이지 토글
 // (변경사항 - MakeUnderPage시 underPageToggle에서 상위폴더를 클릭하게 변경[생성후 페이지에서 글 쓰면 저장안되는 현상 때문에 변경])
 function underPageToggle() {
   const ListItem__underBtn = document.querySelectorAll(".ListItem__underBtn");
@@ -685,11 +685,11 @@ function underList(id, title) {
     <ul class="personalPage__PageList--next">
       <li class="personalPage__ListItem bgChange">
         <div class="ListItem__underBtn bgChange">
-          <img
-            class="docIcon icon"
-            src="./img/document.png"
-            alt="문서 아이콘"
-          />
+          <div class="icon-container"> 
+              <svg class="icon1" width="16px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#949491" transform="matrix(-1, 0, 0, 1, 0, 0)" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.144"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M9.29289 1.29289C9.48043 1.10536 9.73478 1 10 1H18C19.6569 1 21 2.34315 21 4V20C21 21.6569 19.6569 23 18 23H6C4.34315 23 3 21.6569 3 20V8C3 7.73478 3.10536 7.48043 3.29289 7.29289L9.29289 1.29289ZM18 3H11V8C11 8.55228 10.5523 9 10 9H5V20C5 20.5523 5.44772 21 6 21H18C18.5523 21 19 20.5523 19 20V4C19 3.44772 18.5523 3 18 3ZM6.41421 7H9V4.41421L6.41421 7ZM7 13C7 12.4477 7.44772 12 8 12H16C16.5523 12 17 12.4477 17 13C17 13.5523 16.5523 14 16 14H8C7.44772 14 7 13.5523 7 13ZM7 17C7 16.4477 7.44772 16 8 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H8C7.44772 18 7 17.5523 7 17Z" fill="#949494"></path> </g></svg>    
+              <svg class="icon2" role="graphics-symbol" viewBox="0 0 12 12" style="width: 15px; height: 15px; display: block; fill: rgba(55, 53, 47, 0.35); flex-shrink: 0; transition: transform 200ms ease-out; transform: rotateZ(0deg);"><path d="M6.02734 8.80274C6.27148 8.80274 6.47168 8.71484 6.66211 8.51465L10.2803 4.82324C10.4268 4.67676 10.5 4.49609 10.5 4.28125C10.5 3.85156 10.1484 3.5 9.72363 3.5C9.50879 3.5 9.30859 3.58789 9.15234 3.74902L6.03223 6.9668L2.90722 3.74902C2.74609 3.58789 2.55078 3.5 2.33105 3.5C1.90137 3.5 1.55469 3.85156 1.55469 4.28125C1.55469 4.49609 1.62793 4.67676 1.77441 4.82324L5.39258 8.51465C5.58789 8.71973 5.78808 8.80274 6.02734 8.80274Z"></path></svg>
+              <svg class="icon3" role="graphics-symbol" viewBox="0 0 12 12" style=" opacity:0; width: 15px; height: 15px; display: block; fill: rgba(55, 53, 47, 0.35); flex-shrink: 0; transition: transform 200ms ease-out; transform: rotateZ(0deg);"><path d="M6.02734 8.80274C6.27148 8.80274 6.47168 8.71484 6.66211 8.51465L10.2803 4.82324C10.4268 4.67676 10.5 4.49609 10.5 4.28125C10.5 3.85156 10.1484 3.5 9.72363 3.5C9.50879 3.5 9.30859 3.58789 9.15234 3.74902L6.03223 6.9668L2.90722 3.74902C2.74609 3.58789 2.55078 3.5 2.33105 3.5C1.90137 3.5 1.55469 3.85156 1.55469 4.28125C1.55469 4.49609 1.62793 4.67676 1.77441 4.82324L5.39258 8.51465C5.58789 8.71973 5.78808 8.80274 6.02734 8.80274Z"></path></svg>
+            </div>
         </div>
         <a href="${id}" data-url="${id}" class="ListItem__pageLink">
           <span>${title}</span>
