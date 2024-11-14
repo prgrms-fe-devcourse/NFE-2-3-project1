@@ -17,7 +17,7 @@ const docTitleInput = document.getElementById("doc-title__input");
 const docContents = document.getElementById("doc-contents");
 
 export const createAndSaveBlocks = async (id) => {
-  const title = docTitleInput.innerText;
+  const title = docTitleInput.innerText.trim();
   const blocks = docContents.innerText.split("\n").join("\n"); //줄바꿈으로 블록 처리
   console.log("저장할 제목:", title);
   console.log("블록 단위로 나눔:", blocks);
@@ -59,22 +59,27 @@ function handleTitleInput() {
   const docTopTitle = document.querySelector(`#doc__title[data-id='${id}']`);
   const currentLink = document.querySelector(`[data-id='${id}']`);
 
-  docTitleInput.textContent = docTitleInput.textContent.replaceAll("\n", "");
-  currentLink.textContent = docTitleInput.textContent || "제목 없음";
-  docTopTitle.textContent = docTitleInput.textContent || "제목 없음";
+  const title = docTitleInput.textContent.trim();
+  currentLink.textContent = title || "제목 없음";
+  docTopTitle.textContent = title || "제목 없음";
 
-  if (docTitleInput.innerText.trim() !== "") {
+  if (title !== "") {
     docTitleInput.classList.add("has-content");
   } else {
     docTitleInput.classList.remove("has-content");
   }
 }
 function handleContentsInput() {
-  docContents.textContent = docContents.textContent.replaceAll("\n", "");
   if (docContents.innerText.trim() !== "") {
     docContents.classList.add("has-content");
   } else {
     docContents.classList.remove("has-content");
+  }
+}
+function handleInputFocusout(e) {
+  const target = e.target;
+  if (target.innerText === "\n") {
+    target.innerText = "";
   }
 }
 
@@ -95,6 +100,7 @@ export const manualSaveDocument = () => {
 // contenteditable 처리
 docTitleInput.addEventListener("input", handleTitleInput);
 docContents.addEventListener("input", handleContentsInput);
+document.addEventListener("focusout", handleInputFocusout);
 
 // 삭제 버튼 클릭 시 커스텀 모달 열기
 deleteButton.addEventListener("click", function (e) {

@@ -1,5 +1,3 @@
-import { createNewPage } from "./sidebar.js";
-
 export const renderEditor = (doc) => {
   console.log("문서 내용 : ", doc);
 
@@ -45,7 +43,7 @@ export const renderEditor = (doc) => {
 
       const html = `
         <div class="doc__childDoc">
-            <img src="/assets/file-icon.svg" class="icon" />
+            <img src="./assets/file-icon.svg" class="icon" />
             <a href="${pathname}/${id}" data-id="${id}">${title}</a>
         </div>
       `;
@@ -65,7 +63,7 @@ export const renderSidebar = (docs) => {
   ) => {
     docs.forEach((doc) => {
       const listItem = document.createElement("li");
-      const title = doc.title.replace("\n", "") || "제목 없음";
+      const title = doc.title || "제목 없음";
       const id = doc.id;
       console.log(id, title);
       const pathname = pathnames.length ? `${pathnames.join("/")}/${id}` : id;
@@ -73,10 +71,10 @@ export const renderSidebar = (docs) => {
       // 리스트 항목의 HTML 구조 생성
       listItem.innerHTML = `
           <div class="flex relative">
-            <img src="/assets/toggle-icon.svg" alt="토글 아이콘" class="toggle-icon" />
+            <img src="./assets/toggle-icon.svg" alt="토글 아이콘" class="toggle-icon" />
             <a href="/documents/${pathname}" class="doc-item" data-id="${id}">${title}</a>
             <button class="doc-item__add">
-              <img src="/assets/plus-icon.svg" alt="새 페이지 추가 버튼" class="icon" />
+              <img src="./assets/plus-icon.svg" alt="새 페이지 추가 버튼" class="icon" />
             </button>
           </div>
         `;
