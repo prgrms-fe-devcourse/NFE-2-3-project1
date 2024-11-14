@@ -1,6 +1,7 @@
 const hamburger = document.getElementById("sideBar__hamburger");
 const sideBar = document.getElementById("sidebar");
 const mainSection = document.getElementById("mainSection");
+
 // 사이드바 숨기는 함수
 const onclickSideBarHide = () => {
   const hideButton = document.getElementById("sideBar__hideButton");

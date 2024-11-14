@@ -7,7 +7,6 @@ import {
 import { navigate, routes } from "../router/router.js";
 // 추가 : breadcrumb 업데이트 기능 추가
 import { updateBreadcrumb } from "./breadcrumb.js";
-import { sidebarButton } from "./Sidebar.js";
 
 export const createDocumentsList = async () => {
   try {
