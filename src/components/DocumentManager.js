@@ -5,12 +5,13 @@ import {
   getTargetContent,
 } from "../api/api.js";
 import { navigate, routes } from "../router/router.js";
+// 추가 : breadcrumb 업데이트 기능 추가
 import { updateBreadcrumb } from "./breadcrumb.js";
+import { sidebarButton } from "./Sidebar.js";
 
-// 문서 목록을 가져와 동적 링크 생성
 export const createDocumentsList = async () => {
   try {
-    // 문서 목록을 추가할 ul 요소 찾기
+    // 추가 : DOM 요소 존재 여부 검증 로직
     const documentList = document.getElementById("document-list");
     if (!documentList) {
       console.error("document-list 요소를 찾을 수 없습니다.");
@@ -26,7 +27,7 @@ export const createDocumentsList = async () => {
   }
 };
 
-// 모든 active 클래스 제거 함수
+// 추가 : active 클래스 관리를 위한 새로운 함수
 const removeAllActiveClasses = () => {
   document
     .querySelectorAll(".sidebar__menuWrapper--document")
@@ -35,12 +36,10 @@ const removeAllActiveClasses = () => {
     });
 };
 
-// 문서 생성 및 사이드바에 링크 추가
 export const createDocumentItem = async (doc, parentElement = null) => {
   const path = `/documents/${doc.id}`;
   const initialDocData = await initializeDocumentContent(doc.id);
 
-  // 라우트 등록
   routes.set(path, {
     id: initialDocData.id,
     title: initialDocData.title,
@@ -48,11 +47,12 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     parent: initialDocData.parent,
   });
 
-  // 문서 항목 생성
   const newDocumentItem = document.createElement("li");
   newDocumentItem.classList.add("sidebar__menuWrapper--document");
+  // 수정 : id를 li 태그로 이동
   newDocumentItem.id = `document-container-${doc.id}`;
 
+  // 수정 : HTML 구조 변경 - document-content div 추가
   newDocumentItem.innerHTML = `
     <div class="document-content">
       <a href="#" class="document-link" data-url="doc${doc.id}">
@@ -63,7 +63,7 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     <ul class="sub-document-list" style="display: none;"></ul>
   `;
 
-  // 부모 요소가 있으면 그 안에, 없으면 document-list에 추가
+  // 수정 : 부모 요소 처리 로직 강화
   if (parentElement) {
     parentElement.appendChild(newDocumentItem);
   } else {
@@ -75,7 +75,6 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     }
   }
 
-  // 하위 문서가 있으면 하위 문서를 재귀적으로 추가
   if (doc.documents && doc.documents.length > 0) {
     const subDocList = newDocumentItem.querySelector(".sub-document-list");
     doc.documents.forEach((subdoc) => {
@@ -83,7 +82,7 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     });
   }
 
-  // hover 이벤트 추가
+  // 추가 : hover 이벤트 추가
   newDocumentItem.addEventListener("mouseenter", () => {
     newDocumentItem.classList.add("hover__document-item");
   });
@@ -92,7 +91,7 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     newDocumentItem.classList.remove("hover__document-item");
   });
 
-  // 문서 클릭 이벤트
+  // 수정 : 문서 클릭 이벤트 로직 개선
   newDocumentItem.addEventListener("click", async (event) => {
     // 추가 : 하위 문서 클릭 시 이벤트 전파 중단
     if (event.target.closest(".sub-document-list")) {
@@ -147,11 +146,11 @@ export const createDocumentItem = async (doc, parentElement = null) => {
       subDocumentList.style.display === "none" ? "block" : "none";
   });
 
-  // document 추가 버튼 클릭 이벤트
+  // 수정 : document 추가 버튼 이벤트 개선
   const addButton = newDocumentItem.querySelector(".add-subdoc-btn");
   if (addButton) {
     addButton.addEventListener("click", async (event) => {
-      event.stopPropagation(); // 이벤트 버블링 방지
+      event.stopPropagation(); // 추가 : 이벤트 버블링 방지
       const parentId = event.target.dataset.parentId;
       if (parentId) {
         await addDoc(parentId);
@@ -160,7 +159,7 @@ export const createDocumentItem = async (doc, parentElement = null) => {
   }
 };
 
-// Root Document 생성
+// 수정 : Root Document 생성 함수 개선
 export const addRootDoc = async () => {
   try {
     const newDocument = await postNewDocument("untitled");
@@ -174,8 +173,9 @@ export const addRootDoc = async () => {
   }
 };
 
-// 하위 페이지 생성
+// 수정 : 하위 페이지 생성 함수 개선
 export const addDoc = async (parentId) => {
+  // 추가 : 부모 요소 검증 강화
   const parentElement = document.getElementById(
     `document-container-${parentId}`
   );
@@ -195,7 +195,7 @@ export const addDoc = async (parentId) => {
     await createDocumentItem(newDocument, subDocumentList);
     navigate(`/documents/${newDocument.id}`);
 
-    // 하위 문서 목록이 숨겨져 있다면 보이게 설정
+    // 추가 : 하위 문서 목록 표시 처리
     if (subDocumentList.style.display === "none") {
       subDocumentList.style.display = "block";
     }
@@ -204,12 +204,12 @@ export const addDoc = async (parentId) => {
   }
 };
 
-// Root Document 생성 버튼에 이벤트 리스너 추가
-document.addEventListener("DOMContentLoaded", () => {
-  const createButton = document.getElementById(
-    "sidebar__createDocument--button"
-  );
-  if (createButton) {
-    createButton.addEventListener("click", addRootDoc);
-  }
-});
+// 추가 : 주석 처리된 이벤트 리스너
+// document.addEventListener("DOMContentLoaded", () => {
+//   const createButton = document.getElementById(
+//     "sidebar__createDocument--button"
+//   );
+//   if (createButton) {
+//     createButton.addEventListener("click", addRootDoc);
+//   }
+// });
