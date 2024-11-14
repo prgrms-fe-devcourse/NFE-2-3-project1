@@ -272,6 +272,7 @@ a {
 .editor {
   width: calc(100% - 240px);
   height: 100vh;
+
   background-color: #fff;
   padding: 20px;
 }
@@ -281,6 +282,7 @@ a {
   flex-direction: column;
   align-items: center;
   padding-top: 7rem;
+
 }
 
 .notionWrap__section_add {
@@ -301,11 +303,13 @@ a {
 
 .notionWrap__section_title {
   caret-color: rgb(55, 53, 47);
+
   font-size: 40px;
   line-height: 40px;
   padding: 3px 2px;
   width: 100%;
   max-width: 710px;
+
 }
 
 .notionWrap__section_title input {
@@ -329,6 +333,7 @@ a {
   border: none;
   font-size: 16px;
   line-height: 24px;
+
 
   resize: none; /* 크기 조정 비활성화 */
   width: 100%;
@@ -354,6 +359,7 @@ a {
 }
 .textareas::-webkit-scrollbar {
   display: none;
+
 }
 
 .notionWrap__section_text textarea:empty::before {

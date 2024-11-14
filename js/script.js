@@ -186,7 +186,7 @@ function pageGo() {
 
       // 기존의 이벤트 리스너 제거
       removeEventListeners();
-      
+
 
       // 새로운 페이지 콘텐츠 로드
       getContent(url).then((data) => {

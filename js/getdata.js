@@ -1,3 +1,4 @@
+//getdata.js
 // API GET
 export async function getData() {
   try {
@@ -15,7 +16,7 @@ export async function getData() {
 }
 
 // API POST
-export async function postData() {
+export async function postData(parent = null) {
   try {
     const data = await fetch("https://kdt-api.fe.dev-cos.com/documents", {
       method: "POST",
@@ -24,8 +25,8 @@ export async function postData() {
         "x-username": "team6",
       },
       body: JSON.stringify({
-        title: "New Title",
-        parent: null,
+        title: "추가할게요",
+        parent: parent,
       }),
     });
     const parse = await data.json();
@@ -65,4 +66,6 @@ export async function getContent(id) {
   });
   const parse = await data.json();
   return parse;
+
 }
+
