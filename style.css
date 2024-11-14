@@ -399,7 +399,7 @@ input {
 #doc-contents {
   outline: none;
   width: 100%;
-  margin-bottom: 300px;
+  margin-bottom: 200px;
 }
 
 #doc-title__input[data-placeholder]:empty::before,
