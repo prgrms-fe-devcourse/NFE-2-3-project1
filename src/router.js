@@ -5,9 +5,9 @@ import { fetchDocumentContent, fetchDocuments } from "./utils.js";
 /**
  *
  * @param {*} docId
- * @param {*} target "all" | "editor" | "sidebar"
+ * @param {*} renderingTarget "all" | "editor" | "sidebar" | "none"
  */
-const render = async (docId = "", target = "all") => {
+const render = async (docId = "", renderingTarget = "none") => {
   const pathname = window.location.pathname;
   toggleTrashIcon(pathname);
 
@@ -20,32 +20,31 @@ const render = async (docId = "", target = "all") => {
 작성한 문서를 확인해보세요! 새로운 문서를 추가하거나 기존 문서를 삭제하는 것도 가능합니다.
     `;
     document.querySelector(".doc__childDocs").innerHTML = "";
-  } else {
-    switch (target) {
-      case "all":
-        const documentsForAll = await fetchDocuments();
-        const documentContentForAll = await fetchDocumentContent(docId);
-        renderSidebar(documentsForAll);
-        renderEditor(documentContentForAll);
-        break;
-
-      case "sidebar":
-        const documentsForSidebar = await fetchDocuments();
-        renderSidebar(documentsForSidebar);
-        break;
-
-      case "editor":
-        const documentContentForEditor = await fetchDocumentContent(docId);
-        renderEditor(documentContentForEditor);
-        break;
-    }
   }
-};
 
-export const renderInit = async () => {
-  const documentsForSidebar = await fetchDocuments();
-  renderSidebar(documentsForSidebar);
-  render();
+  switch (renderingTarget) {
+    case "all":
+      const documentsForAll = await fetchDocuments();
+      renderSidebar(documentsForAll);
+
+      if (!docId) return;
+      const documentContentForAll = await fetchDocumentContent(docId);
+      renderEditor(documentContentForAll);
+      break;
+
+    case "sidebar":
+      const documentsForSidebar = await fetchDocuments();
+      renderSidebar(documentsForSidebar);
+      break;
+
+    case "editor":
+      const documentContentForEditor = await fetchDocumentContent(docId);
+      renderEditor(documentContentForEditor);
+      break;
+
+    case "none":
+      break;
+  }
 };
 
 // 페이지를 렌더링하는 함수
@@ -53,7 +52,7 @@ export const navigateTo = async (state = { id: null }, pathname = "/") => {
   history.pushState(state, null, pathname);
 
   if (pathname === "/") {
-    render(state.id);
+    render(state.id, "sidebar");
   } else {
     render(state.id, "editor");
 
@@ -63,7 +62,7 @@ export const navigateTo = async (state = { id: null }, pathname = "/") => {
 };
 
 // 페이지 로드 시 라우터 실행
-document.addEventListener("DOMContentLoaded", renderInit);
+document.addEventListener("DOMContentLoaded", () => render("", "sidebar"));
 
 document.body.addEventListener("click", (e) => {
   e.preventDefault();
