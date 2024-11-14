@@ -84,7 +84,7 @@ function getPages() {
 }
 getPages();
 
-// 신규 페이지 추가 버튼(페이지 최상단 버튼, 개인 페이지 버튼)
+// 신규 페이지 추가 버튼(페이지 최상단 버튼, 개인 페이지 버튼)(변경사항-글생성 후 바로 글과 연결시키기 구현)
 function MakeNewPage(className) {
   const buildBtn = document.querySelector(`.${className}`);
   const notionWrap__section = document.querySelector(".notionWrap__section");
@@ -105,6 +105,14 @@ function MakeNewPage(className) {
         underPageToggle,
         MakeUnderPage
       );
+      const ListItem__pageLink = document.querySelectorAll(
+        ".ListItem__pageLink"
+      );
+      ListItem__pageLink.forEach((e) => {
+        if (Number(e.getAttribute("data-url")) === data.id) {
+          e.click();
+        }
+      });
     });
   });
 }
@@ -112,7 +120,8 @@ MakeNewPage("ListItem__buildBtn");
 MakeNewPage("buildIcon");
 
 //////////////////////////////////////////////
-// 하위 페이지 추가 버튼(변경시힝 - MakeUnderPage 추가할때 하위 페이지 안나오는 현상 수정[underPageToggle과 연계])
+// 하위 페이지 추가 버튼
+// (변경사항 - MakeUnderPage시 underPageToggle에서 상위폴더를 클릭하게 변경[생성후 페이지에서 글 쓰면 저장안되는 현상 때문에 변경])
 
 function MakeUnderPage() {
   const personalPage__ListItem = document.querySelectorAll(
@@ -128,9 +137,8 @@ function MakeUnderPage() {
     newList.addEventListener("click", function () {
       const targetA = document.querySelectorAll(".ListItem__pageLink");
       const url = targetA[idx].dataset.url;
-      postData(url).then((data) => {
+      postData(url).then(async (data) => {
         history.pushState({ page: url, custom: "test" }, "", `/${url}`);
-        notionWrap__section.innerHTML = newPage(data.title);
         resetClickEventAll(
           addDeleteListeners,
           pageGo,
@@ -142,7 +150,10 @@ function MakeUnderPage() {
           ".ListItem__underBtn"
         );
         under_btn.click();
-        if (!under_btn.classList.contains("seen")) under_btn.click();
+
+        if (!under_btn.classList.contains("seen")) {
+          under_btn.click();
+        }
       });
     });
   });
@@ -596,6 +607,7 @@ function newPage(title, content) {
 ///////////////////////////////////////////////////예정
 
 // 하위 페이지 토글(변경시힝 - MakeUnderPage 추가할때 하위 페이지 안나오는 현상 수정[underPageToggle과 연계])
+// (변경사항 - MakeUnderPage시 underPageToggle에서 상위폴더를 클릭하게 변경[생성후 페이지에서 글 쓰면 저장안되는 현상 때문에 변경])
 function underPageToggle() {
   const ListItem__underBtn = document.querySelectorAll(".ListItem__underBtn");
   const ListItem__pageLink = document.querySelectorAll(".ListItem__pageLink");
@@ -632,6 +644,14 @@ function underPageToggle() {
             underPageToggle,
             MakeUnderPage
           );
+          const ListItem__pageLink = document.querySelectorAll(
+            ".ListItem__pageLink"
+          );
+          ListItem__pageLink.forEach((list, idx) => {
+            if (Number(list.getAttribute("data-url")) === content.id) {
+              ListItem__pageLink[idx].click();
+            }
+          });
           e.stopImmediatePropagation();
         });
       } else {
