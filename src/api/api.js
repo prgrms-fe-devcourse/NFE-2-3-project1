@@ -65,6 +65,23 @@ export const initializeDocumentContent = async (docId) => {
   }
 };
 
+// 강수영 실험중
+export const editContent = async (docId, title, content) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${docId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-username": x_username,
+      },
+      body: JSON.stringify({ title, content }),
+    });
+    return response;
+  } catch (error) {
+    console.error("Document 초기화 중 오류 발생:", error);
+  }
+};
+
 export const AutoSave = async (docId, title, content) => {
   try {
     const response = await fetch(`${BASE_URL}/${docId}`, {

@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   createDocumentsList(documentList);
 
   // 에디터 초기화
-  initializeEditor();
+  // initializeEditor();
 
   // breadcrumb 초기화
   initializeBreadcrumb();

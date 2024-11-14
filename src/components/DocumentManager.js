@@ -3,6 +3,7 @@ import {
   postNewDocument,
   initializeDocumentContent,
   getTargetContent,
+  editContent,
 } from "../api/api.js";
 import { navigate, routes } from "../router/router.js";
 // 추가 : breadcrumb 업데이트 기능 추가
@@ -37,8 +38,9 @@ const removeAllActiveClasses = () => {
 
 export const createDocumentItem = async (doc, parentElement = null) => {
   const path = `/documents/${doc.id}`;
-  const initialDocData = await initializeDocumentContent(doc.id);
-
+  const temp = await getTargetContent(doc.id);
+  console.log(temp);
+  const initialDocData = await editContent(doc.id, temp.tile, temp.content);
   routes.set(path, {
     id: initialDocData.id,
     title: initialDocData.title,
@@ -103,10 +105,10 @@ export const createDocumentItem = async (doc, parentElement = null) => {
 
         // 문서 내용 가져오기
         const docData = await getTargetContent(docId);
-
         // 편집기에 내용 표시
         const titleElement = document.getElementById("editor__title-input");
         const contentElement = document.getElementById("editor__content-input");
+
         titleElement.value = docData.title || "";
         contentElement.value = docData.content || "";
 
@@ -127,11 +129,24 @@ export const createDocumentItem = async (doc, parentElement = null) => {
     navigate(path);
 
     const docData = await getTargetContent(doc.id);
+    console.log(docData);
+
+    // 강수영 여기서부터 잠시 사용하겠습니다
 
     const titleElement = document.getElementById("editor__title-input");
     const contentElement = document.getElementById("editor__content-input");
+    titleElement.dataset.id = doc.id;
     titleElement.value = docData.title || "";
     contentElement.value = docData.content || "";
+
+    titleElement.addEventListener("keyup", async (e) => {
+      console.log(e.currentTarget.value);
+      await editContent(doc.id, e.currentTarget.value, contentElement.value);
+    });
+    contentElement.addEventListener("keyup", async (e) => {
+      console.log(e.currentTarget.value);
+      await editContent(doc.id, titleElement.value, e.currentTarget.value);
+    });
 
     titleElement.disabled = false;
     contentElement.disabled = false;
