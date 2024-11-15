@@ -80,6 +80,7 @@ function getPages() {
       underPageToggle,
       MakeUnderPage
     );
+    console.log(pages);
   });
 }
 getPages();
@@ -93,6 +94,13 @@ function MakeNewPage(className) {
   );
 
   buildBtn.addEventListener("click", function () {
+    if (
+      !document
+        .querySelector(".personalPage__PageList")
+        .classList.contains("on")
+    ) {
+      document.querySelector(".personalPage__PageList").classList.add("on");
+    }
     postData().then((data) => {
       const url = data.id;
       pages[url] = newPage(data.title);
