@@ -43,7 +43,7 @@ export const renderEditor = (doc) => {
 
       const html = `
         <div class="doc__childDoc">
-            <img src="./assets/file-icon.svg" class="icon" />
+            <img src="/assets/file-icon.svg" class="icon" />
             <a href="${pathname}/${id}" data-id="${id}">${title}</a>
         </div>
       `;
