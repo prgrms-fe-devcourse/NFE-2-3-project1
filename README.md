@@ -39,5 +39,6 @@
 
 ## 🏅 End result 
 
+[potatoes 노션 클론 실행](https://ddongguri-bing.github.io/Potatoes/) 
 <img src="https://github.com/user-attachments/assets/9ec8e780-8fee-4d4f-8da1-f2154d25c245"/>
 <img src="https://github.com/user-attachments/assets/369ef549-1462-4f26-b990-a04ec1208c13"/>
